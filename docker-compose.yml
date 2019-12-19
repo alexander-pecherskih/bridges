@@ -1,0 +1,76 @@
+version: '3'
+services:
+    postgres:
+        image: postgres:11.2-alpine
+        container_name: ${COMPOSE_PROJECT_NAME}-postgres
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: bridges
+            POSTGRES_PASSWORD: secret
+            POSTGRES_DB: bridges
+        ports:
+            - "54321:5432"
+    nginx:
+        build: docker/nginx
+        container_name: ${COMPOSE_PROJECT_NAME}-nginx
+        volumes:
+            - ./bridges:/bridges
+        depends_on:
+            - php-fpm
+        environment:
+            TZ: ${TZ}
+        ports:
+            - 80:80
+
+    php-fpm:
+        build: docker/php-fpm
+        container_name: ${COMPOSE_PROJECT_NAME}-php-fpm
+        volumes:
+            - ./bridges:/bridges
+        depends_on:
+            - postgres
+        environment:
+            TZ: ${TZ}
+            PHP_IDE_CONFIG: "serverName=bridges"
+#            XDEBUG_CONFIG: "remote_host=192.168.220.1 remote_enable=1"
+
+    php-cli:
+        build: docker/php-cli
+        container_name: ${COMPOSE_PROJECT_NAME}-php-cli
+        volumes:
+            - ./bridges:/bridges
+            - composer:/root/.composer/cache
+        depends_on:
+            - postgres
+        environment:
+            TZ: ${TZ}
+
+#    redis:
+#        image: redis:3.0-alpine
+#        container_name: ${COMPOSE_PROJECT_NAME}_redis
+#        volumes:
+#            - redis:/data
+#        command: redis-server
+#            #--requirepass secret
+#
+#    mailer:
+#        image: mailhog/mailhog
+#        container_name: ${COMPOSE_PROJECT_NAME}_mailer
+#        ports:
+#        - "8082:8025"
+#
+#    sphinx:
+#        build: ./docker/sphinx
+#        container_name: ${COMPOSE_PROJECT_NAME}_sphinx
+#        volumes:
+#            - ./data/sphinx:/var/data  # directory where sphinx will store index data
+#            - ./docker/sphinx/sphinx.conf:/etc/sphinx.conf  # SphinxSE configuration file
+#        ports:
+#            - 9306:9306
+#        mem_limit: 512m # match indexer.value from sphinx.conf
+
+volumes:
+    postgres:
+    composer:
+    redis:
