@@ -7,6 +7,8 @@ namespace App\Tests\Builder;
 use App\Model\User\Entity\User;
 use BadMethodCallException;
 use DateTimeImmutable;
+use Exception;
+use Ramsey\Uuid\UuidInterface;
 
 class UserBuilder
 {
@@ -14,19 +16,30 @@ class UserBuilder
     private $created;
     private $name;
     private $email;
-    private $group;
     private $confirmed;
     private $network;
     private $identity;
-//    private $role;
+    private $role;
 
-    public function __construct(int $id = null, string $first = null, string $last = null, string $patronymic = null)
+    /**
+     * UserBuilder constructor.
+     * @param UuidInterface|null $id
+     * @param string|null $first
+     * @param string|null $last
+     * @param string|null $patronymic
+     * @throws Exception
+     */
+    public function __construct(UuidInterface $id = null, string $first = null, string $last = null, string $patronymic = null)
     {
-        $this->id = new User\Id($id ?? 1);
+        $this->id = $id ?? User\UserRepository::nextId();
         $this->name = new User\Name($first ?? 'First', $last ?? 'Last', $patronymic ?? 'Patronymic');
         $this->created = new DateTimeImmutable();
     }
 
+    /**
+     * @return User\User
+     * @throws Exception
+     */
     public function build(): User\User
     {
         $user = null;
@@ -85,10 +98,10 @@ class UserBuilder
         return $clone;
     }
 
-    public function withGroup(Group $group): self
+    public function withRole(User\Role $role): self
     {
         $clone = clone $this;
-        $clone->group = $group;
+        $clone->role = $role;
         return $clone;
     }
 }

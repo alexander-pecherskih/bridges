@@ -12,11 +12,12 @@ use Ramsey\Uuid\Uuid;
 
 class ResetTokenizer
 {
+    public const INTERVAL = 'PT1H';
     private $interval;
 
-    public function __construct(DateInterval $interval)
+    public function __construct()
     {
-        $this->interval = $interval;
+        $this->interval = new DateInterval(self::INTERVAL);
     }
 
     /**

@@ -53,13 +53,13 @@ services:
 #            - redis:/data
 #        command: redis-server
 #            #--requirepass secret
-#
-#    mailer:
-#        image: mailhog/mailhog
-#        container_name: ${COMPOSE_PROJECT_NAME}_mailer
-#        ports:
-#        - "8082:8025"
-#
+
+    mailer:
+        image: mailhog/mailhog
+        container_name: ${COMPOSE_PROJECT_NAME}-mailer
+        ports:
+        - "8025:8025"
+
 #    sphinx:
 #        build: ./docker/sphinx
 #        container_name: ${COMPOSE_PROJECT_NAME}_sphinx

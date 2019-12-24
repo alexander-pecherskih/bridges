@@ -5,11 +5,14 @@ namespace App\Model\Node\Entity\Node;
 
 
 use App\Model\Node\Entity\Field\FieldInterface;
-use App\Entity\Process;
+use App\Model\Process\Entity\Process\Process;
+use App\Model\Stuff\Entity\Department\Department;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Model\Node\Entity\Node\NodeTitle;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class Node
@@ -21,7 +24,7 @@ class Node
     /**
      * @var integer
      * @ORM\Id()
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="uuid")
      */
     private $id;
 
@@ -33,91 +36,62 @@ class Node
     private $process;
 
     /**
-     * @var Group
-     * @ORM\ManyToOne(targetEntity="Group")
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     * @var Department
+     * @ORM\ManyToOne(targetEntity="Department")
+     * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
      */
-    private $group;
+    private $department;
 
     /**
-     * @var NodeTitle
-     * @ORM\Column(type="text", length=255)
+     * @var Title
+     * @ORM\Embedded(class="Title")
      */
     private $title;
 
     /**
      * @var Position
-     * @ORM\Embedded(class="Position")
+     * @ORM\Embedded(class="Position", columnPrefix="position_")
      */
     private $position;
 
     /**
-     * @var ArrayCollection|NodeField[]
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="NodeField",
-     *     mappedBy="node",
-     *     orphanRemoval=true,
-     *     cascade={"all"}
-     * )
-     * @ORM\OrderBy({"title" = "ASC"})
-
-     */
-    private $nodeFields;
-
-//    /**
-//     * @var ArrayCollection|NodeHandler[]
-//     * @ORM\OneToMany(
-//     *     targetEntity="NodeHandler",
-//     *     mappedBy="node",
-//     *     orphanRemoval=true,
-//     *     cascade={"all"}
-//     * )
-//     * @ORM\OrderBy({"title" = "ASC"})
-//     */
-//    private $nodeHandlers;
-
-    /**
+     * @var DateTimeImmutable
      * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
      */
     private $created;
 
     /**
-     * @ORM\Column(name="modified", type="datetime_immutable", nullable=true)
-     */
-    private $modified;
-
-    /**
      * Node constructor
      *
-     * @param Id $id
-     * @param NodeTitle $title
+     * @param UuidInterface $id
      * @param DateTimeImmutable $created
+     * @param string $title
      * @param Process $process
      * @param Position $position
      */
     public function __construct(
-        Id $id,
-        NodeTitle $title,
+        UuidInterface $id,
         DateTimeImmutable $created,
+        string $title,
         Process $process,
         Position $position
     ) {
+
+
         $this->id = $id;
         $this->title = $title;
         $this->position = $position;
         $this->process = $process;
         $this->created = $created;
-        $this->modified = null;
 
-        $this->nodeFields = new ArrayCollection();
+//        $this->nodeFields = new ArrayCollection();
 //        $this->nodeHandlers = new ArrayCollection();
     }
 
-    public static function create(int $id, string $title, Process $process, Position $position): self
+    public static function create(UuidInterface $id, string $title, Process $process, Position $position): self
     {
         return new self(
-            new NodeId($id),
+            $id,
             new NodeTitle($title),
             new DateTimeImmutable('now'),
             $process,
@@ -166,7 +140,7 @@ class Node
         return $this;
     }
 
-    public function getId(): ?int
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -179,6 +153,11 @@ class Node
     public function getPosition(): Position
     {
         return $this->position;
+    }
+
+    public function getDepartment(): Department
+    {
+        return $this->department;
     }
 
     public function getCreated(): DateTimeImmutable

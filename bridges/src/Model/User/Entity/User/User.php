@@ -4,10 +4,10 @@ namespace App\Model\User\Entity\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 use DateTimeImmutable;
 use DomainException;
 use Exception;
+use Ramsey\Uuid\UuidInterface;
 
 
 /**
@@ -22,17 +22,17 @@ use Exception;
  *     @ORM\UniqueConstraint(columns={"confirm_token"})
  * })
  */
-class User implements UserInterface
+class User
 {
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
     public const STATUS_BLOCKED = 'blocked';
 
     /**
-     * @var Id
+     * @var UuidInterface
      *
-     * @ORM\Id()
-     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\Column(type="uuid")
      */
     private $id;
 
@@ -91,7 +91,7 @@ class User implements UserInterface
      */
     private $networks;
 
-    private function __construct(Id $id, DateTimeImmutable $created, Name $name)
+    private function __construct(UuidInterface $id, DateTimeImmutable $created, Name $name)
     {
         $this->id = $id;
         $this->created = $created;
@@ -101,7 +101,7 @@ class User implements UserInterface
     }
 
     public static function create(
-        Id $id,
+        UuidInterface $id,
         DateTimeImmutable $created,
         Name $name,
         Email $email,
@@ -115,7 +115,7 @@ class User implements UserInterface
     }
 
     public static function signUpByEmail(
-        Id $id,
+        UuidInterface $id,
         DateTimeImmutable $created,
         Name $name,
         Email $email,
@@ -131,7 +131,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param Id $id
+     * @param UuidInterface $id
      * @param DateTimeImmutable $created
      * @param Name $name
      * @param string $networkName
@@ -140,7 +140,7 @@ class User implements UserInterface
      * @throws Exception
      */
     public static function signUpByNetwork(
-        Id $id,
+        UuidInterface $id,
         DateTimeImmutable $created,
         Name $name,
         string $networkName,
@@ -218,7 +218,7 @@ class User implements UserInterface
         $this->role = $role;
     }
 
-    public function getId(): Id
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -289,53 +289,5 @@ class User implements UserInterface
         if (!$this->resetToken->getToken()) {
             $this->resetToken = null;
         }
-    }
-
-
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return $this->email->getValue();
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->passwordHash;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 }

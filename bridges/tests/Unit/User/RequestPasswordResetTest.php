@@ -6,12 +6,15 @@ namespace App\Tests\Unit\User;
 
 use App\Model\User\Entity\User\ResetToken;
 use App\Tests\Builder\UserBuilder;
-use mysql_xdevapi\Exception;
-use PHPUnit\Framework\TestCase;
 use DateTimeImmutable;
+use Exception;
+use PHPUnit\Framework\TestCase;
 
 class RequestPasswordResetTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testSuccess(): void
     {
         $user = (new UserBuilder())->withEmail()->confirmed()->build();
@@ -26,6 +29,9 @@ class RequestPasswordResetTest extends TestCase
         $user->requestPasswordReset($token, $now);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testWithoutEmail(): void
     {
         $user = (new UserBuilder())->withNetwork()->build();
@@ -37,6 +43,9 @@ class RequestPasswordResetTest extends TestCase
         $user->requestPasswordReset($token, $now);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testInactive(): void
     {
         $user = (new UserBuilder())->withEmail()->build();

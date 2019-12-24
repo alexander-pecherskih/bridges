@@ -53,8 +53,8 @@ class Handler
         $user = User\User::signUpByEmail(
             $this->users->nextId(),
             new DateTimeImmutable(),
-            $email,
             new User\Name( $command->firstName, $command->lastName, $command->patronymic ),
+            $email,
             $this->hasher->hash($command->password),
             $token = $this->tokenizer->generate()
         );

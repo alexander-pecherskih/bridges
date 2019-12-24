@@ -5,14 +5,18 @@ namespace App\Tests\Unit\User;
 
 use App\Model\User\Entity\User;
 use DateTimeImmutable;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class SignUpByNetworkTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testAuth(): void
     {
         $user = User\User::signUpByNetwork(
-            $id = new User\Id(1),
+            $id = User\UserRepository::nextId(),
             $created = new DateTimeImmutable(),
             $name = new User\Name('first', 'last', 'patronymic'),
             $networkName = 'network',

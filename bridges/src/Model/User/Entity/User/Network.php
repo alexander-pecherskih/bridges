@@ -6,6 +6,7 @@ namespace App\Model\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Exception;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class Network
@@ -19,9 +20,9 @@ use Exception;
 class Network
 {
     /**
-     * @var string
+     * @var UuidInterface
      *
-     * @ORM\Column(type="guid")
+     * @ORM\Column(type="uuid")
      * @ORM\Id
      */
     public $id;
@@ -56,7 +57,7 @@ class Network
      */
     public function __construct(User $user, string $name, string $identity)
     {
-        $this->id = Uuid::uuid4()->toString();
+        $this->id = Uuid::uuid4();
         $this->user = $user;
         $this->name = $name;
         $this->identity = $identity;

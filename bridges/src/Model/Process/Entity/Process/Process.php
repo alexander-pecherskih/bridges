@@ -3,10 +3,13 @@
 
 namespace App\Model\Process\Entity\Process;
 
+use App\Model\Node\Entity\Node\Node;
+use App\Model\User\Entity\User\User;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Model\User\Entity\User\User;
+use Ramsey\Uuid\UuidInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Process
@@ -16,10 +19,9 @@ use App\Model\User\Entity\User\User;
 class Process
 {
     /**
-     * @var int
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer", unique=true)
+     * @var UuidInterface
+     * @ORM\Id
+     * @ORM\Column(type="uuid")
      */
     private $id;
 
@@ -37,13 +39,12 @@ class Process
     private $title;
 
     /**
-     * @var Node\Node $startNode
-     *
+     * @var Node|null $startNode
      */
     private $startNode;
 
     /**
-     * @var ArrayCollection | Node\Node[] $nodes
+     * @var ArrayCollection|Node[] $nodes
      *
      * @ORM\OneToMany(
      *     targetEntity="Node",
@@ -61,32 +62,32 @@ class Process
      */
     private $created;
 
-    /**
-     * @ORM\Column(name="modified", type="datetime_immutable", nullable=true)
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $modified;
-
-    public function __construct(int $id, string $title, User $owner)
+    public function __construct(UuidInterface $id, DateTimeImmutable $created, Title $title, User $owner)
     {
         $this->id = $id;
-        $this->owner = $owner;
+        $this->created = $created;
         $this->title = $title;
+        $this->owner = $owner;
 
         $this->nodes = new ArrayCollection();
     }
 
-    public function setStartNode(Node\Node $node): void
+    public function setStartNode(Node $node): void
     {
         $this->startNode = $node;
     }
 
-    public function getId(): int
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getTitle(): string
+    public function getCreated(): DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function getTitle(): Title
     {
         return $this->title;
     }
@@ -96,13 +97,8 @@ class Process
         return $this->owner;
     }
 
-    public function getCreated(): DateTimeImmutable
+    public function getStartNode(): ?Node
     {
-        return $this->created;
-    }
-
-    public function getModified(): ?DateTimeImmutable
-    {
-        return $this->modified;
+        return $this->startNode;
     }
 }

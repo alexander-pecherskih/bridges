@@ -2,16 +2,20 @@
 
 namespace App\Tests\Unit\User;
 
-use PHPUnit\Framework\TestCase;
 use App\Model\User\Entity\User;
 use DateTimeImmutable;
+use Exception;
+use PHPUnit\Framework\TestCase;
 
 class SignUpByEmailTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testSuccess(): void
     {
         $user = User\User::signUpByEmail(
-            $id = new User\Id(1),
+            $id = User\UserRepository::nextId(),
             $created = new DateTimeImmutable(),
             $name = new User\Name('first', 'last', 'patronymic'),
             $email = new User\Email('test@bridges.ru'),
