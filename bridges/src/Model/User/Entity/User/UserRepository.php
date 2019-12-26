@@ -3,7 +3,9 @@
 namespace App\Model\User\Entity\User;
 
 use Doctrine\ORM;
-use DomainException;
+use Exception;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -18,28 +20,22 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * @return Id
-     * @throws ORM\NoResultException
-     * @throws ORM\NonUniqueResultException
+     * @return UuidInterface
+     * @throws Exception
      */
-    public function nextId(): Id
+    public static function nextId(): UuidInterface
     {
-        $id = $this->repo->createQueryBuilder('t')
-            ->select('nextval(user_id_seq)')
-            ->getQuery()
-            ->getSingleScalarResult();
-
-        return new Id($id);
+        return Uuid::uuid4();
     }
 
     /**
-     * @param Id $id
+     * @param UuidInterface $id
      * @return User|object
      * @throws ORM\EntityNotFoundException
      */
-    public function get(Id $id): User
+    public function get(UuidInterface $id): User
     {
-        if (!$user = $this->repo->findOneBy(['id' => $id->getValue()])) {
+        if (!$user = $this->repo->findOneBy(['id' => $id])) {
             throw new ORM\EntityNotFoundException('User is not found');
         }
 

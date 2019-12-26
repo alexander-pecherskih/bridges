@@ -6,8 +6,9 @@ namespace App\Model\Stuff\Entity\Department;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
+use Ramsey\Uuid\UuidInterface;
 
-class DepartmentRepository
+class DepartmentRepository implements DepartmentRepositoryInterface
 {
     private $em;
 
@@ -17,25 +18,25 @@ class DepartmentRepository
     }
 
     /**
-     * @param int $id
+     * @param UuidInterface $id
      * @return Department
      * @throws EntityNotFoundException
      */
-    public function get(int $id): Department
+    public function get(UuidInterface $id): Department
     {
-        /** @var Department $group */
-        $group = $this->em->getRepository(Department::class)->find($id);
+        /** @var Department $department */
+        $department = $this->em->getRepository(Department::class)->find($id);
 
-        if ( !$group ) {
+        if ( !$department ) {
             throw new EntityNotFoundException('User is not found.');
         }
 
-        return $group;
+        return $department;
     }
 
-    public function create(Department $group): void
+    public function add(Department $department): void
     {
-        $this->em->persist($group);
+        $this->em->persist($department);
         $this->em->flush();
     }
 }

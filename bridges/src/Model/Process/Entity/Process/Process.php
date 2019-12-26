@@ -3,10 +3,13 @@
 
 namespace App\Model\Process\Entity\Process;
 
+use App\Model\Node\Entity\Node\Node;
+use App\Model\User\Entity\User\User;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Model\User\Entity\User\User;
+use Ramsey\Uuid\UuidInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Process
@@ -16,12 +19,19 @@ use App\Model\User\Entity\User\User;
 class Process
 {
     /**
-     * @var int
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer", unique=true)
+     * @var UuidInterface
+     *
+     * @ORM\Id
+     * @ORM\Column(type="uuid")
      */
     private $id;
+
+    /**
+     * @var DateTimeImmutable
+     * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created;
 
     /**
      * @var User
@@ -32,18 +42,22 @@ class Process
     private $owner;
 
     /**
-     * @ORM\Column(type="text", length=255)
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false)
      */
     private $title;
 
     /**
-     * @var Node\Node $startNode
+     * @var Node|null $startNode
      *
+     * @ORM\ManyToOne(targetEntity="Node")
+     * @ORM\JoinColumn(name="start_node_id", referencedColumnName="id", nullable=true)
      */
     private $startNode;
 
     /**
-     * @var ArrayCollection | Node\Node[] $nodes
+     * @var ArrayCollection|Node[] $nodes
      *
      * @ORM\OneToMany(
      *     targetEntity="Node",
@@ -55,45 +69,22 @@ class Process
      */
     private $nodes;
 
-    /**
-     * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created;
 
-    /**
-     * @ORM\Column(name="modified", type="datetime_immutable", nullable=true)
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $modified;
-
-    public function __construct(int $id, string $title, User $owner)
+    public function __construct(UuidInterface $id, DateTimeImmutable $created, User $owner, string $title)
     {
+        Assert::notEmpty($title);
+
         $this->id = $id;
+        $this->created = $created;
         $this->owner = $owner;
         $this->title = $title;
 
         $this->nodes = new ArrayCollection();
     }
 
-    public function setStartNode(Node\Node $node): void
-    {
-        $this->startNode = $node;
-    }
-
-    public function getId(): int
+    public function getId(): UuidInterface
     {
         return $this->id;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function getOwner(): User
-    {
-        return $this->owner;
     }
 
     public function getCreated(): DateTimeImmutable
@@ -101,8 +92,32 @@ class Process
         return $this->created;
     }
 
-    public function getModified(): ?DateTimeImmutable
+    public function getOwner(): User
     {
-        return $this->modified;
+        return $this->owner;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getStartNode(): ?Node
+    {
+        return $this->startNode;
+    }
+
+    public function rename(string $title): void
+    {
+        Assert::notEmpty($title);
+        $this->title = $title;
+    }
+
+    /**
+     * @param Node $node
+     */
+    public function setStartNode(Node $node): void
+    {
+        $this->startNode = $node;
     }
 }

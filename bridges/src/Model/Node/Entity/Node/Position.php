@@ -8,9 +8,6 @@ use Webmozart\Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Position
- * @package App\Entity\Node
- *
  * @ORM\Embeddable()
  */
 class Position

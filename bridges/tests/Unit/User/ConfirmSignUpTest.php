@@ -4,16 +4,20 @@
 namespace App\Tests\Unit\User;
 
 
-use DateTimeImmutable;
-use PHPUnit\Framework\TestCase;
 use App\Model\User\Entity\User;
+use DateTimeImmutable;
+use Exception;
+use PHPUnit\Framework\TestCase;
 
 class ConfirmSignUpTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testConfirm(): void
     {
         $user = User\User::signUpByEmail(
-            $id = new User\Id(1),
+            $id = User\UserRepository::nextId(),
             $created = new DateTimeImmutable(),
             $name = new User\Name('first', 'last', 'patronymic'),
             $email = new User\Email('test@bridges.ru'),
@@ -28,10 +32,13 @@ class ConfirmSignUpTest extends TestCase
         self::assertNull($user->getConfirmToken());
     }
 
+    /**
+     * @throws Exception
+     */
     public function testAlready(): void
     {
         $user = User\User::signUpByEmail(
-            $id = new User\Id(1),
+            $id = User\UserRepository::nextId(),
             $created = new DateTimeImmutable(),
             $name = new User\Name('first', 'last', 'patronymic'),
             $email = new User\Email('test@bridges.ru'),

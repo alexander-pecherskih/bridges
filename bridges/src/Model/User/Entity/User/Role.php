@@ -11,16 +11,16 @@ class Role
     public const USER = 'ROLE_USER';
     public const ADMIN = 'ROLE_ADMIN';
 
-    private $name;
+    private $value;
 
-    public function __construct(string $name)
+    public function __construct(string $value)
     {
-        Assert::oneOf($name, [
+        Assert::oneOf($value, [
             self::USER,
             self::ADMIN,
         ]);
 
-        $this->name = $name;
+        $this->value = $value;
     }
 
     public static function user(): self
@@ -35,21 +35,21 @@ class Role
 
     public function isUser(): bool
     {
-        return $this->name === self::USER;
+        return $this->value === self::USER;
     }
 
     public function isAdmin(): bool
     {
-        return $this->name === self::ADMIN;
+        return $this->value === self::ADMIN;
     }
 
     public function is(self $role): bool
     {
-        return $this->getName() === $role->getName();
+        return $this->getValue() === $role->getValue();
     }
 
-    public function getName(): string
+    public function getValue(): string
     {
-        return $this->name;
+        return $this->value;
     }
 }

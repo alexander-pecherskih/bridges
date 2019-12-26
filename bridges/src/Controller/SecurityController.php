@@ -2,35 +2,52 @@
 
 namespace App\Controller;
 
+use App\Model\User\UseCase\SignUp;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Zend\EventManager\Exception\DomainException;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/login", name="app_login")
-     */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    private $serializer;
+    private $validator;
+
+    public function __construct(SerializerInterface $serializer, ValidatorInterface $validator)
     {
-        // if ($this->getUser()) {
-        //    $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $this->serializer = $serializer;
+        $this->validator = $validator;
     }
 
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/signup", name="app_login")
      */
-    public function logout()
+    public function signup(Request $request, SignUp\Request\Handler $handler): Response
     {
-        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
+        /** @var SignUp\Request\Command $command */
+        $command = $this->serializer->deserialize(
+            $request->getContent(),
+            SignUp\Request\Command::class,
+            'json'
+        );
+
+        $violations = $this->validator->validate($command);
+        if (count($violations)) {
+            $json = $this->serializer->serialize($violations, 'json');
+            return new JsonResponse($json, 400, [], true);
+        }
+
+        try {
+            $handler->handle($command);
+        } catch (DomainException $e) {
+
+        }
     }
+
+
 }

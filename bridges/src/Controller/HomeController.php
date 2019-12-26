@@ -10,11 +10,12 @@ class HomeController extends AbstractController
 {
     /**
      * @return Response
-     *
      * @Route("/", name="home")
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig');
+        return $this->json([
+            'name' => 'REST Api'
+        ]);
     }
 }
