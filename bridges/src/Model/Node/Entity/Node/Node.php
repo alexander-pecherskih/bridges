@@ -4,14 +4,10 @@
 namespace App\Model\Node\Entity\Node;
 
 
-use App\Model\Node\Entity\Field\FieldInterface;
 use App\Model\Process\Entity\Process\Process;
 use App\Model\Stuff\Entity\Department\Department;
 use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
-use Model\Node\Entity\Node\NodeTitle;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -44,7 +40,7 @@ class Node
 
     /**
      * @var Title
-     * @ORM\Embedded(class="Title")
+     * @ORM\Column(name="title", type="string", nullable=false)
      */
     private $title;
 
@@ -61,83 +57,33 @@ class Node
     private $created;
 
     /**
+     * @var DateTimeImmutable
+     * @ORM\Column(name="modified", type="datetime_immutable", nullable=true)
+     */
+    private $modified;
+
+    /**
      * Node constructor
      *
      * @param UuidInterface $id
      * @param DateTimeImmutable $created
-     * @param string $title
+     * @param Title $title
      * @param Process $process
      * @param Position $position
      */
     public function __construct(
         UuidInterface $id,
         DateTimeImmutable $created,
-        string $title,
+        Title $title,
         Process $process,
         Position $position
     ) {
-
-
         $this->id = $id;
         $this->title = $title;
         $this->position = $position;
         $this->process = $process;
         $this->created = $created;
-
-//        $this->nodeFields = new ArrayCollection();
-//        $this->nodeHandlers = new ArrayCollection();
-    }
-
-    public static function create(UuidInterface $id, string $title, Process $process, Position $position): self
-    {
-        return new self(
-            $id,
-            new NodeTitle($title),
-            new DateTimeImmutable('now'),
-            $process,
-            $position
-        );
-    }
-
-    public function setGroup(Group $group): self
-    {
-        $this->group = $group;
-
-        return $this;
-    }
-
-    /**
-     * @param string $title
-     * @param FieldInterface $field
-     * @throws Exception
-     */
-    public function addField(string $title, FieldInterface $field): void
-    {
-        $this->nodeFields->add(new NodeField($title, $this, $field));
-    }
-
-//    public function addNodeField(NodeField $nodeField): void
-//    {
-//        $this->nodeFields->add($nodeField);
-//    }
-
-//    public function addNodeHandler(NodeHandler $nodeHandler): void
-//    {
-//        $this->nodeHandlers->add($nodeHandler);
-//    }
-
-    public function assignGroup(Group $group): self
-    {
-        $this->group = $group;
-
-        return $this;
-    }
-
-    public function move(Position $position): self
-    {
-        $this->position = $position;
-
-        return $this;
+        $this->modified = null;
     }
 
     public function getId(): UuidInterface
@@ -145,29 +91,14 @@ class Node
         return $this->id;
     }
 
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function getPosition(): Position
-    {
-        return $this->position;
-    }
-
-    public function getDepartment(): Department
-    {
-        return $this->department;
-    }
-
     public function getCreated(): DateTimeImmutable
     {
         return $this->created;
     }
 
-    public function getModified(): ?DateTimeImmutable
+    public function getTitle(): Title
     {
-        return $this->modified;
+        return $this->title;
     }
 
     public function getProcess(): Process
@@ -175,20 +106,35 @@ class Node
         return $this->process;
     }
 
-    public function getGroup(): Group
+    public function getPosition(): Position
     {
-        return $this->group;
+        return $this->position;
     }
 
-    public function getNodeFields(): ArrayCollection
+    public function getModified(): ?DateTimeImmutable
     {
-        return $this->nodeFields;
+        return $this->modified;
     }
 
-//    public function getNodeHandlers(): ArrayCollection
-//    {
-//        return $this->nodeHandlers;
-//    }
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
 
+    public function assignDepartment(Department $department): void
+    {
+        $this->department = $department;
+        $this->modified = new DateTimeImmutable();
+    }
 
+    public function move(Position $position): void
+    {
+        $this->position = $position;
+        $this->modified = new DateTimeImmutable();
+    }
+
+    public function rename(Title $title): void
+    {
+        $this->title = $title;
+    }
 }
