@@ -32,15 +32,15 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Model/User/Entity'
                 prefix: 'App\Model\User\Entity'
                 alias: User
-            Process:
-                is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Model/Process/Entity'
-                prefix: 'App\Model\Process\Entity'
-                alias: User
-            Node:
-                is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Model/Node/Entity'
-                prefix: 'App\Model\Node\Entity'
-                alias: User
+#            Process:
+#                is_bundle: false
+#                type: annotation
+#                dir: '%kernel.project_dir%/src/Model/Process/Entity'
+#                prefix: 'App\Model\Process\Entity'
+#                alias: User
+#            Node:
+#                is_bundle: false
+#                type: annotation
+#                dir: '%kernel.project_dir%/src/Model/Node/Entity'
+#                prefix: 'App\Model\Node\Entity'
+#                alias: User

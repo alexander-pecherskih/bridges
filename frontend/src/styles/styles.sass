@@ -1,0 +1,22 @@
+@import "variables"
+@import "components/Sidebar"
+@import "components/Header"
+@import "components/Footer"
+
+body, #root
+    display: flex
+    min-height: 100vh
+    flex-direction: column
+
+main
+    flex: 1 0 auto
+
+header, main, footer
+    padding-left: $sidebar-width
+
+.main-container
+    padding: 1rem
+
+@media only screen and (max-width : 992px)
+    header, main, footer
+        padding-left: 0

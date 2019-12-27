@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Procss\UseCase\Remove;
+namespace App\Model\Process\UseCase\Remove;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

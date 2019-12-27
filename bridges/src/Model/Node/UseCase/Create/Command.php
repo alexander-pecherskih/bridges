@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Node\UseCase\Node\Create;
+namespace App\Model\Node\UseCase\Create;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
