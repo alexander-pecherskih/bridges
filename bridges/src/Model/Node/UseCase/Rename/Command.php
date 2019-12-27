@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Node\UseCase\Node\Rename;
+namespace App\Model\Node\UseCase\Rename;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

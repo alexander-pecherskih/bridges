@@ -6,14 +6,10 @@ namespace App\Model\Node\Entity\Node;
 
 use Webmozart\Assert\Assert;
 
-/**
- * @ORM\Embeddable()
- */
 class Title
 {
     /**
      * @var string
-     * @ORM\Column(type="string")
      */
     private $value;
 
