@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Node\UseCase\Node\AssignDepartment;
+namespace App\Model\Node\UseCase\AssignDepartment;
 
 use App\Model\Flusher;
 use App\Model\Node\Entity\Node\NodeRepositoryInterface;
