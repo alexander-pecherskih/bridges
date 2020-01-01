@@ -8,8 +8,8 @@ use App\Model\User\Entity\User\User;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
 use Ramsey\Uuid\UuidInterface;
-use Webmozart\Assert\Assert;
 
 /**
  * Class Process
@@ -29,20 +29,19 @@ class Process
     /**
      * @var DateTimeImmutable
      * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
-     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="App\Model\User\Entity\User\User")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $owner;
 
     /**
-     * @var string
+     * @var Title
      *
      * @ORM\Column(type="string", nullable=false)
      */
@@ -51,7 +50,7 @@ class Process
     /**
      * @var Node|null $startNode
      *
-     * @ORM\ManyToOne(targetEntity="Node")
+     * @ORM\ManyToOne(targetEntity="App\Model\Node\Node")
      * @ORM\JoinColumn(name="start_node_id", referencedColumnName="id", nullable=true)
      */
     private $startNode;
@@ -70,10 +69,8 @@ class Process
     private $nodes;
 
 
-    public function __construct(UuidInterface $id, DateTimeImmutable $created, User $owner, string $title)
+    public function __construct(UuidInterface $id, DateTimeImmutable $created, User $owner, Title $title)
     {
-        Assert::notEmpty($title);
-
         $this->id = $id;
         $this->created = $created;
         $this->owner = $owner;
@@ -97,7 +94,7 @@ class Process
         return $this->owner;
     }
 
-    public function getTitle(): string
+    public function getTitle(): Title
     {
         return $this->title;
     }
@@ -107,9 +104,8 @@ class Process
         return $this->startNode;
     }
 
-    public function rename(string $title): void
+    public function rename(Title $title): void
     {
-        Assert::notEmpty($title);
         $this->title = $title;
     }
 
@@ -118,6 +114,10 @@ class Process
      */
     public function setStartNode(Node $node): void
     {
+        if ($node->getProcess()->getId() !== $this->id) {
+            throw new DomainException('The Node does not belong to this Process');
+        }
+
         $this->startNode = $node;
     }
 }

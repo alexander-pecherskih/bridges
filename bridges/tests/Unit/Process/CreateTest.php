@@ -5,6 +5,7 @@ namespace App\Tests\Entity\Process;
 
 
 use App\Model\Process\Entity\Process\Process;
+use App\Model\Process\Entity\Process\Title;
 use App\Tests\Builder\UserBuilder;
 use DateTimeImmutable;
 use Exception;
@@ -24,12 +25,12 @@ class CreateTest extends TestCase
             $id = Uuid::uuid4(),
             $now = new DateTimeImmutable(),
             $user,
-            $title = 'Process'
+            new Title($title = 'Process')
         );
 
         self::assertEquals($id, $process->getId());
         self::assertEquals($now, $process->getCreated());
-        self::assertEquals($title, $process->getTitle());
+        self::assertEquals($title, $process->getTitle()->getValue());
         self::assertEquals($user, $process->getOwner());
         self::assertNull($process->getStartNode());
     }

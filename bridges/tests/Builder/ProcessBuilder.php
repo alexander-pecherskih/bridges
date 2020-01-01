@@ -5,6 +5,7 @@ namespace App\Tests\Builder;
 
 
 use App\Model\Process\Entity\Process\Process;
+use App\Model\Process\Entity\Process\Title;
 use App\Model\User\Entity\User\User;
 use DateTimeImmutable;
 use Exception;
@@ -35,7 +36,7 @@ class ProcessBuilder
         $this->id = $id ?? Uuid::uuid4();
         $this->created = $created ?? new DateTimeImmutable();
         $this->owner = $owner ?? (new UserBuilder())->withEmail()->build();
-        $this->title = $title ?? 'Process';
+        $this->title = new Title($title ?? 'Process');
     }
 
     public function withCreated(DateTimeImmutable $created): self

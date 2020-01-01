@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model\Node\Entity\Node;
+namespace App\Model\Process\Entity\Process;
 
 
 use Webmozart\Assert\Assert;

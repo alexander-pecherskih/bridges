@@ -14,12 +14,12 @@ use Exception;
 
 class Handler
 {
-    private $users;
+    private $userRepository;
     private $flusher;
 
-    public function __construct(UserRepositoryInterface $users, Flusher $flusher)
+    public function __construct(UserRepositoryInterface $userRepository, Flusher $flusher)
     {
-        $this->users = $users;
+        $this->userRepository = $userRepository;
         $this->flusher = $flusher;
     }
 
@@ -29,12 +29,12 @@ class Handler
      */
     public function handle(Command $command): void
     {
-        if ($this->users->hasByNetworkIdentity($command->network, $command->identity)) {
+        if ($this->userRepository->hasByNetworkIdentity($command->network, $command->identity)) {
             throw new DomainException('User already exists');
         }
 
         $user = User::signUpByNetwork(
-            $this->users->nextId(),
+            $this->userRepository->nextId(),
             new DateTimeImmutable(),
             new Name(
                 $command->firstName,
@@ -44,7 +44,7 @@ class Handler
             $command->identity
         );
 
-        $this->users->add($user);
+        $this->userRepository->add($user);
 
         $this->flusher->flush();
     }

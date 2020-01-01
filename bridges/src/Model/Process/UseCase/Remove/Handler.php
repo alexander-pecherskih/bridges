@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Procss\UseCase\Remove;
+namespace App\Model\Process\UseCase\Remove;
 
 use App\Model\Flusher;
 use App\Model\Process\Entity\Process\ProcessRepositoryInterface;

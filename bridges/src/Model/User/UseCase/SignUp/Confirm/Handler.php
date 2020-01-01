@@ -10,18 +10,18 @@ use DomainException;
 
 class Handler
 {
-    private $users;
+    private $userRepository;
     private $flusher;
 
-    public function __construct( UserRepository $users, Flusher $flusher )
+    public function __construct( UserRepository $userRepository, Flusher $flusher )
     {
-        $this->users = $users;
+        $this->userRepository = $userRepository;
         $this->flusher = $flusher;
     }
 
     public function handle(Command $command): void
     {
-        $user = $this->users->findByConfirmToken($command->token);
+        $user = $this->userRepository->findByConfirmToken($command->token);
 
         if (!$user) {
             throw new DomainException('Unknown user');
