@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react'
 import M from 'materialize-css'
 
-const Sidebar = () => {
+const Sidebar = ({ identity }) => {
     const sidebar = useRef(null)
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const Sidebar = () => {
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="#"><img className="circle" src="images/avatar.jpg"  alt=""/></a>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="#"><span className="white-text name">John Doe</span></a>
+                    <a href="#"><span className="white-text name">{ identity.user }</span></a>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="#"><span className="white-text email">jdandturk@gmail.com</span></a>
                 </div>

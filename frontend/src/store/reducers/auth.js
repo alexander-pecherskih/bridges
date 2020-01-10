@@ -1,6 +1,6 @@
 const initialState = {
     identity: null,
-    loading: false,
+    loading: true,
     error: null,
 };
 
@@ -23,6 +23,12 @@ const auth = (state = initialState, action) => {
                 identity: null,
                 loading: false,
                 error: action.payload,
+            }
+        case 'LOGOUT':
+            return {
+                identity: null,
+                loading: false,
+                error: null,
             }
         default:
             return state

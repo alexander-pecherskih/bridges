@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../Sidebar'
 
-const Header = () => {
+const Header = ({ identity, logout }) => {
     return <header className="header">
         <nav className="header__nav">
             <div className="header__nav-wrapper">
@@ -17,11 +17,11 @@ const Header = () => {
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <li><a href="#">Menu Item</a></li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <li><a href="#">Menu Item</a></li>
+                    <li><a onClick={ logout }>Logout</a></li>
                 </ul>
             </div>
         </nav>
-        <Sidebar />
+        <Sidebar identity={ identity } />
     </header>
 }
 
