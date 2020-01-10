@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import AppContainer from './components/App/AppContainer'
 import ErrorBoundary from './components/ErrorBoundary'
@@ -13,7 +14,9 @@ const store = configureStore()
 ReactDOM.render(
     <Provider store={ store } >
         <ErrorBoundary>
-            <AppContainer />
+            <Router>
+                <AppContainer />
+            </Router>
         </ErrorBoundary>
     </Provider>,
     document.getElementById('root')
