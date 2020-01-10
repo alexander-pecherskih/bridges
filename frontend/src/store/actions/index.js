@@ -1,3 +1,3 @@
-import auth from './auth'
+import { auth, getIdentity, logout } from './auth'
 
-export { auth }
+export { auth, getIdentity, logout }

@@ -26,7 +26,7 @@ const mapStateToProps = ({ auth: { identity, loading, error } }) => {
 
 const mapDispatchToProps = (dispatch, { authService }) => {
     return {
-        auth: auth(authService, dispatch),
+        auth: auth(dispatch, authService),
     }
 }
 

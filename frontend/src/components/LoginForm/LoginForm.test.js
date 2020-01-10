@@ -6,7 +6,7 @@ import LoginForm from './LoginForm'
 const defaultProps = {
     setUsername: jest.fn,
     setPassword: jest.fn,
-    login: () => { console.log('LOGIN') },
+    login: () => {  },
 }
 
 describe('<LoginForm />', () => {
