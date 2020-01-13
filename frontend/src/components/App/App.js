@@ -1,19 +1,12 @@
 import React from 'react'
 // import { Switch, Route } from 'react-router'
 
-import { LoginPage } from '../../pages'
 import Header from '../Header'
 import Footer from '../Footer'
 
-const App = ({ identity }) => {
-
-    if (identity === null || identity === undefined) {
-        return <LoginPage />
-    }
-
-
+const App = ({ identity, logout }) => {
     return <>
-        <Header />
+        <Header identity={ identity } logout={ logout }/>
             <main>
                 <div className="main-container">
                     main

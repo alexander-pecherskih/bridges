@@ -18,16 +18,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 )
-
-/*
-<Provider store={ store }>
-    <ErrorBoundary>
-    <ProcessServiceProvider value={ processService }>
-    <App />
-    </ProcessServiceProvider>
-</ErrorBoundary>
-</Provider>,
-*/
-
-
-

@@ -1,17 +1,36 @@
-import React from 'react'
-import { compose } from 'redux'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 
 import App from './App'
+import { getIdentity, logout } from '../../store/actions'
+import { LoginPage } from '../../pages'
 
-const AppContainer = ({ identity }) => {
-    return <App identity={ identity } />
+const AppContainer = ({ identity, loading, logout, getIdentity }) => {
+    useEffect(getIdentity, [])
+
+    if (loading) {
+        return <>Loading...</>
+    }
+
+    if (identity === null || identity === undefined) {
+        return <LoginPage />
+    }
+
+    return <App identity={ identity } logout={ logout } />
 }
 
-const mapStateToProps = ({ auth: { identity } }) => {
-    return { identity }
+const mapStateToProps = ({ auth: { identity, loading } }) => {
+    return { identity, loading }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getIdentity: getIdentity(dispatch),
+        logout: logout(dispatch)
+    }
 }
 
 export default compose(
-    connect(mapStateToProps)
-)(AppContainer);
+    connect(mapStateToProps, mapDispatchToProps)
+)(AppContainer)
