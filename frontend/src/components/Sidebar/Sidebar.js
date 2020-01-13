@@ -1,5 +1,10 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import M from 'materialize-css'
+
+// import Icon from '../Icon'
+
+const Divider = () => <li><div className="divider"></div></li>
 
 const Sidebar = ({ identity }) => {
     const sidebar = useRef(null)
@@ -12,23 +17,21 @@ const Sidebar = ({ identity }) => {
         <ul className="sidenav sidenav-fixed sidebar" ref={ sidebar } >
             <li>
                 <div className="user-view">
-                    <div className="background">
-                    </div>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="#"><img className="circle" src="images/avatar.jpg"  alt=""/></a>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="#"><span className="white-text name">{ identity.user }</span></a>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a href="#"><span className="white-text email">jdandturk@gmail.com</span></a>
+                    <div className="background"></div>
+                    <Link to="/profile"><img className="circle" src="images/avatar.jpg"  alt=""/></Link>
+                    <Link to="/profile"><span className="white-text name">{ identity.user }</span></Link>
+                    <Link to="/profile"><span className="white-text email">jdandturk@gmail.com</span></Link>
                 </div>
             </li>
+            <li><Link to="/">
+                {/*<Icon icon="home" />*/}
+                Home
+            </Link></li>
+            <Divider/>
+            <li><Link to="/processes">Processes</Link></li>
+            <li><Link to="/settings">Settings</Link></li>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <li><a href="#"><i className="material-icons">cloud</i>First Link With Cloud Icon</a></li>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <li><a href="#">Second Link</a></li>
-            <li><div className="divider"></div></li>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <li><a href="#">Third Link With Waves</a></li>
+            {/*<li><a href="#">Third Link With Waves</a></li>*/}
         </ul>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         {/*<a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>*/}

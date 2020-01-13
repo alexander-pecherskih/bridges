@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { withRouter } from 'react-router'
 
 import App from './App'
 import { getIdentity, logout } from '../../store/actions'
@@ -32,5 +33,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default compose(
+    withRouter,
     connect(mapStateToProps, mapDispatchToProps)
 )(AppContainer)
