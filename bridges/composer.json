@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "finesse/swiftmailer-defaults-plugin": "^2.0",
+        "nelmio/cors-bundle": "^2.0",
         "nyholm/psr7": "^1.2",
         "ramsey/uuid": "^3.9",
         "ramsey/uuid-doctrine": "^1.5",

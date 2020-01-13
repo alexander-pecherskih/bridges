@@ -10,12 +10,12 @@ import { LoginPage } from '../../pages'
 const AppContainer = ({ identity, loading, logout, getIdentity }) => {
     useEffect(getIdentity, [])
 
-    if (loading) {
-        return <>Loading...</>
-    }
-
     if (identity === null || identity === undefined) {
         return <LoginPage />
+    }
+
+    if (loading) {
+        return <>Loading...</>
     }
 
     return <App identity={ identity } logout={ logout } />

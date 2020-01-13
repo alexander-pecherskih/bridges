@@ -1,3 +1,6 @@
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
+
 const IDENTITY_KEY = 'identity'
 
 export default class AuthService {
@@ -6,7 +9,7 @@ export default class AuthService {
         token: 'trololo',
     }
 
-    getIdentity = () => {
+    getIdentity = (username, password) => {
         const identity = AuthService.getIdentityFromLocalStorage()
 
         if (identity !== null) {
@@ -15,12 +18,37 @@ export default class AuthService {
             })
         }
 
-        return new Promise((resolve/*, reject*/) => {
-            setTimeout(() => {
-                AuthService.saveIdentityToLocalStorage(this.defaultIdentity)
-                resolve(this.defaultIdentity)
-            },1000);
-        });
+        const data = {
+            username,
+            password,
+            grant_type: 'password',
+            client_id: 'app',
+            client_secret: 'secret',
+        }
+        const formData = new FormData()
+        for (let key in data) {
+            formData.append(key, data[key])
+        }
+
+        return axios.post(
+            'http://api.bridges.local/token',
+            formData,
+            {
+                headers: {'Content-Type': 'multipart/form-data'}
+            }
+        ).then((response) => {
+            if (!response.data.hasOwnProperty('access_token')) {
+                return
+            }
+            const jwt = jwt_decode(response.data.access_token)
+            const identity = {
+                user: jwt.sub,
+            }
+            AuthService.saveIdentityToLocalStorage(identity)
+            return identity
+        }).catch( (err) => {
+            throw new Error('Неправильные имя пользователя или пароль')
+        })
     }
 
     static getIdentityFromLocalStorage = () => {
