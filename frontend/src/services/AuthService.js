@@ -1,14 +1,10 @@
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
+import Api from './Api'
 
 const IDENTITY_KEY = 'identity'
 
 export default class AuthService {
-    defaultIdentity = {
-        user: 'John',
-        token: 'trololo',
-    }
-
     getIdentity = (username, password) => {
         const identity = AuthService.getIdentityFromLocalStorage()
 
@@ -31,7 +27,7 @@ export default class AuthService {
         }
 
         return axios.post(
-            'http://api.bridges.local/token',
+            Api.getUrl('/token'),
             formData,
             {
                 headers: {'Content-Type': 'multipart/form-data'}
