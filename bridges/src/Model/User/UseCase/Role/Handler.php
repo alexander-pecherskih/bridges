@@ -4,10 +4,8 @@ namespace App\Model\User\UseCase\Role;
 
 use App\Model\User\Entity\User;
 use App\Model\Flusher;
-use App\Model\User\Service\ResetTokenizer;
-use App\Model\User\Service\ResetTokenSender;
-use DateTimeImmutable;
 use Exception;
+use Ramsey\Uuid\Uuid;
 
 class Handler
 {
@@ -15,7 +13,7 @@ class Handler
     private $flusher;
 
     public function __construct(
-        User\UserRepository $users,
+        User\UserRepositoryInterface $users,
         Flusher $flusher
     )
     {
@@ -29,7 +27,7 @@ class Handler
      */
     public function handle(Command $command): void
     {
-        $user = $this->users->get(new User\Id($command->id));
+        $user = $this->users->get(Uuid::fromString($command->id));
 
         $user->changeRole(new User\Role($command->role));
 

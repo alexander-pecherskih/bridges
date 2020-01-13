@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Node\UseCase\Rename;
+namespace App\Model\Node\UseCase\Node\Rename;
 
 use App\Model\Flusher;
 use App\Model\Node\Entity\Node\Node;

@@ -17,7 +17,7 @@ class Handler
     private $flusher;
 
     public function __construct(
-        User\UserRepository $users,
+        User\UserRepositoryInterface $users,
         ResetTokenizer $tokenizer,
         ResetTokenSender $sender,
         Flusher $flusher

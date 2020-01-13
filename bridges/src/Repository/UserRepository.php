@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Model\User\Entity\User;
+namespace App\Repository;
 
+use App\Model\User\Entity\User\Email;
+use App\Model\User\Entity\User\User;
+use App\Model\User\Entity\User\UserRepositoryInterface;
 use Doctrine\ORM;
 use Exception;
 use Ramsey\Uuid\Uuid;

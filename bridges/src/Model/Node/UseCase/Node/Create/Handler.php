@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Node\UseCase\Create;
+namespace App\Model\Node\UseCase\Node\Create;
 
 use App\Model\Flusher;
 use App\Model\Node\Entity\Node\Node;

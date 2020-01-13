@@ -21,7 +21,7 @@ class Handler
     private $flusher;
 
     public function __construct(
-        User\UserRepository $userRepository,
+        User\UserRepositoryInterface $userRepository,
         PasswordHasher $hasher,
         SignUpConfirmTokenizer $tokenizer,
         SignUpConfirmTokenSender $sender,

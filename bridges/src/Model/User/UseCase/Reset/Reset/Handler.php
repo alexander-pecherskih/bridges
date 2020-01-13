@@ -15,7 +15,7 @@ class Handler
     private $flusher;
 
     public function __construct(
-        User\UserRepository $users,
+        User\UserRepositoryInterface $users,
         PasswordHasher $hasher,
         Flusher $flusher
     )
@@ -31,6 +31,7 @@ class Handler
      */
     public function handle(Command $command): void
     {
+        /** @var User\User $user */
         $user = $this->users->getByResetToken($command->token);
 
         $user->resetPassword($this->hasher->hash($command->password), new DateTimeImmutable());

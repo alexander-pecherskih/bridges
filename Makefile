@@ -6,6 +6,9 @@ down: docker-down
 
 project-init: install oauth-keys migrate fixtures
 
+clear:
+	docker-compose run --rm php-cli php bin/console cache:clear
+
 docker-up:
 	docker-compose up -d
 
