@@ -1,6 +1,13 @@
 import React from 'react'
 
-const LoginForm = ({ loading = false, username = '', password = '', setUsername, setPassword, login }) => {
+const ErrorMessage = ({ message = null }) => {
+    if (!message) {
+        return null
+    }
+    return <div className="error-message">{ message }</div>
+}
+
+const LoginForm = ({ loading = false, username = '', password = '', setUsername, setPassword, login, errorMessage = null }) => {
     return (
         <div className="valign-wrapper"  style={ {height: '100vh'} }>
             <div className="container">
@@ -16,6 +23,7 @@ const LoginForm = ({ loading = false, username = '', password = '', setUsername,
                                             type="text"
                                             disabled={ loading }
                                             onChange={ e => setUsername(e.target.value) }
+                                            autoFocus={ true }
                                         />
                                         <label htmlFor="username" className="">Username</label>
                                     </div>
@@ -28,8 +36,8 @@ const LoginForm = ({ loading = false, username = '', password = '', setUsername,
                                             onChange={ e => setPassword(e.target.value) }
                                         />
                                         <label htmlFor="password">Password</label>
+                                        <ErrorMessage message={ errorMessage } />
                                     </div>
-
                                     <button
                                         className="btn"
                                         disabled={ loading || !password || !username }
