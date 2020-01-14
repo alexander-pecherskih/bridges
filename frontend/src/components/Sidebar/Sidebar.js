@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import M from 'materialize-css'
 
+import UserViewContainer from './UserViewContainer'
 // import Icon from '../Icon'
 
 const Divider = () => <li><div className="divider"></div></li>
@@ -16,12 +17,7 @@ const Sidebar = ({ identity }) => {
     return <>
         <ul className="sidenav sidenav-fixed sidebar" ref={ sidebar } >
             <li>
-                <div className="user-view">
-                    <div className="background"></div>
-                    <Link to="/profile"><img className="circle" src="images/avatar.jpg"  alt=""/></Link>
-                    <Link to="/profile"><span className="white-text name">{ identity.user }</span></Link>
-                    <Link to="/profile"><span className="white-text email">jdandturk@gmail.com</span></Link>
-                </div>
+                <UserViewContainer />
             </li>
             <li><Link to="/">
                 {/*<Icon icon="home" />*/}

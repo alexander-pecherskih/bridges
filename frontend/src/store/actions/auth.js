@@ -1,21 +1,21 @@
+import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE, LOGOUT } from '../constants/auth'
+
 import AuthService from '../../services/AuthService'
 
-const authorize = () => {
-    return {
-        type: 'AUTH_REQUEST',
-    }
+const authorize = {
+    type: AUTH_REQUEST,
 }
 
 const authorized = (identity) => {
     return {
-        type: 'AUTH_SUCCESS',
+        type: AUTH_SUCCESS,
         payload: identity,
     }
 }
 
 const authError = (error) => {
     return {
-        type: 'AUTH_FAILURE',
+        type: AUTH_FAILURE,
         payload: error,
     }
 }
@@ -24,7 +24,7 @@ const auth = (dispatch, authService = null) => (username, password) => {
     if (!authService) {
 
     }
-    dispatch(authorize())
+    dispatch(authorize)
 
     authService.getIdentity(username, password)
         .then((data) => {
@@ -44,7 +44,7 @@ const getIdentity = (dispatch) => () => {
 const logout = (dispatch) => () => {
     AuthService.removeIdentityFromLocalStorage()
 
-    dispatch({ type: 'LOGOUT' })
+    dispatch({ type: LOGOUT })
 }
 
-export { auth, getIdentity, logout };
+export { auth, getIdentity, logout }
