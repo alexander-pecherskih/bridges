@@ -1,6 +1,6 @@
 export default class UserInfoService {
     static defaultUserInfo = {
-        id: 0,
+        id: '0000000000',
         email: 'confirmed@bridges.local',
         name: 'John',
         surname: 'Silver',
@@ -9,7 +9,6 @@ export default class UserInfoService {
     static getInfo() {
         return new Promise( (resolve) => {
             setTimeout(() => {
-                // console.log('USERINFO LOADED')
                 resolve(this.defaultUserInfo)
             }, 1000)
         })

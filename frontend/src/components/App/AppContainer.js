@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
@@ -18,7 +19,14 @@ const AppContainer = ({ identity, loading, logout, getIdentity }) => {
         return <>Loading...</>
     }
 
-    return <App identity={ identity } logout={ logout } />
+    return <App logout={ logout } />
+}
+
+AppContainer.propTypes = {
+    identity: PropTypes.object,
+    loading: PropTypes.bool.isRequired,
+    logout: PropTypes.func.isRequired,
+    getIdentity: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = ({ auth: { identity, loading } }) => {

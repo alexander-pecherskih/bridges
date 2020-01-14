@@ -1,5 +1,5 @@
 {
-  "name": "sandbox-mui",
+  "name": "bridges",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,6 +7,7 @@
     "jwt-decode": "^2.2.0",
     "materialize-css": "^1.0.0-rc.2",
     "node-sass": "^4.13.0",
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",

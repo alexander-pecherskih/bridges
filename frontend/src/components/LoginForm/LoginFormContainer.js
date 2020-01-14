@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 
@@ -19,7 +20,13 @@ const LoginFormContainer = ({ auth, loading, error }) => {
         login={ () => auth(username, password) }
         errorMessage={ error }
     />
-};
+}
+
+LoginFormContainer.propTypes = {
+    auth: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+}
 
 const mapStateToProps = ({ auth: { identity, loading, error } }) => {
     return { identity, loading, error }

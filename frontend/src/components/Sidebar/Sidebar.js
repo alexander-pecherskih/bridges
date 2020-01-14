@@ -7,7 +7,7 @@ import UserViewContainer from './UserViewContainer'
 
 const Divider = () => <li><div className="divider"></div></li>
 
-const Sidebar = ({ identity }) => {
+const Sidebar = () => {
     const sidebar = useRef(null)
 
     useEffect(() => {

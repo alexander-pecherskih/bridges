@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import UserView from './UserView'
 
 const userInfo = {
-    id: 0,
+    id: '0',
     email: 'confirmed@bridges.local',
     name: 'John',
     surname: 'Silver',
