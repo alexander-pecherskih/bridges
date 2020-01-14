@@ -4,6 +4,7 @@ import SettingsPage from './SettingsPage'
 import ProfilePage from './ProfilePage'
 import ProcessesPage from './ProcessesPage'
 
+const PROJECT_NAME = 'The Bridge'
 const pages = [
     {
         path: '/',
@@ -23,16 +24,18 @@ const pages = [
     },
 ]
 
-const getPageTitle = (path) => {
+const getPageTitle = (path, withProjectName = true) => {
     const page = pages.find((item) => {
         return item.path === path
     })
+    const projectName = withProjectName ? PROJECT_NAME : ''
+    const divider = withProjectName ? ' :: ' : ''
 
     if (!page) {
-        return ''
+        return projectName
     }
 
-    return page.title
+    return `${page.title}${divider}${projectName}`
 }
 
 export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage }
