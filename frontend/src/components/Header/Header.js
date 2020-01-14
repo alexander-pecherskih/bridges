@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useLocation } from 'react-router'
 
 import Sidebar from '../Sidebar'
@@ -6,12 +6,15 @@ import { getPageTitle } from '../../pages'
 
 const Header = ({ identity, logout }) => {
     const location = useLocation()
+    useEffect(() => {
+        document.title = getPageTitle(location.pathname)
+    }, [location])
 
     return <header className="header">
         <nav className="header__nav">
             <div className="header__nav-wrapper">
                 <div className="header__title">
-                    { getPageTitle(location.pathname) }
+                    { getPageTitle(location.pathname, false) }
                 </div>
             </div>
             <div className="header__nav-wrapper">
