@@ -27,7 +27,7 @@ services:
         build: docker/php-fpm
         container_name: ${COMPOSE_PROJECT_NAME}-php-fpm
         volumes:
-            - ./bridges:/bridges
+            - ./backend:/bridges
         depends_on:
             - postgres
         environment:
@@ -39,7 +39,7 @@ services:
         build: docker/php-cli
         container_name: ${COMPOSE_PROJECT_NAME}-php-cli
         volumes:
-            - ./bridges:/bridges
+            - ./backend:/bridges
             - composer:/root/.composer/cache
         depends_on:
             - postgres
@@ -59,16 +59,6 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}-mailer
         ports:
         - "8025:8025"
-
-#    sphinx:
-#        build: ./docker/sphinx
-#        container_name: ${COMPOSE_PROJECT_NAME}_sphinx
-#        volumes:
-#            - ./data/sphinx:/var/data  # directory where sphinx will store index data
-#            - ./docker/sphinx/sphinx.conf:/etc/sphinx.conf  # SphinxSE configuration file
-#        ports:
-#            - 9306:9306
-#        mem_limit: 512m # match indexer.value from sphinx.conf
 
 volumes:
     postgres:

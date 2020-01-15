@@ -37,6 +37,6 @@ RUN apt-get install -y libmagickwand-dev --no-install-recommends \
  && pecl install -o -f imagick \
  && docker-php-ext-enable imagick
 
-COPY default.ini /usr/local/etc/php/conf.d/
+COPY php.ini /usr/local/etc/php/
 
 WORKDIR /bridges
