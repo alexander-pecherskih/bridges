@@ -49,4 +49,25 @@ describe('<LoginForm />', () => {
             expect(wrapper.find('button').prop('disabled')).toBeTruthy()
         })
     })
+
+    describe('LoginForm without Error Message', () => {
+        const wrapper = shallow(<LoginForm
+            { ...defaultProps }
+        />)
+
+        it('no message', () => {
+            expect(wrapper.find('.error-message')).toHaveLength(0)
+        })
+    })
+
+    describe('LoginForm with Error Message', () => {
+        const wrapper = shallow(<LoginForm
+            { ...defaultProps }
+            errorMessage="Message"
+        />)
+
+        it('has message', () => {
+            expect(wrapper.find('ErrorMessage')).toHaveLength(1)
+        })
+    })
 })

@@ -6,7 +6,7 @@ import { auth } from '../../store/actions'
 import withAuthService from '../hoc/withAuthService'
 import LoginForm from './LoginForm'
 
-const LoginFormContainer = ({ auth, loading }) => {
+const LoginFormContainer = ({ auth, loading, error }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -16,7 +16,8 @@ const LoginFormContainer = ({ auth, loading }) => {
         password={ password }
         setUsername={ (value) => setUsername(value) }
         setPassword={ (value) => setPassword(value) }
-        login={ () => auth() }
+        login={ () => auth(username, password) }
+        errorMessage={ error }
     />
 };
 

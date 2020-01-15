@@ -20,15 +20,19 @@ const authError = (error) => {
     }
 }
 
-const auth = (dispatch, authService = null) => () => {
+const auth = (dispatch, authService = null) => (username, password) => {
     if (!authService) {
 
     }
     dispatch(authorize())
 
-    authService.getIdentity()
-        .then((data) => dispatch(authorized(data)))
-        .catch((err) => dispatch(authError(err)))
+    authService.getIdentity(username, password)
+        .then((data) => {
+            dispatch(authorized(data))
+        })
+        .catch((err) => {
+            dispatch(authError(err.message))
+        })
 }
 
 const getIdentity = (dispatch) => () => {
