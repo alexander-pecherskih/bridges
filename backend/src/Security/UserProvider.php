@@ -65,12 +65,14 @@ class UserProvider implements UserProviderInterface
      * @return UserInterface
      * @param UserInterface $identity
      * @throws UnsupportedUserException  if the user is not supported
+     * @throws \Exception  if the user is not supported
      * @throws UsernameNotFoundException if the user is not found
      */
     public function refreshUser(UserInterface $identity): UserInterface
     {
         if ( !$identity instanceof UserIdentity ) {
-            throw new UnsupportedUserException(
+//            throw new UnsupportedUserException(
+            throw new \Exception(
                 sprintf('Instances of "%s" are not supported.', get_class($identity))
             );
         }

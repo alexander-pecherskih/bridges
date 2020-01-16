@@ -38,7 +38,9 @@ class UserRepository implements UserRepositoryInterface
      */
     public function get(UuidInterface $id): User
     {
-        if (!$user = $this->repo->findOneBy(['id' => $id])) {
+        $user = $this->repo->findOneBy(['id' => $id->toString()]);
+
+        if (!$user) {
             throw new ORM\EntityNotFoundException('User is not found');
         }
 

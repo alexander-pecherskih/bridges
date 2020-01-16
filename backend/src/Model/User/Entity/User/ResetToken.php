@@ -35,7 +35,7 @@ class ResetToken
         $this->expires = $expires;
     }
 
-    public function getToken(): string
+    public function getToken(): ?string
     {
         return $this->token;
     }

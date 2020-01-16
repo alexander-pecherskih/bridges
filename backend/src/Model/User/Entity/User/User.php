@@ -266,6 +266,11 @@ class User
         return $this->role;
     }
 
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
     public function isActive(): bool
     {
         return $this->status === self::STATUS_ACTIVE;
