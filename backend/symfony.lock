@@ -1,4 +1,13 @@
 {
+    "amphp/amp": {
+        "version": "v2.4.0"
+    },
+    "amphp/byte-stream": {
+        "version": "v1.7.1"
+    },
+    "composer/xdebug-handler": {
+        "version": "1.4.0"
+    },
     "defuse/php-encryption": {
         "version": "v2.2.1"
     },
@@ -111,6 +120,12 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "felixfbecker/advanced-json-rpc": {
+        "version": "v3.0.4"
+    },
+    "felixfbecker/language-server-protocol": {
+        "version": "v1.4.0"
+    },
     "fig/link-util": {
         "version": "1.0.0"
     },
@@ -119,6 +134,9 @@
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.1"
     },
     "lcobucci/jwt": {
         "version": "3.3.1"
@@ -144,6 +162,9 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
+    "netresearch/jsonmapper": {
+        "version": "v1.6.0"
+    },
     "nikic/php-parser": {
         "version": "v4.2.4"
     },
@@ -165,8 +186,14 @@
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
+    "openlss/lib-array2xml": {
+        "version": "1.0.0"
+    },
+    "overtrue/phplint": {
+        "version": "1.2.1"
+    },
     "php": {
-        "version": "7.3"
+        "version": "7.4"
     },
     "php-http/message-factory": {
         "version": "v1.0.2"
@@ -216,6 +243,12 @@
             "config/packages/ramsey_uuid_doctrine.yaml"
         ]
     },
+    "roave/security-advisories": {
+        "version": "dev-master"
+    },
+    "sebastian/diff": {
+        "version": "3.0.2"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -227,6 +260,15 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        }
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
@@ -596,8 +638,20 @@
     "twig/twig": {
         "version": "v2.12.0"
     },
+    "vimeo/psalm": {
+        "version": "3.8.3"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.0.0"
+    },
     "webmozart/assert": {
         "version": "1.5.0"
+    },
+    "webmozart/glob": {
+        "version": "4.1.0"
+    },
+    "webmozart/path-util": {
+        "version": "2.3.0"
     },
     "zendframework/zend-code": {
         "version": "3.4.0"

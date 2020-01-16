@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Builder;
-
 
 use App\Model\User\Entity\User;
 use App\Repository\UserRepository;
