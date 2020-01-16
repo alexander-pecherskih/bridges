@@ -1,9 +1,10 @@
 <?php
 
 
-namespace App\Model\Stuff\Entity\Department;
+namespace App\Repository;
 
-
+use App\Model\Stuff\Entity\Department\Department;
+use App\Model\Stuff\Entity\Department\DepartmentRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Ramsey\Uuid\UuidInterface;
