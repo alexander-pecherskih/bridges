@@ -15,7 +15,7 @@ class Title
 
     public function __construct(string $value)
     {
-        Assert::notEmpty($value);
+        Assert::notEmpty($value, 'Department title is empty');
         $this->value = $value;
     }
 
