@@ -27,6 +27,13 @@ install:
 update:
 	docker-compose run --rm php-cli composer update
 
+lint:
+	docker-compose run --rm php-cli composer lint
+	docker-compose run --rm php-cli composer cs-check
+
+analyze:
+	docker-compose run --rm php-cli composer psalm
+
 diff:
 	docker-compose run --rm php-cli php bin/console doctrine:migrations:diff
 
