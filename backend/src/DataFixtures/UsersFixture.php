@@ -7,7 +7,7 @@ namespace App\DataFixtures;
 use App\Model\User\Entity\User;
 use App\Model\User\Service\PasswordHasher;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use DateTimeImmutable;
 use Exception;
 use Ramsey\Uuid\Uuid;
