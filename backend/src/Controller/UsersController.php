@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-use App\Model\User\Entity\User\UserRepositoryInterface;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +13,7 @@ class UsersController extends AbstractController
 {
     private $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -39,8 +39,8 @@ class UsersController extends AbstractController
         ]);
     }
 
-    public function index()
-    {
-        $users = $this->userRepository->find();
-    }
+//    public function index()
+//    {
+////        $users = $this->userRepository->find();
+//    }
 }

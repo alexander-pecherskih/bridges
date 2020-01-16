@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
     postgres:
         image: postgres:11.2-alpine
@@ -24,7 +24,9 @@ services:
             - 80:80
 
     php-fpm:
-        build: docker/php-fpm
+        build:
+            context: docker
+            dockerfile: php-fpm/Dockerfile
         container_name: ${COMPOSE_PROJECT_NAME}-php-fpm
         volumes:
             - ./backend:/bridges
@@ -36,7 +38,9 @@ services:
 #            XDEBUG_CONFIG: "remote_host=192.168.220.1 remote_enable=1"
 
     php-cli:
-        build: docker/php-cli
+        build:
+            context: docker
+            dockerfile: php-cli/Dockerfile
         container_name: ${COMPOSE_PROJECT_NAME}-php-cli
         volumes:
             - ./backend:/bridges
