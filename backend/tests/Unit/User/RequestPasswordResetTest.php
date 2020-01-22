@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Unit\User;
-
 
 use App\Model\User\Entity\User\ResetToken;
 use App\Tests\Builder\UserBuilder;

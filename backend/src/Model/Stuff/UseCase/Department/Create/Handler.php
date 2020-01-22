@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\Stuff\UseCase\Department\Create;
-
 
 use App\Model\Stuff\Entity\Department\Department;
 use App\Repository\GroupRepository;

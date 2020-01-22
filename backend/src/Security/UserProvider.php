@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Security;
-
 
 use App\ReadModel\User\UserFetcher;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  */
 class UserProvider implements UserProviderInterface
 {
-    private $userRepository;
+    private UserFetcher $userRepository;
 
     public function __construct(UserFetcher $userRepository)
     {
@@ -70,7 +70,7 @@ class UserProvider implements UserProviderInterface
      */
     public function refreshUser(UserInterface $identity): UserInterface
     {
-        if ( !$identity instanceof UserIdentity ) {
+        if (!$identity instanceof UserIdentity) {
 //            throw new UnsupportedUserException(
             throw new \Exception(
                 sprintf('Instances of "%s" are not supported.', get_class($identity))

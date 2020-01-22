@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\DataFixtures;
-
 
 use App\Model\User\Entity\User;
 use App\Model\User\Service\PasswordHasher;
@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
 
 class UsersFixture extends Fixture
 {
-    private $hasher;
+    private PasswordHasher $hasher;
 
     public function __construct(PasswordHasher $hasher)
     {

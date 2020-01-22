@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\Stuff\Entity\Department;
-
 
 use App\Model\Stuff\Entity\Company\Company;
 use DateTimeImmutable;
@@ -29,19 +29,19 @@ class Department
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", nullable=false)
      */
-    private $created;
+    private DateTimeImmutable $created;
 
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $modified;
+    private DateTimeImmutable $modified;
 
     /**
      * @var string
@@ -71,8 +71,13 @@ class Department
      */
     private $children;
 
-    public function __construct(UuidInterface $id, DateTimeImmutable $created, Company $company, Title $title, Department $parent = null)
-    {
+    public function __construct(
+        UuidInterface $id,
+        DateTimeImmutable $created,
+        Company $company,
+        Title $title,
+        Department $parent = null
+    ) {
         $this->id = $id;
         $this->created = $created;
         $this->modified = null;

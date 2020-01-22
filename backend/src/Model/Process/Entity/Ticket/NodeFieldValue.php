@@ -2,7 +2,6 @@
 
 namespace App\Model\Process\Entity\Ticket;
 
-
 use App\Model\Process\Entity\Node\NodeField;
 use App\Model\Ticket\Entity\Ticket\ValueInterface;
 use Doctrine\ORM\Mapping as ORM;

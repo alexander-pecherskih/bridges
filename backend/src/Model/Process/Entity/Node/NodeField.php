@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Node;
-
 
 use App\Model\Node\Entity\Field\FieldInterface;
 use DateTimeImmutable;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\User\UseCase\Reset\Reset;
 
 use App\Model\User\Entity\User;
@@ -10,16 +12,15 @@ use Exception;
 
 class Handler
 {
-    private $users;
-    private $hasher;
-    private $flusher;
+    private User\UserRepositoryInterface $users;
+    private PasswordHasher $hasher;
+    private Flusher $flusher;
 
     public function __construct(
         User\UserRepositoryInterface $users,
         PasswordHasher $hasher,
         Flusher $flusher
-    )
-    {
+    ) {
         $this->users = $users;
         $this->hasher = $hasher;
         $this->flusher = $flusher;

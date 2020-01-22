@@ -1,13 +1,10 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Ticket;
-
 
 use App\Model\User\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
-
 
 class Ticket
 {

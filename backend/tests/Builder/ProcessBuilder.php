@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Builder;
-
 
 use App\Model\Process\Entity\Process\Process;
 use App\Model\Process\Entity\Process\Title;

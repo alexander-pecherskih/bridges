@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Unit\User;
-
 
 use App\Model\User\Entity\User\ResetToken;
 use App\Tests\Builder\UserBuilder;
@@ -28,7 +26,6 @@ class ResetPasswordTest extends TestCase
 
         self::assertEquals($hash, $user->getPasswordHash());
         self::assertNull($user->getResetToken());
-
     }
 
     /**

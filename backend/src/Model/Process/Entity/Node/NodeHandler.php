@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Node;
-
 
 class NodeHandler
 {
@@ -13,6 +11,4 @@ class NodeHandler
     private $created;
     private $modified;
     private $deleted;
-
-
 }

@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Unit\Stuff;
-
 
 use App\Model\Stuff\Entity\Company\Company;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use DateTimeImmutable;
+use Exception;
 
 class CreateCompanyTest extends TestCase
 {
@@ -24,9 +23,12 @@ class CreateCompanyTest extends TestCase
         self::assertEquals($company->getTitle(), $title);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testEmpty(): void
     {
         $this->expectExceptionMessage('Company title is empty');
-        $company = new Company(Uuid::uuid4(), new DateTimeImmutable(),'');
+        $company = new Company(Uuid::uuid4(), new DateTimeImmutable(), '');
     }
 }

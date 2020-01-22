@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Process;
 
 use App\Model\Process\Entity\Node\Node;

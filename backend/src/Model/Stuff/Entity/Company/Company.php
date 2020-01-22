@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\Stuff\Entity\Company;
-
 
 use Ramsey\Uuid\UuidInterface;
 use DateTimeImmutable;
@@ -14,7 +14,7 @@ use Webmozart\Assert\Assert;
  * @property DateTimeImmutable $created
  * @property string $title
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
  * @ORM\Table(name="companies")
  */
 class Company

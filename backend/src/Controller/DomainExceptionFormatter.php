@@ -21,9 +21,7 @@ class DomainExceptionFormatter implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return array(
-            KernelEvents::EXCEPTION => 'onKernelException'
-        );
+        return [KernelEvents::EXCEPTION => 'onKernelException'];
     }
 
     public function onKernelException(ExceptionEvent $event): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\User\Entity\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +10,6 @@ use DateTimeImmutable;
 use DomainException;
 use Exception;
 use Ramsey\Uuid\UuidInterface;
-
 
 /**
  * Class User

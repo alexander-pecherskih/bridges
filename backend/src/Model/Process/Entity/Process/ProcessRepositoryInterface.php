@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\Process\Entity\Process;
-
 
 use Ramsey\Uuid\UuidInterface;
 

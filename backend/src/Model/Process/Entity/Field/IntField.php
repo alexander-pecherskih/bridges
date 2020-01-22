@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Field;
-
 
 class IntField implements FieldInterface
 {
@@ -21,6 +19,4 @@ class IntField implements FieldInterface
         // TODO: Implement getAsserts() method.
         return [];
     }
-
-
 }

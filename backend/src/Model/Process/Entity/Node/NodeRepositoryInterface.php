@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Node;
-
 
 use Ramsey\Uuid\UuidInterface;
 
