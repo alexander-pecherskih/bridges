@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\Stuff\Entity\Company;
-
 
 use Ramsey\Uuid\UuidInterface;
 use DateTimeImmutable;
@@ -14,27 +14,26 @@ use Webmozart\Assert\Assert;
  * @property DateTimeImmutable $created
  * @property string $title
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
  * @ORM\Table(name="companies")
  */
 class Company
 {
     /**
-     * @var UuidInterface
+     * @ORM\Id()
+     * @ORM\Column(type="uuid", unique=true)
      */
-    public $id;
+    private UuidInterface $id;
 
     /**
-     * @var DateTimeImmutable
-     * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
+     * @ORM\Column(type="datetime_immutable", nullable=false)
      */
-    public $created;
+    private DateTimeImmutable $created;
 
     /**
-     * @var string
-     * @ORM\Column(name="title", type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
-    public $title;
+    private string $title;
 
     public function __construct(UuidInterface $id, DateTimeImmutable $created, string $title)
     {

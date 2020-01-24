@@ -1,13 +1,12 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Node;
-
 
 use App\Model\Node\Entity\Field\FieldInterface;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -19,42 +18,33 @@ use Webmozart\Assert\Assert;
 class NodeField
 {
     /**
-     * @var int
      * @ORM\Id()
-     * @ORM\Column(type="integer", unique=true)
+     * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
-    private $title;
+    private string $title;
 
     /**
-     * @var Node
-     *
      * @ORM\ManyToOne(targetEntity="Node", inversedBy="nodeFields")
      * @ORM\JoinColumn(name="node_id", referencedColumnName="id", nullable=false)
      */
-    private $node;
+    private Node $node;
+
+    private FieldInterface $field;
 
     /**
-     * @var FieldInterface
-     */
-    private $field;
-
-    /**
-     * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", nullable=false)
      */
-    private $created;
+    private DateTimeImmutable $created;
 
     /**
-     * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $modified;
+    private ?DateTimeImmutable $modified = null;
 
     /**
      * NodeField constructor.

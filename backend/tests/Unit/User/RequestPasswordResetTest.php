@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Unit\User;
-
 
 use App\Model\User\Entity\User\ResetToken;
 use App\Tests\Builder\UserBuilder;
@@ -21,6 +19,8 @@ class RequestPasswordResetTest extends TestCase
 
         $now = new DateTimeImmutable();
         $token = new ResetToken('token', $now->modify('+1 day'));
+
+        $this->assertNull($user->getResetToken());
 
         $user->requestPasswordReset($token, $now);
         self::assertNotNull($user->getResetToken());

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Entity\Node;
-
 
 use App\Model\Process\Entity\Node\Node;
 use App\Model\Process\Entity\Node\Position;

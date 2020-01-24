@@ -12,9 +12,9 @@ use Ramsey\Uuid\Uuid;
 
 class Handler
 {
-    private $processRepository;
-    private $userRepository;
-    private $flusher;
+    private ProcessRepositoryInterface $processRepository;
+    private UserRepositoryInterface $userRepository;
+    private Flusher $flusher;
 
     public function __construct(
         ProcessRepositoryInterface $processRepository,

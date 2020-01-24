@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\User\UseCase\SignUp\Confirm;
-
 
 use App\Model\Flusher;
 use App\Model\User\Entity\User\UserRepositoryInterface;
@@ -10,10 +10,10 @@ use DomainException;
 
 class Handler
 {
-    private $userRepository;
-    private $flusher;
+    private UserRepositoryInterface $userRepository;
+    private Flusher $flusher;
 
-    public function __construct( UserRepositoryInterface $userRepository, Flusher $flusher )
+    public function __construct(UserRepositoryInterface $userRepository, Flusher $flusher)
     {
         $this->userRepository = $userRepository;
         $this->flusher = $flusher;

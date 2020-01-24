@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\User\Entity\User;
-
 
 use Webmozart\Assert\Assert;
 
@@ -11,7 +11,7 @@ class Role
     public const USER = 'ROLE_USER';
     public const ADMIN = 'ROLE_ADMIN';
 
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {

@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\ReadModel\User;
-
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 
 class UserFetcher
 {
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection)
     {
@@ -27,7 +27,7 @@ class UserFetcher
             ->fetchColumn(0) > 0;
     }
 
-    public function findAuthUserById(string $id): ?User
+    public function findAuthUserById(string $id): ?AuthUser
     {
         $stmt = $this->connection->createQueryBuilder()
             ->select(
@@ -43,7 +43,7 @@ class UserFetcher
             ->setParameter(':id', $id)
             ->execute();
 
-        $stmt->setFetchMode(FetchMode::CUSTOM_OBJECT, User::class);
+        $stmt->setFetchMode(FetchMode::CUSTOM_OBJECT, AuthUser::class);
         $result = $stmt->fetch();
 
         return $result ?: null;

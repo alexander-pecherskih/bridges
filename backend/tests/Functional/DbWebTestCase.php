@@ -8,7 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DbWebTestCase/* extends WebTestCase*/
+/* extends WebTestCase*/
+class DbWebTestCase
 {
     /**
      * @var EntityManagerInterface

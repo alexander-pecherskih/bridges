@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\User\Entity\User;
 
@@ -19,13 +20,13 @@ class ResetToken
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
-    private $token;
+    private ?string $token;
 
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $expires;
+    private ?DateTimeImmutable $expires;
 
     public function __construct(string $token, DateTimeImmutable $expires)
     {

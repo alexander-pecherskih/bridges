@@ -6,11 +6,12 @@ use Webmozart\Assert\Assert;
 
 class Id
 {
-    private $value;
+    private int $value;
 
     public function __construct(int $value)
     {
         Assert::notEmpty($value);
+        Assert::numeric($value);
         $this->value = $value;
     }
 

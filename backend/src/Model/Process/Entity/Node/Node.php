@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Node;
-
 
 use App\Model\Process\Entity\Process\Process;
 use App\Model\Stuff\Entity\Department\Department;
@@ -18,59 +16,43 @@ use Ramsey\Uuid\UuidInterface;
 class Node
 {
     /**
-     * @var integer
      * @ORM\Id()
      * @ORM\Column(type="uuid")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
-     * @var Process
      * @ORM\ManyToOne(targetEntity="Process")
      * @ORM\JoinColumn(name="process_id", referencedColumnName="id")
      */
-    private $process;
+    private Process $process;
 
     /**
-     * @var Department
      * @ORM\ManyToOne(targetEntity="Department")
      * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
      */
-    private $department;
+    private Department $department;
 
     /**
-     * @var Title
      * @ORM\Column(name="title", type="string", nullable=false)
      */
-    private $title;
+    private Title $title;
 
     /**
-     * @var Position
      * @ORM\Embedded(class="Position", columnPrefix="position_")
      */
-    private $position;
+    private Position $position;
 
     /**
-     * @var DateTimeImmutable
      * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
      */
-    private $created;
+    private DateTimeImmutable $created;
 
     /**
-     * @var DateTimeImmutable
      * @ORM\Column(name="modified", type="datetime_immutable", nullable=true)
      */
-    private $modified;
+    private ?DateTimeImmutable $modified = null;
 
-    /**
-     * Node constructor
-     *
-     * @param UuidInterface $id
-     * @param DateTimeImmutable $created
-     * @param Title $title
-     * @param Process $process
-     * @param Position $position
-     */
     public function __construct(
         UuidInterface $id,
         DateTimeImmutable $created,

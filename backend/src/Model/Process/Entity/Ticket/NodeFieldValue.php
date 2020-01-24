@@ -2,10 +2,10 @@
 
 namespace App\Model\Process\Entity\Ticket;
 
-
 use App\Model\Process\Entity\Node\NodeField;
 use App\Model\Ticket\Entity\Ticket\ValueInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class NodeFieldValue
@@ -20,14 +20,14 @@ class NodeFieldValue
      * @ORM\Id()
      * @ORM\Column(type="integer", unique=true, nullable=false)
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
-     * @var NodeField
      * @ORM\OneToMany()
      */
-    private $nodeField;
-    private $value;
+    private NodeField $nodeField;
+
+    private ValueInterface $value;
 
     public function __construct(int $id, NodeField $nodeField, ValueInterface $value)
     {

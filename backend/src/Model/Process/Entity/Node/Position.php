@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Node;
-
 
 use Webmozart\Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,20 +10,20 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Position
 {
-    const MAX_TOP = 1080;
-    const MAX_LEFT = 1920;
+    private const MAX_TOP = 1080;
+    private const MAX_LEFT = 1920;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    private $top;
+    private int $top;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    private $left;
+    private int $left;
 
     public function __construct(int $top = 0, int $left = 0)
     {

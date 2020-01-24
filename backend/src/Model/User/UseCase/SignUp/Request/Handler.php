@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\User\UseCase\SignUp\Request;
 
 use App\Model\User\Entity\User;
@@ -14,11 +16,11 @@ use Twig\Error;
 
 class Handler
 {
-    private $userRepository;
-    private $hasher;
-    private $tokenizer;
-    private $sender;
-    private $flusher;
+    private User\UserRepositoryInterface $userRepository;
+    private PasswordHasher $hasher;
+    private SignUpConfirmTokenizer $tokenizer;
+    private SignUpConfirmTokenSender $sender;
+    private Flusher $flusher;
 
     public function __construct(
         User\UserRepositoryInterface $userRepository,
@@ -26,8 +28,7 @@ class Handler
         SignUpConfirmTokenizer $tokenizer,
         SignUpConfirmTokenSender $sender,
         Flusher $flusher
-    )
-    {
+    ) {
         $this->userRepository = $userRepository;
         $this->hasher = $hasher;
         $this->tokenizer = $tokenizer;
@@ -53,7 +54,7 @@ class Handler
         $user = User\User::signUpByEmail(
             $this->userRepository->nextId(),
             new DateTimeImmutable(),
-            new User\Name( $command->firstName, $command->lastName, $command->patronymic ),
+            new User\Name($command->firstName, $command->lastName, $command->patronymic),
             $email,
             $this->hasher->hash($command->password),
             $token = $this->tokenizer->generate()

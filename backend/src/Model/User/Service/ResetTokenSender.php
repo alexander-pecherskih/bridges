@@ -13,8 +13,8 @@ use Twig\Environment;
 
 class ResetTokenSender
 {
-    private $mailer;
-    private $twig;
+    private Swift_Mailer $mailer;
+    private Environment $twig;
 
     public function __construct(Swift_Mailer $mailer, Environment $twig)
     {

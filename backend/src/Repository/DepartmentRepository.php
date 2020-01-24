@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repository;
 
 use App\Model\Stuff\Entity\Department\Department;
@@ -28,7 +27,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         /** @var Department $department */
         $department = $this->em->getRepository(Department::class)->find($id);
 
-        if ( !$department ) {
+        if (!$department) {
             throw new EntityNotFoundException('User is not found.');
         }
 
@@ -38,6 +37,10 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function add(Department $department): void
     {
         $this->em->persist($department);
-        $this->em->flush();
+    }
+
+    public function remove(Department $department): void
+    {
+        $this->em->remove($department);
     }
 }

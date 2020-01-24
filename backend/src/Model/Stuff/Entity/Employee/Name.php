@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\Stuff\Entity\Employee;
-
 
 use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;
@@ -15,17 +15,17 @@ class Name
     /**
      * @ORM\Column(type="string")
      */
-    private $first;
+    private string $first;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $last;
+    private string $last;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $patronymic;
+    private string $patronymic;
 
     public function __construct(string $first, string $last, string $patronymic = '')
     {

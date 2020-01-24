@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\DataFixtures;
-
 
 use App\Model\User\Entity\User;
 use App\Model\User\Service\PasswordHasher;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use DateTimeImmutable;
 use Exception;
 use Ramsey\Uuid\Uuid;
 
 class UsersFixture extends Fixture
 {
-    private $hasher;
+    private PasswordHasher $hasher;
 
     public function __construct(PasswordHasher $hasher)
     {

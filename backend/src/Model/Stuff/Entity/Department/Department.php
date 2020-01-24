@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\Stuff\Entity\Department;
-
 
 use App\Model\Stuff\Entity\Company\Company;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -19,49 +20,45 @@ use Ramsey\Uuid\UuidInterface;
  * @property Company $company
  * @property ArrayCollection $children
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\DepartmentRepository")
  * @ORM\Table(name="departments")
  */
 class Department
 {
     /**
-     * @var UuidInterface
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", nullable=false)
      */
-    private $created;
+    private DateTimeImmutable $created;
 
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $modified;
+    private ?DateTimeImmutable $modified;
 
     /**
-     * @var string
      * @ORM\Column(type="text", nullable=false)
      */
-    private $title;
+    private string $title;
 
     /**
-     * @var Company
      * @ORM\ManyToOne(targetEntity="Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
-    public $company;
+    public Company $company;
 
     /**
-     * @var Department
      * @ORM\ManyToOne( targetEntity="Department", inversedBy="children" )
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    private $parent;
+    private ?Department $parent;
 
     /**
      * @var ArrayCollection|Department[]
@@ -69,10 +66,15 @@ class Department
      * @ORM\OneToMany( targetEntity="Department", mappedBy="parent")
      * @ORM\OrderBy({"title" = "ASC"})
      */
-    private $children;
+    private ArrayCollection $children;
 
-    public function __construct(UuidInterface $id, DateTimeImmutable $created, Company $company, Title $title, Department $parent = null)
-    {
+    public function __construct(
+        UuidInterface $id,
+        DateTimeImmutable $created,
+        Company $company,
+        Title $title,
+        Department $parent = null
+    ) {
         $this->id = $id;
         $this->created = $created;
         $this->modified = null;
@@ -83,8 +85,25 @@ class Department
         $this->children = new ArrayCollection();
     }
 
-    public function setParent(Department $parent): void
+    public function rename(Title $title): void
     {
+        $this->title = $title;
+    }
+
+    public function move(Department $parent): void
+    {
+        if ($this->parent === $parent) {
+            throw new DomainException('Parent already set');
+        }
+
+        if ($this->parent === $this) {
+            throw new DomainException('Object cannot be parent');
+        }
+
+        if ($this->company !== $parent->company) {
+            throw new DomainException('Wrong Company');
+        }
+
         $this->parent = $parent;
     }
 

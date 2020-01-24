@@ -9,13 +9,10 @@ use Ramsey\Uuid\Uuid;
 
 class Handler
 {
-    private $users;
-    private $flusher;
+    private User\UserRepositoryInterface $users;
+    private Flusher $flusher;
 
-    public function __construct(
-        User\UserRepositoryInterface $users,
-        Flusher $flusher
-    )
+    public function __construct(User\UserRepositoryInterface $users, Flusher $flusher)
     {
         $this->users = $users;
         $this->flusher = $flusher;

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsersController extends AbstractController
 {
-    private $userRepository;
+    private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
@@ -38,9 +39,4 @@ class UsersController extends AbstractController
             'name' => $user->getName(),
         ]);
     }
-
-//    public function index()
-//    {
-////        $users = $this->userRepository->find();
-//    }
 }

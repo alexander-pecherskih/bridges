@@ -9,28 +9,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Command
 {
     /**
-     * @var string
      * @Assert\NotBlank()
      */
-    public $title;
+    public string $title;
 
     /**
-     * @var integer
      * @Assert\NotBlank()
      * @Assert\GreaterThan(0)
      */
-    public $top;
+    public int $top;
 
     /**
-     * @var integer
      * @Assert\NotBlank()
      * @Assert\GreaterThan(0)
      */
-    public $left;
+    public int $left;
 
     /**
-     * @var string
      * @Assert\NotBlank()
      */
-    public $processId;
+    public string $processId;
 }

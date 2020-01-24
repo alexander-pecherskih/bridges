@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Model\User\Entity\User;
 
@@ -20,33 +21,26 @@ use Ramsey\Uuid\UuidInterface;
 class Network
 {
     /**
-     * @var UuidInterface
-     *
      * @ORM\Column(type="uuid")
      * @ORM\Id
      */
-    public $id;
+    public UuidInterface $id;
 
     /**
-     * @var User
-     *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="networks")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    public $user;
+    public User $user;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string")
      */
-    public $name;
+    public string $name;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
-    public $identity;
+    public string $identity;
 
     /**
      * Network constructor.
@@ -77,6 +71,4 @@ class Network
     {
         return $this->identity;
     }
-
-
 }

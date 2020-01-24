@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Field;
-
 
 class NodeFieldRepository
 {

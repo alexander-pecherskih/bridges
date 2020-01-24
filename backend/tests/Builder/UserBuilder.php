@@ -30,8 +30,12 @@ class UserBuilder
      * @param string|null $patronymic
      * @throws Exception
      */
-    public function __construct(UuidInterface $id = null, string $first = null, string $last = null, string $patronymic = null)
-    {
+    public function __construct(
+        UuidInterface $id = null,
+        string $first = null,
+        string $last = null,
+        string $patronymic = null
+    ) {
         $this->id = $id ?? UserRepository::nextId();
         $this->name = new User\Name($first ?? 'First', $last ?? 'Last', $patronymic ?? 'Patronymic');
         $this->created = new DateTimeImmutable();

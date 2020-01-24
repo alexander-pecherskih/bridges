@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Process;
 
 use App\Model\Process\Entity\Node\Node;
@@ -19,41 +18,32 @@ use Ramsey\Uuid\UuidInterface;
 class Process
 {
     /**
-     * @var UuidInterface
-     *
      * @ORM\Id
      * @ORM\Column(type="uuid")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
-     * @var DateTimeImmutable
      * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
      */
-    private $created;
+    private DateTimeImmutable $created;
 
     /**
-     * @var User
-     *
      * @ORM\ManyToOne(targetEntity="App\Model\User\Entity\User\User")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
-    private $owner;
+    private User $owner;
 
     /**
-     * @var Title
-     *
      * @ORM\Column(type="string", nullable=false)
      */
-    private $title;
+    private Title $title;
 
     /**
-     * @var Node|null $startNode
-     *
      * @ORM\ManyToOne(targetEntity="App\Model\Node\Node")
      * @ORM\JoinColumn(name="start_node_id", referencedColumnName="id", nullable=true)
      */
-    private $startNode;
+    private ?Node $startNode = null;
 
     /**
      * @var ArrayCollection|Node[] $nodes
@@ -66,8 +56,7 @@ class Process
      * )
      * @ORM\OrderBy({"title" = "ASC"})
      */
-    private $nodes;
-
+    private ArrayCollection $nodes;
 
     public function __construct(UuidInterface $id, DateTimeImmutable $created, User $owner, Title $title)
     {

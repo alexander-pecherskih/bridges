@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\User\Entity\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,7 +10,6 @@ use DateTimeImmutable;
 use DomainException;
 use Exception;
 use Ramsey\Uuid\UuidInterface;
-
 
 /**
  * Class User
@@ -29,67 +30,60 @@ class User
     public const STATUS_BLOCKED = 'blocked';
 
     /**
-     * @var UuidInterface
-     *
      * @ORM\Id
      * @ORM\Column(type="uuid")
      */
-    private $id;
+    private UuidInterface $id;
 
     /**
-     * @var DateTimeImmutable
      * @ORM\Column(name="created", type="datetime_immutable")
      */
-    private $created;
+    private DateTimeImmutable $created;
 
     /**
-     * @var Email
      * @ORM\Column(type="user_email", unique=true, nullable=true)
      */
-    private $email;
+    private ?Email $email = null;
 
     /**
-     * @var Name
      * @ORM\Embedded(class="Name", columnPrefix="name_")
      */
-    private $name;
+    private Name $name;
 
     /**
-     * @var Role
      * @ORM\Column(type="user_role", nullable=false)
      */
-    private $role;
+    private Role $role;
 
     /**
      * @var null|string
      * @ORM\Column(name="password_hash", type="string", nullable=true)
      */
-    private $passwordHash;
+    private ?string $passwordHash = null;
 
     /**
      * @var null|string
      * @ORM\Column(name="confirm_token", type="string", nullable=true)
      */
-    private $confirmToken;
+    private ?string $confirmToken = null;
 
     /**
      * @var null|ResetToken
      * @ORM\Embedded(class="ResetToken", columnPrefix="reset_token_")
      */
-    private $resetToken;
+    private ?ResetToken $resetToken = null;
 
     /**
-     * @var string
      * @ORM\Column(name="status", type="string", length=16, nullable=false)
      */
-    private $status;
+    private string $status;
 
     /**
      * @var ArrayCollection|Network[]
      *
      * @ORM\OneToMany(targetEntity="Network", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
-    private $networks;
+    private ArrayCollection $networks;
 
     private function __construct(UuidInterface $id, DateTimeImmutable $created, Name $name)
     {

@@ -14,8 +14,8 @@ use Exception;
 
 class Handler
 {
-    private $userRepository;
-    private $flusher;
+    private UserRepositoryInterface $userRepository;
+    private Flusher $flusher;
 
     public function __construct(UserRepositoryInterface $userRepository, Flusher $flusher)
     {

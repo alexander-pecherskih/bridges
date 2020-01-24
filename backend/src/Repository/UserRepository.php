@@ -6,15 +6,19 @@ use App\Model\User\Entity\User\Email;
 use App\Model\User\Entity\User\User;
 use App\Model\User\Entity\User\UserRepositoryInterface;
 use Doctrine\ORM;
+use Doctrine\Persistence\ObjectRepository;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Class UserRepository
+ * @package App\Repository
+ */
 class UserRepository implements UserRepositoryInterface
 {
-    private $em;
-    /** @var ORM\EntityRepository */
-    private $repo;
+    private ORM\EntityManagerInterface $em;
+    private ObjectRepository $repo;
 
     public function __construct(ORM\EntityManagerInterface $em)
     {
@@ -68,7 +72,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getByResetToken(string $token): User
     {
-        if ( !$user = $this->repo->findOneBy(['resetToken.token' => $token])) {
+        if (!($user = $this->repo->findOneBy(['resetToken.token' => $token]))) {
             throw new ORM\EntityNotFoundException('Incorrect or confirmed token');
         }
 
@@ -120,7 +124,8 @@ class UserRepository implements UserRepositoryInterface
                 ->andWhere('n.network = :network and n.identity = :identity')
                 ->setParameter(':network', $network)
                 ->setParameter(':identity', $identity)
-                ->getQuery()->getSingleScalarResult() > 0;
+                ->getQuery()
+                ->getSingleScalarResult() > 0;
     }
 
     // /**

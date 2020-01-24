@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Model\Process\Entity\Field;
-
 
 class ReferenceField implements FieldInterface
 {
@@ -15,6 +13,4 @@ class ReferenceField implements FieldInterface
         // TODO: Implement getAsserts() method.
         return [];
     }
-
-
 }

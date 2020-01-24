@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
-//use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+//use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class Flusher
 {
-    private $em;
-//    private $dispatcher;
+    private EntityManagerInterface $em;
+//    private EventDispatcherInterface $dispatcher;
 
     public function __construct(EntityManagerInterface $em/*, EventDispatcherInterface $dispatcher*/)
     {
@@ -19,7 +21,6 @@ class Flusher
     public function flush(/*AggregateRoot ...$roots*/): void
     {
         $this->em->flush();
-
 //        foreach ($roots as $root) {
 //            $this->dispatcher->dispatch($root->releaseEvents());
 //        }

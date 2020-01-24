@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Security;
 
 use App\Model\User\Entity\User\User;
@@ -8,11 +10,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserIdentity implements UserInterface, EquatableInterface
 {
-    private $id;
-    private $username;
-    private $password;
-    private $role;
-    private $status;
+    private string $id;
+    private string $username;
+    private string $password;
+    private string $role;
+    private string $status;
 
     public function __construct(string $id, string $username, string $password, string $role, string $status)
     {
