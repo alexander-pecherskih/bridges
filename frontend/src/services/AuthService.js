@@ -1,16 +1,16 @@
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
 import Api from './Api'
 
-const IDENTITY_KEY = 'identity'
+const ACCESS_TOKEN_KEY = 'access_token'
+const REFRESH_TOKEN_KEY = 'refresh_token'
 
 export default class AuthService {
-    getIdentity = (username, password) => {
-        const identity = AuthService.getIdentityFromLocalStorage()
+    getToken = (username, password) => {
+        const token = AuthService.getTokenFromLocalStorage()
 
-        if (identity !== null) {
+        if (token !== null) {
             return new Promise( resolve => {
-                resolve(identity)
+                resolve(token)
             })
         }
 
@@ -21,11 +21,29 @@ export default class AuthService {
             client_id: 'app',
             client_secret: 'secret',
         }
-        const formData = new FormData()
-        for (let key in data) {
-            formData.append(key, data[key])
+
+        return AuthService._fetchToken(data)
+    }
+
+    static refreshToken() {
+        const refreshToken = AuthService.getTokenFromLocalStorage(REFRESH_TOKEN_KEY)
+        const data = {
+            refresh_token: refreshToken,
+            grant_type: 'refresh_token',
+            client_id: 'app',
+            client_secret: 'secret',
         }
 
+        return AuthService._fetchToken(data)
+    }
+
+    static _fetchToken(data) {
+        const formData = new FormData()
+        for (let key in data) {
+            if (data.hasOwnProperty(key)) {
+                formData.append(key, data[key])
+            }
+        }
         return axios.post(
             Api.getUrl('/token'),
             formData,
@@ -33,31 +51,30 @@ export default class AuthService {
                 headers: {'Content-Type': 'multipart/form-data'}
             }
         ).then((response) => {
-            if (!response.data.hasOwnProperty('access_token')) {
+            if (!response.data.hasOwnProperty('access_token') || !response.data.hasOwnProperty('refresh_token')) {
                 return
             }
-            const jwt = jwt_decode(response.data.access_token)
-            const identity = {
-                user: jwt.sub,
-            }
-            AuthService.saveIdentityToLocalStorage(identity)
-            return identity
+
+            AuthService.saveTokenToLocalStorage(response.data.access_token)
+            AuthService.saveTokenToLocalStorage(response.data.refresh_token, REFRESH_TOKEN_KEY)
+            return response.data.access_token
         }).catch( (err) => {
             throw new Error('Неправильные имя пользователя или пароль')
         })
     }
 
-    static getIdentityFromLocalStorage = () => {
-        const identityString = localStorage.getItem(IDENTITY_KEY)
+    static getTokenFromLocalStorage(key = ACCESS_TOKEN_KEY) {
+        const tokenString = localStorage.getItem(key)
 
-        return JSON.parse(identityString) || null
+        return JSON.parse(tokenString) || null
     }
 
-    static saveIdentityToLocalStorage = (identity) => {
-        localStorage.setItem(IDENTITY_KEY, JSON.stringify(identity))
+    static saveTokenToLocalStorage(token, key = ACCESS_TOKEN_KEY) {
+        localStorage.setItem(key, JSON.stringify(token))
     }
 
-    static removeIdentityFromLocalStorage = () => {
-        localStorage.removeItem(IDENTITY_KEY)
+    static removeTokensFromLocalStorage() {
+        localStorage.removeItem(ACCESS_TOKEN_KEY)
+        localStorage.removeItem(REFRESH_TOKEN_KEY)
     }
 }

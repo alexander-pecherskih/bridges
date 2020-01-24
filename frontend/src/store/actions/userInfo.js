@@ -23,11 +23,12 @@ const getUserInfo = (dispatch) => () => {
     dispatch(request)
 
     UserInfoService.getInfo()
-        .then((userInfo) => {
-            dispatch( loaded(userInfo) )
+        .then((data) => {
+            const { id, email, name, avatar = '/images/avatar.jpg' } = data
+            dispatch(loaded({ id, email, name, avatar }))
         })
         .catch((err) => {
-            dispatch( fail(err.message) )
+            dispatch(fail(err.message))
         })
 }
 

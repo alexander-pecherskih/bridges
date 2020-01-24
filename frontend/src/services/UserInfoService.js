@@ -1,3 +1,5 @@
+import Api from './Api'
+
 export default class UserInfoService {
     static defaultUserInfo = {
         id: '0000000000',
@@ -6,11 +8,14 @@ export default class UserInfoService {
         surname: 'Silver',
         avatar: '/images/avatar.jpg',
     }
+
     static getInfo() {
-        return new Promise( (resolve) => {
-            setTimeout(() => {
-                resolve(this.defaultUserInfo)
-            }, 1000)
-        })
+        return Api.fetchWithAuth({ url: '/user-info' })
+            .then((response) => {
+                return response.data
+            })
+            .catch((err) => {
+                throw new Error(err)
+            })
     }
 }

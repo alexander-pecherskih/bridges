@@ -2,19 +2,19 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withRouter } from 'react-router'
+import { useLocation, withRouter } from 'react-router'
 
 import App from './App'
-import { getIdentity, logout } from '../../store/actions'
+import { refreshAuthState, logout } from '../../store/actions'
 import { LoginPage } from '../../pages'
 
-const AppContainer = ({ identity, loading, logout, getIdentity }) => {
-    useEffect(getIdentity, [])
+const AppContainer = ({ authorized, loading, logout, refreshAuthState }) => {
+    const location = useLocation()
+    useEffect(refreshAuthState, [])
 
-    if (identity === null || identity === undefined) {
+    if (authorized === false || location.pathname === '/logout') {
         return <LoginPage />
     }
-
     if (loading) {
         return <>Loading...</>
     }
@@ -23,19 +23,19 @@ const AppContainer = ({ identity, loading, logout, getIdentity }) => {
 }
 
 AppContainer.propTypes = {
-    identity: PropTypes.object,
+    authorized: PropTypes.bool,
     loading: PropTypes.bool.isRequired,
     logout: PropTypes.func.isRequired,
-    getIdentity: PropTypes.func.isRequired,
+    refreshAuthState: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = ({ auth: { identity, loading } }) => {
-    return { identity, loading }
+const mapStateToProps = ({ auth: { authorized, loading } }) => {
+    return { authorized, loading }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getIdentity: getIdentity(dispatch),
+        refreshAuthState: refreshAuthState(dispatch),
         logout: logout(dispatch)
     }
 }
