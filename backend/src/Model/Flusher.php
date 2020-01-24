@@ -9,8 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 //use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class Flusher
 {
-    private $em;
-//    private $dispatcher;
+    private EntityManagerInterface $em;
+//    private EventDispatcherInterface $dispatcher;
 
     public function __construct(EntityManagerInterface $em/*, EventDispatcherInterface $dispatcher*/)
     {

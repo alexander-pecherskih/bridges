@@ -20,6 +20,8 @@ class RequestPasswordResetTest extends TestCase
         $now = new DateTimeImmutable();
         $token = new ResetToken('token', $now->modify('+1 day'));
 
+        $this->assertNull($user->getResetToken());
+
         $user->requestPasswordReset($token, $now);
         self::assertNotNull($user->getResetToken());
 

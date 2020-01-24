@@ -15,19 +15,19 @@ class Name
     /**
      * @ORM\Column(type="string")
      */
-    private $first;
+    private string $first;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $last;
+    private string $last;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $patronymic;
+    private ?string $patronymic = null;
 
-    public function __construct(string $first, string $last, string $patronymic = '')
+    public function __construct(string $first, string $last, string $patronymic = null)
     {
         Assert::notEmpty($first);
         Assert::notEmpty($last);
@@ -47,7 +47,7 @@ class Name
         return $this->last;
     }
 
-    public function getPatronymic(): string
+    public function getPatronymic(): ?string
     {
         return $this->patronymic;
     }

@@ -8,18 +8,18 @@ use Ramsey\Uuid\UuidInterface;
 
 class Ticket
 {
-    private $id;
+    private Id $id;
 
-    private $author;
+    private User\User $author;
 
-    private $text;
+    private string $text;
 
-    private $processId;
+    private UuidInterface $processId;
 
     /**
      * @var ArrayCollection|NodeFieldValue[]
      */
-    private $nodeFieldValues;
+    private ArrayCollection $nodeFieldValues;
 
     public function __construct(Id $id, UuidInterface $processId, User\User $author, string $text)
     {

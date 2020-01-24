@@ -6,10 +6,7 @@ use Webmozart\Assert\Assert;
 
 class Title
 {
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {

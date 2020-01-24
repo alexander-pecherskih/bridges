@@ -9,13 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Command
 {
     /**
-     * @var int
      * @Assert\Num
      */
-    public $id;
+    public string $id;
 
-    /**
-     * @var string
-     */
-    public $role;
+    public string $role;
 }

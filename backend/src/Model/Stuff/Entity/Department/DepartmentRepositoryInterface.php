@@ -11,4 +11,6 @@ interface DepartmentRepositoryInterface
     public function get(UuidInterface $id): Department;
 
     public function add(Department $department): void;
+
+    public function remove(Department $department): void;
 }

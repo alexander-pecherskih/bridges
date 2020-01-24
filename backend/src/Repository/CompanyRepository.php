@@ -8,9 +8,13 @@ use App\Model\EntityNotFoundException;
 use App\Model\Stuff\Entity\Company\Company;
 use App\Model\Stuff\Entity\Company\CompanyRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ObjectRepository;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @property EntityRepository $repository
+ */
 class CompanyRepository implements CompanyRepositoryInterface
 {
     private EntityManagerInterface $em;

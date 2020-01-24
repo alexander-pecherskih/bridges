@@ -13,7 +13,7 @@ use Ramsey\Uuid\Uuid;
 class ResetTokenizer
 {
     public const INTERVAL = 'PT1H';
-    private $interval;
+    private DateInterval $interval;
 
     public function __construct()
     {

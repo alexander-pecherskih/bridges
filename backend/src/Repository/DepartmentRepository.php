@@ -37,6 +37,10 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function add(Department $department): void
     {
         $this->em->persist($department);
-        $this->em->flush();
+    }
+
+    public function remove(Department $department): void
+    {
+        $this->em->remove($department);
     }
 }

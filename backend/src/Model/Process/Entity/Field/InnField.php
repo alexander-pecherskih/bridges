@@ -4,7 +4,7 @@ namespace App\Model\Process\Entity\Field;
 
 class InnField implements FieldInterface
 {
-    private $value;
+    private Value $value;
 
     public function __construct(Value $value)
     {

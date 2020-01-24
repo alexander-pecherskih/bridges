@@ -32,9 +32,7 @@ class UserProvider implements UserProviderInterface
      * found.
      *
      * @param string $username The username
-     *
      * @return UserInterface
-     *
      * @throws UsernameNotFoundException if the user is not found
      */
     public function loadUserByUsername($username): UserInterface

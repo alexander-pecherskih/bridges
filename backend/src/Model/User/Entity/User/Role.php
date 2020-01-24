@@ -11,7 +11,7 @@ class Role
     public const USER = 'ROLE_USER';
     public const ADMIN = 'ROLE_ADMIN';
 
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {

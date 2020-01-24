@@ -14,9 +14,9 @@ use Ramsey\Uuid\Uuid;
 
 class Handler
 {
-    private $processRepository;
-    private $nodeRepository;
-    private $flusher;
+    private ProcessRepositoryInterface $processRepository;
+    private NodeRepositoryInterface $nodeRepository;
+    private Flusher $flusher;
 
     public function __construct(
         NodeRepositoryInterface $nodeRepository,

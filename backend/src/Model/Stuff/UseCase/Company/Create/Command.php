@@ -9,8 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Command
 {
     /**
-     * @var string
      * @Assert\NotBlank()
      */
-    public $title;
+    public string $title;
 }

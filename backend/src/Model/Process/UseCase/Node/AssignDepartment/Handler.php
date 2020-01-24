@@ -9,9 +9,9 @@ use Ramsey\Uuid\Uuid;
 
 class Handler
 {
-    private $nodeRepository;
-    private $departmentRepository;
-    private $flusher;
+    private NodeRepositoryInterface $nodeRepository;
+    private DepartmentRepositoryInterface $departmentRepository;
+    private Flusher $flusher;
 
     public function __construct(
         NodeRepositoryInterface $nodeRepository,

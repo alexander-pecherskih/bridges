@@ -13,10 +13,10 @@ use Exception;
 
 class Handler
 {
-    private $users;
-    private $tokenizer;
-    private $sender;
-    private $flusher;
+    private User\UserRepositoryInterface $users;
+    private ResetTokenizer $tokenizer;
+    private ResetTokenSender $sender;
+    private Flusher $flusher;
 
     public function __construct(
         User\UserRepositoryInterface $users,

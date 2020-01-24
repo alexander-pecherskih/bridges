@@ -11,6 +11,10 @@ use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * Class UserRepository
+ * @package App\Repository
+ */
 class UserRepository implements UserRepositoryInterface
 {
     private ORM\EntityManagerInterface $em;
@@ -120,7 +124,8 @@ class UserRepository implements UserRepositoryInterface
                 ->andWhere('n.network = :network and n.identity = :identity')
                 ->setParameter(':network', $network)
                 ->setParameter(':identity', $identity)
-                ->getQuery()->getSingleScalarResult() > 0;
+                ->getQuery()
+                ->getSingleScalarResult() > 0;
     }
 
     // /**
