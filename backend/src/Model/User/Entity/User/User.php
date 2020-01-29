@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User\Entity\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use DomainException;
@@ -74,16 +75,25 @@ class User
     private ?ResetToken $resetToken = null;
 
     /**
+     * @ORM\Column(type="user_email", name="new_email", nullable=true)
+     */
+    private ?Email $newEmail;
+    /**
+     * @ORM\Column(type="string", name="new_email_token", nullable=true)
+     */
+    private ?string $newEmailToken;
+
+    /**
      * @ORM\Column(name="status", type="string", length=16, nullable=false)
      */
     private string $status;
 
     /**
-     * @var ArrayCollection|Network[]
+     * @var Collection|Network[]
      *
      * @ORM\OneToMany(targetEntity="Network", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
-    private ArrayCollection $networks;
+    private Collection $networks;
 
     private function __construct(UuidInterface $id, DateTimeImmutable $created, Name $name)
     {
@@ -201,6 +211,31 @@ class User
 
         $this->passwordHash = $passwordHash;
         $this->resetToken = null;
+    }
+
+    public function requestEmailChanging(Email $email, string $token): void
+    {
+        if (!$this->isActive()) {
+            throw new DomainException('User is not active');
+        }
+        if ($this->email && $this->email->isEqual($email)) {
+            throw new DomainException('Email is already same');
+        }
+        $this->newEmail = $email;
+        $this->newEmailToken = $token;
+    }
+
+    public function confirmEmailChanging(string $token): void
+    {
+        if (!$this->newEmailToken) {
+            throw new DomainException('Changing is not requested');
+        }
+        if ($this->newEmailToken !== $token) {
+            throw new DomainException('Incorrect changing token');
+        }
+        $this->email = $this->newEmail;
+        $this->newEmail = null;
+        $this->newEmailToken = null;
     }
 
     public function changeRole(Role $role): void

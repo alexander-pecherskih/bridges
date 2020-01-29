@@ -27,4 +27,9 @@ class Email
     {
         return $this->value;
     }
+
+    public function isEqual(self $email): bool
+    {
+        return $this->getValue() === $email->getValue();
+    }
 }

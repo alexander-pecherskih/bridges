@@ -21,7 +21,6 @@ class UsersFixture extends Fixture
         $this->hasher = $hasher;
     }
 
-
     /**
      * @param ObjectManager $manager
      * @throws Exception
