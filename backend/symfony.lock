@@ -53,9 +53,6 @@
             "src/Repository/.gitignore"
         ]
     },
-    "doctrine/doctrine-cache-bundle": {
-        "version": "1.4.0"
-    },
     "doctrine/doctrine-fixtures-bundle": {
         "version": "3.0",
         "recipe": {
@@ -126,9 +123,6 @@
     "felixfbecker/language-server-protocol": {
         "version": "v1.4.0"
     },
-    "fig/link-util": {
-        "version": "1.0.0"
-    },
     "finesse/swiftmailer-defaults-plugin": {
         "version": "v2.0.3"
     },
@@ -151,7 +145,7 @@
         "version": "2.2.0"
     },
     "league/oauth2-server": {
-        "version": "7.4.0"
+        "version": "8.0.0"
     },
     "monolog/monolog": {
         "version": "1.25.1"
@@ -310,9 +304,6 @@
     "symfony/css-selector": {
         "version": "v4.3.5"
     },
-    "symfony/debug": {
-        "version": "v4.3.5"
-    },
     "symfony/debug-bundle": {
         "version": "4.1",
         "recipe": {
@@ -339,6 +330,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.3.5"
+    },
+    "symfony/error-handler": {
+        "version": "v5.0.3"
     },
     "symfony/event-dispatcher": {
         "version": "v4.3.5"
@@ -486,7 +480,7 @@
         "version": "v4.3.5"
     },
     "symfony/psr-http-message-bridge": {
-        "version": "v1.2.0"
+        "version": "v1.3.0"
     },
     "symfony/routing": {
         "version": "4.2",

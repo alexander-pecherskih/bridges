@@ -16,11 +16,11 @@ class NodeBuilder
     /**
      * @var UuidInterface
      */
-    private $id;
-    private $title;
-    private $created;
-    private $process;
-    private $position;
+    private UuidInterface $id;
+    private Title $title;
+    private DateTimeImmutable $created;
+    private Process $process;
+    private Position $position;
 
     /**
      * NodeBuilder constructor.

@@ -2,30 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UsersController extends AbstractController
+class ProfileController extends AbstractController
 {
-    private UserRepository $userRepository;
-
-    public function __construct(UserRepository $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
     /**
+     * @param UserRepository $userRepository
+     * @return JsonResponse
+     *
      * @Route("/user-info", name="user_info", methods={"GET"})
      */
-    public function userInfo()
+    public function userInfo(UserRepository $userRepository): JsonResponse
     {
         try {
-            $user = $this->userRepository->get(Uuid::fromString($this->getUser()->getId()));
+            $user = $userRepository->get(Uuid::fromString($this->getUser()->getId()));
         } catch (EntityNotFoundException $e) {
             return $this->json([
                 'message' => $e->getMessage()

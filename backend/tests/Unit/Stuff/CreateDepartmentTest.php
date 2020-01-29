@@ -6,11 +6,15 @@ use App\Model\Stuff\Entity\Company\Company;
 use App\Model\Stuff\Entity\Department\Department;
 use App\Model\Stuff\Entity\Department\Title;
 use DateTimeImmutable;
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 class CreateDepartmentTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testSuccess(): void
     {
         $department = new Department(
@@ -36,8 +40,6 @@ class CreateDepartmentTest extends TestCase
             $company,
             new Title('Root Department')
         );
-
-//            new Company(Uuid::uuid4(), new DateTimeImmutable(), 'Company'),
 
         $department->move($parent);
         self::assertEquals($department->getParent(), $parent);

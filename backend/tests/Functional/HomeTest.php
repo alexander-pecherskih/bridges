@@ -4,8 +4,7 @@ namespace App\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/* extends WebTestCase*/
-class HomeTest
+class HomeTest extends WebTestCase
 {
     public function testGet(): void
     {

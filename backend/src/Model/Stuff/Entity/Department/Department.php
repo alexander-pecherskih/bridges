@@ -6,6 +6,7 @@ namespace App\Model\Stuff\Entity\Department;
 
 use App\Model\Stuff\Entity\Company\Company;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
@@ -18,7 +19,7 @@ use Ramsey\Uuid\UuidInterface;
  * @property Title $title
  * @property Department $parent
  * @property Company $company
- * @property ArrayCollection $children
+ * @property Collection $children
  *
  * @ORM\Entity(repositoryClass="App\Repository\DepartmentRepository")
  * @ORM\Table(name="departments")
@@ -46,7 +47,7 @@ class Department
     /**
      * @ORM\Column(type="text", nullable=false)
      */
-    private string $title;
+    private Title $title;
 
     /**
      * @ORM\ManyToOne(targetEntity="Company")
@@ -61,12 +62,12 @@ class Department
     private ?Department $parent;
 
     /**
-     * @var ArrayCollection|Department[]
+     * @var Collection|Department[]
      *
      * @ORM\OneToMany( targetEntity="Department", mappedBy="parent")
      * @ORM\OrderBy({"title" = "ASC"})
      */
-    private ArrayCollection $children;
+    private Collection $children;
 
     public function __construct(
         UuidInterface $id,
@@ -137,7 +138,7 @@ class Department
         return $this->parent;
     }
 
-    public function getChildren(): ArrayCollection
+    public function getChildren(): Collection
     {
         return $this->children;
     }
