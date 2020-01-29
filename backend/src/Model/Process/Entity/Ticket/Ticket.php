@@ -3,6 +3,7 @@
 namespace App\Model\Process\Entity\Ticket;
 
 use App\Model\User\Entity\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
 
@@ -17,9 +18,9 @@ class Ticket
     private UuidInterface $processId;
 
     /**
-     * @var ArrayCollection|NodeFieldValue[]
+     * @var Collection|NodeFieldValue[]
      */
-    private ArrayCollection $nodeFieldValues;
+    private Collection $nodeFieldValues;
 
     public function __construct(Id $id, UuidInterface $processId, User\User $author, string $text)
     {

@@ -1,20 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Model\User\UseCase\SignUp;
+use DomainException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use DomainException;
+use Twig\Error as TwigError;
 
-class SecurityController extends AbstractController
+class SignUpController extends AbstractController
 {
     private SerializerInterface $serializer;
     private ValidatorInterface $validator;
@@ -26,16 +27,16 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/signup", name="app_login")
+     * @Route("/signup", name="signup.request")
      *
      * @param Request $request
      * @param SignUp\Request\Handler $handler
      * @return Response
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws TwigError\LoaderError
+     * @throws TwigError\RuntimeError
+     * @throws TwigError\SyntaxError
      */
-    public function signUp(Request $request, SignUp\Request\Handler $handler): Response
+    public function request(Request $request, SignUp\Request\Handler $handler): Response
     {
         /** @var SignUp\Request\Command $command */
         $command = $this->serializer->deserialize(
@@ -50,9 +51,31 @@ class SecurityController extends AbstractController
             return new JsonResponse($json, 400, [], true);
         }
 
-        try {
-            $handler->handle($command);
-        } catch (DomainException $e) {
+        $handler->handle($command);
+
+        return $this->json([], 201);
+    }
+
+    /**
+     * @Route("/signup/{token}", name="signup.confirm")
+     *
+     * @param string $token
+     * @param SignUp\Confirm\Handler $handler
+     * @return Response
+     */
+    public function confirm(
+        string $token,
+        SignUp\Confirm\Handler $handler
+    ): Response {
+        if (!$user = $this->users->findBySignUpConfirmToken($token)) {
+            $this->addFlash('error', 'Incorrect or already confirmed token.');
+            return $this->redirectToRoute('auth.signup');
         }
+
+        $command = new SignUp\Confirm\Command($token);
+
+        $handler->handle($command);
+
+        return $this->json([], 201);
     }
 }

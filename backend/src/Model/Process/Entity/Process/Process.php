@@ -5,6 +5,7 @@ namespace App\Model\Process\Entity\Process;
 use App\Model\Process\Entity\Node\Node;
 use App\Model\User\Entity\User\User;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
@@ -46,7 +47,7 @@ class Process
     private ?Node $startNode = null;
 
     /**
-     * @var ArrayCollection|Node[] $nodes
+     * @var Collection|Node[] $nodes
      *
      * @ORM\OneToMany(
      *     targetEntity="Node",
@@ -56,7 +57,7 @@ class Process
      * )
      * @ORM\OrderBy({"title" = "ASC"})
      */
-    private ArrayCollection $nodes;
+    private Collection $nodes;
 
     public function __construct(UuidInterface $id, DateTimeImmutable $created, User $owner, Title $title)
     {

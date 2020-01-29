@@ -7,18 +7,13 @@ namespace App\Tests\Functional;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Doctrine\DBAL\ConnectionException;
 
-/* extends WebTestCase*/
-class DbWebTestCase
+class DbWebTestCase extends WebTestCase
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    /**
-     * @var KernelBrowser
-     */
-    protected $client;
+    private EntityManagerInterface $em;
+
+    protected KernelBrowser $client;
 
     protected function setUp(): void
     {
@@ -30,6 +25,9 @@ class DbWebTestCase
         $this->em->getConnection()->setAutoCommit(false);
     }
 
+    /**
+     * @throws ConnectionException
+     */
     protected function tearDown(): void
     {
         $this->em->getConnection()->rollback();
