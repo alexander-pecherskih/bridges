@@ -1,3 +1,3 @@
-import { auth, refreshAuthState, logout } from './auth'
+import { auth, logout, refreshAuthToken } from './auth'
 
-export { auth, refreshAuthState, logout }
+export { auth, logout, refreshAuthToken }

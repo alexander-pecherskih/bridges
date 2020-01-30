@@ -5,14 +5,14 @@ import { compose } from 'redux'
 import { useLocation, withRouter } from 'react-router'
 
 import App from './App'
-import { refreshAuthState, logout } from '../../store/actions'
+import { logout, refreshAuthToken } from '../../store/actions'
 import { LoginPage } from '../../pages'
 
-const AppContainer = ({ authorized, loading, logout, refreshAuthState }) => {
+const AppContainer = ({ authorized, loading, logout, refreshAuthToken }) => {
     const location = useLocation()
-    useEffect(refreshAuthState, [])
+    useEffect(refreshAuthToken, [])
 
-    if (authorized === false || location.pathname === '/logout') {
+    if (!loading && (!authorized || location.pathname === '/logout')) {
         return <LoginPage />
     }
     if (loading) {
@@ -26,17 +26,17 @@ AppContainer.propTypes = {
     authorized: PropTypes.bool,
     loading: PropTypes.bool.isRequired,
     logout: PropTypes.func.isRequired,
-    refreshAuthState: PropTypes.func.isRequired,
+    refreshAuthToken: PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({ auth: { authorized, loading } }) => {
-    return { authorized, loading }
+const mapStateToProps = ({ auth: { accessToken, authorized, loading } }) => {
+    return { accessToken, authorized, loading }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        refreshAuthState: refreshAuthState(dispatch),
-        logout: logout(dispatch)
+        logout: logout(dispatch),
+        refreshAuthToken: refreshAuthToken(dispatch)
     }
 }
 
