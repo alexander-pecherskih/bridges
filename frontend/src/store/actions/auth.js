@@ -6,8 +6,11 @@ const authorize = {
     type: AUTH_REQUEST,
 }
 
-const authorized = {
-    type: AUTH_SUCCESS,
+const authorized = (accessToken) => {
+    return {
+        type: AUTH_SUCCESS,
+        accessToken
+    }
 }
 
 const authError = (error) => {
@@ -17,30 +20,37 @@ const authError = (error) => {
     }
 }
 
-const auth = (dispatch, authService = null) => (username, password) => {
+const auth = (dispatch) => (username, password) => {
     dispatch(authorize)
 
-    authService.getToken(username, password)
-        .then(() => {
-            dispatch(authorized, true)
+    AuthService.authorize(username, password)
+        .then((accessToken) => {
+            dispatch(authorized(accessToken))
         })
         .catch((err) => {
             dispatch(authError(err.message))
         })
 }
 
-const refreshAuthState = (dispatch) => () => {
-    if (!AuthService.getTokenFromLocalStorage()) {
-        dispatch({ type: LOGOUT })
-        return
-    }
-    dispatch(authorized)
+const refreshAuthToken = (dispatch) => () => {
+    dispatch(authorize)
+
+    AuthService.refreshToken()
+        .then((accessToken) => {
+            dispatch(authorized(accessToken))
+        })
+        .catch(() => {
+            dispatch({ type: LOGOUT })
+        })
 }
 
-const logout = (dispatch) => () => {
-    AuthService.removeTokensFromLocalStorage()
-
+const logout = (dispatch) => (redirectUrl = null) => {
+    AuthService.logout()
     dispatch({ type: LOGOUT })
+
+    if (redirectUrl) {
+        window.location.replace(redirectUrl)
+    }
 }
 
-export { auth, refreshAuthState, logout }
+export { auth, logout, refreshAuthToken }

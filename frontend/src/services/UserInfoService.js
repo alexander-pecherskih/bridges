@@ -1,16 +1,8 @@
 import Api from './Api'
 
 export default class UserInfoService {
-    static defaultUserInfo = {
-        id: '0000000000',
-        email: 'confirmed@bridges.local',
-        name: 'John',
-        surname: 'Silver',
-        avatar: '/images/avatar.jpg',
-    }
-
-    static getInfo() {
-        return Api.fetchWithAuth({ url: '/user-info' })
+    static getInfo(accessToken) {
+        return Api.fetchWithAuth({ url: '/user-info' }, accessToken )
             .then((response) => {
                 return response.data
             })

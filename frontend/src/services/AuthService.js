@@ -1,19 +1,12 @@
 import axios from 'axios'
 import Api from './Api'
+import FormDataHelper from './FormDataHelper'
 
-const ACCESS_TOKEN_KEY = 'access_token'
 const REFRESH_TOKEN_KEY = 'refresh_token'
 
 export default class AuthService {
-    getToken = (username, password) => {
-        const token = AuthService.getTokenFromLocalStorage()
 
-        if (token !== null) {
-            return new Promise( resolve => {
-                resolve(token)
-            })
-        }
-
+    static authorize = (username, password) => {
         const data = {
             username,
             password,
@@ -26,7 +19,7 @@ export default class AuthService {
     }
 
     static refreshToken() {
-        const refreshToken = AuthService.getTokenFromLocalStorage(REFRESH_TOKEN_KEY)
+        const refreshToken = AuthService._getRefreshTokenFromLocalStorage()
         const data = {
             refresh_token: refreshToken,
             grant_type: 'refresh_token',
@@ -38,15 +31,9 @@ export default class AuthService {
     }
 
     static _fetchToken(data) {
-        const formData = new FormData()
-        for (let key in data) {
-            if (data.hasOwnProperty(key)) {
-                formData.append(key, data[key])
-            }
-        }
         return axios.post(
             Api.getUrl('/token'),
-            formData,
+            FormDataHelper.createFromObject(data),
             {
                 headers: {'Content-Type': 'multipart/form-data'}
             }
@@ -55,26 +42,24 @@ export default class AuthService {
                 return
             }
 
-            AuthService.saveTokenToLocalStorage(response.data.access_token)
-            AuthService.saveTokenToLocalStorage(response.data.refresh_token, REFRESH_TOKEN_KEY)
+            AuthService._saveRefreshTokenToLocalStorage(response.data.refresh_token)
             return response.data.access_token
         }).catch( (err) => {
             throw new Error('Неправильные имя пользователя или пароль')
         })
     }
 
-    static getTokenFromLocalStorage(key = ACCESS_TOKEN_KEY) {
-        const tokenString = localStorage.getItem(key)
+    static _getRefreshTokenFromLocalStorage() {
+        const tokenString = localStorage.getItem(REFRESH_TOKEN_KEY)
 
         return JSON.parse(tokenString) || null
     }
 
-    static saveTokenToLocalStorage(token, key = ACCESS_TOKEN_KEY) {
-        localStorage.setItem(key, JSON.stringify(token))
+    static _saveRefreshTokenToLocalStorage(token) {
+        localStorage.setItem(REFRESH_TOKEN_KEY, JSON.stringify(token))
     }
 
-    static removeTokensFromLocalStorage() {
-        localStorage.removeItem(ACCESS_TOKEN_KEY)
+    static logout() {
         localStorage.removeItem(REFRESH_TOKEN_KEY)
     }
 }

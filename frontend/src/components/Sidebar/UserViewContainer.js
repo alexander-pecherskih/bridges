@@ -9,8 +9,9 @@ import { getUserInfo } from '../../store/actions/userInfo'
 import UserView from './UserView'
 import UserViewShimmer from './UserViewShimmer'
 
-const UserViewContainer = ({ user, loading, error, getUserInfo }) => {
-    useEffect(getUserInfo, [])
+const UserViewContainer = ({ user, loading, error, getUserInfo, accessToken }) => {
+    const loadUserInfo = () => getUserInfo(accessToken)
+    useEffect(loadUserInfo, [])
 
     if (!user || loading || error){
         return <UserViewShimmer />
@@ -24,13 +25,14 @@ UserViewContainer.propTypes = {
     loading: PropTypes.bool.isRequired,
     getUserInfo: PropTypes.func.isRequired,
     error: PropTypes.string,
+    accessToken: PropTypes.string,
 }
 
-const mapStateToProps = ({ userInfo: { user, loading, error } }) => {
-    return { user, loading, error }
+const mapStateToProps = ({ userInfo: { user, loading, error }, auth: { accessToken } }) => {
+    return { user, loading, error, accessToken }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, stt) => {
     return {
         getUserInfo: getUserInfo(dispatch),
     }

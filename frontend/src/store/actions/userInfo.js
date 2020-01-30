@@ -19,10 +19,10 @@ const fail = (error) => {
     }
 }
 
-const getUserInfo = (dispatch) => () => {
+const getUserInfo = (dispatch) => (accessToken) => {
     dispatch(request)
 
-    UserInfoService.getInfo()
+    UserInfoService.getInfo(accessToken)
         .then((data) => {
             const { id, email, name, avatar = '/images/avatar.jpg' } = data
             dispatch(loaded({ id, email, name, avatar }))
