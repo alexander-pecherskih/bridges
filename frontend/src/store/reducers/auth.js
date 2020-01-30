@@ -23,7 +23,7 @@ const auth = (state = initialState, action) => {
                 accessToken: null,
                 authorized: false,
                 loading: false,
-                error: action.payload,
+                error: action.error,
             }
         case LOGOUT:
             return {

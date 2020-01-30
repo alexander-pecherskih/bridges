@@ -1,7 +1,8 @@
 import React from 'react'
+import ProcessListContainer from '../components/ProcessList/ProcessListContainer'
 
 const ProcessesPage = () => {
-    return <>Процессы...</>
+    return <ProcessListContainer />
 }
 
 export default ProcessesPage

@@ -16,7 +16,7 @@ const authorized = (accessToken) => {
 const authError = (error) => {
     return {
         type: AUTH_FAILURE,
-        payload: error,
+        error,
     }
 }
 
@@ -33,6 +33,11 @@ const auth = (dispatch) => (username, password) => {
 }
 
 const refreshAuthToken = (dispatch) => () => {
+    if (!AuthService.refreshTokenIsValid()) {
+        dispatch({ type: LOGOUT })
+        return
+    }
+
     dispatch(authorize)
 
     AuthService.refreshToken()
@@ -44,12 +49,11 @@ const refreshAuthToken = (dispatch) => () => {
         })
 }
 
-const logout = (dispatch) => (redirectUrl = null) => {
+const logout = (dispatch) => (redirectHome = false) => {
     AuthService.logout()
     dispatch({ type: LOGOUT })
-
-    if (redirectUrl) {
-        window.location.replace(redirectUrl)
+    if (redirectHome) {
+        window.location.replace('/')
     }
 }
 

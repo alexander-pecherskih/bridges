@@ -4,7 +4,7 @@ import AuthService from './AuthService'
 import axios from 'axios'
 
 const BASE_URL = 'http://api.bridges.local'
-const LOGIN_URL = '/login'
+const LOGIN_URL = AuthService.getLoginUrl()
 
 export default class Api {
     static getUrl(path = '') {

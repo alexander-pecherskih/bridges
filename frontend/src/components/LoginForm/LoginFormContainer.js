@@ -5,16 +5,10 @@ import { compose } from 'redux'
 
 import { auth, logout } from '../../store/actions'
 import LoginForm from './LoginForm'
-import {useLocation} from 'react-router'
 
 const LoginFormContainer = ({ auth, loading, error, logout }) => {
-    const location = useLocation()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
-    if (location.pathname === '/logout') {
-        logout('/')
-    }
 
     return <LoginForm
         loading={ loading }

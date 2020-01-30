@@ -3,8 +3,13 @@ import Api from './Api'
 import FormDataHelper from './FormDataHelper'
 
 const REFRESH_TOKEN_KEY = 'refresh_token'
+const LOGIN_URL = '/login'
 
 export default class AuthService {
+
+    static getLoginUrl() {
+        return LOGIN_URL
+    }
 
     static authorize = (username, password) => {
         const data = {
@@ -18,8 +23,13 @@ export default class AuthService {
         return AuthService._fetchToken(data)
     }
 
+    static refreshTokenIsValid() {
+        return AuthService._getRefreshTokenFromLocalStorage() !== null
+    }
+
     static refreshToken() {
         const refreshToken = AuthService._getRefreshTokenFromLocalStorage()
+
         const data = {
             refresh_token: refreshToken,
             grant_type: 'refresh_token',
@@ -39,12 +49,12 @@ export default class AuthService {
             }
         ).then((response) => {
             if (!response.data.hasOwnProperty('access_token') || !response.data.hasOwnProperty('refresh_token')) {
-                return
+                throw new Error('Access Denied')
             }
 
             AuthService._saveRefreshTokenToLocalStorage(response.data.refresh_token)
             return response.data.access_token
-        }).catch( (err) => {
+        }).catch( () => {
             throw new Error('Неправильные имя пользователя или пароль')
         })
     }
