@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import App from './App'
 
 const defaultProps = {
-    identity: null,
+    authorized: false,
     logout: () => {}
 }
 

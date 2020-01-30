@@ -1,7 +1,7 @@
 import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE, LOGOUT } from '../constants/auth'
 
 const initialState = {
-    identity: null,
+    authorized: null,
     loading: true,
     error: null,
 }
@@ -10,25 +10,25 @@ const auth = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_REQUEST:
             return {
-                identity: null,
+                authorized: null,
                 loading: true,
                 error: null,
             }
         case AUTH_SUCCESS:
             return {
-                identity: action.payload,
+                authorized: true,
                 loading: false,
                 error: null,
             }
         case AUTH_FAILURE:
             return {
-                identity: null,
+                authorized: false,
                 loading: false,
                 error: action.payload,
             }
         case LOGOUT:
             return {
-                identity: null,
+                authorized: false,
                 loading: false,
                 error: null,
             }

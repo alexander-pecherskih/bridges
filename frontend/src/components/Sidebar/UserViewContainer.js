@@ -23,7 +23,7 @@ UserViewContainer.propTypes = {
     user: PropTypes.object,
     loading: PropTypes.bool.isRequired,
     getUserInfo: PropTypes.func.isRequired,
-    error: PropTypes.object,
+    error: PropTypes.string,
 }
 
 const mapStateToProps = ({ userInfo: { user, loading, error } }) => {

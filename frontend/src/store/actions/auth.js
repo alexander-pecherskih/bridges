@@ -6,11 +6,8 @@ const authorize = {
     type: AUTH_REQUEST,
 }
 
-const authorized = (identity) => {
-    return {
-        type: AUTH_SUCCESS,
-        payload: identity,
-    }
+const authorized = {
+    type: AUTH_SUCCESS,
 }
 
 const authError = (error) => {
@@ -21,30 +18,29 @@ const authError = (error) => {
 }
 
 const auth = (dispatch, authService = null) => (username, password) => {
-    if (!authService) {
-
-    }
     dispatch(authorize)
 
-    authService.getIdentity(username, password)
-        .then((data) => {
-            dispatch(authorized(data))
+    authService.getToken(username, password)
+        .then(() => {
+            dispatch(authorized, true)
         })
         .catch((err) => {
             dispatch(authError(err.message))
         })
 }
 
-const getIdentity = (dispatch) => () => {
-    const identity = AuthService.getIdentityFromLocalStorage()
-
-    dispatch(authorized(identity))
+const refreshAuthState = (dispatch) => () => {
+    if (!AuthService.getTokenFromLocalStorage()) {
+        dispatch({ type: LOGOUT })
+        return
+    }
+    dispatch(authorized)
 }
 
 const logout = (dispatch) => () => {
-    AuthService.removeIdentityFromLocalStorage()
+    AuthService.removeTokensFromLocalStorage()
 
     dispatch({ type: LOGOUT })
 }
 
-export { auth, getIdentity, logout }
+export { auth, refreshAuthState, logout }

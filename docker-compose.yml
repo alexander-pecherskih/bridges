@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
     postgres:
         image: postgres:11.2-alpine
@@ -24,10 +24,12 @@ services:
             - 80:80
 
     php-fpm:
-        build: docker/php-fpm
+        build:
+            context: docker
+            dockerfile: php-fpm/Dockerfile
         container_name: ${COMPOSE_PROJECT_NAME}-php-fpm
         volumes:
-            - ./bridges:/bridges
+            - ./backend:/bridges
         depends_on:
             - postgres
         environment:
@@ -36,10 +38,12 @@ services:
 #            XDEBUG_CONFIG: "remote_host=192.168.220.1 remote_enable=1"
 
     php-cli:
-        build: docker/php-cli
+        build:
+            context: docker
+            dockerfile: php-cli/Dockerfile
         container_name: ${COMPOSE_PROJECT_NAME}-php-cli
         volumes:
-            - ./bridges:/bridges
+            - ./backend:/bridges
             - composer:/root/.composer/cache
         depends_on:
             - postgres
@@ -59,16 +63,6 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}-mailer
         ports:
         - "8025:8025"
-
-#    sphinx:
-#        build: ./docker/sphinx
-#        container_name: ${COMPOSE_PROJECT_NAME}_sphinx
-#        volumes:
-#            - ./data/sphinx:/var/data  # directory where sphinx will store index data
-#            - ./docker/sphinx/sphinx.conf:/etc/sphinx.conf  # SphinxSE configuration file
-#        ports:
-#            - 9306:9306
-#        mem_limit: 512m # match indexer.value from sphinx.conf
 
 volumes:
     postgres:
