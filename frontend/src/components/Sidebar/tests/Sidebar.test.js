@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Footer from './Footer'
+import Sidebar from '../Sidebar'
 
-describe('<Footer />', () => {
-    const wrapper = shallow(<Footer />)
+describe('<Sidebar />', () => {
+    const wrapper = shallow(<Sidebar />)
 
     it('renders properly', () => {
         expect(wrapper).toMatchSnapshot()

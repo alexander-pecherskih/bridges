@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
+import PropTypes from 'prop-types'
 import { useLocation } from 'react-router'
 
 import Sidebar from '../Sidebar'
 import { getPageTitle } from '../../pages'
 
-const Header = ({ identity, logout }) => {
+const Header = ({ logout }) => {
     const location = useLocation()
     useEffect(() => {
         document.title = getPageTitle(location.pathname)
@@ -24,8 +25,12 @@ const Header = ({ identity, logout }) => {
                 </ul>
             </div>
         </nav>
-        <Sidebar identity={ identity } />
+        <Sidebar />
     </header>
+}
+
+Header.propTypes = {
+    logout: PropTypes.func.isRequired,
 }
 
 export default Header

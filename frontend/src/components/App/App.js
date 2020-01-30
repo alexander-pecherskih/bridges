@@ -1,13 +1,14 @@
 import React from 'react'
-import {Switch, Route } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { Switch, Route } from 'react-router-dom'
 
 import Header from '../Header'
 import Footer from '../Footer'
 import { HomePage, ProcessesPage, ProfilePage, SettingsPage } from '../../pages'
 
-const App = ({ identity, logout }) => {
+const App = ({ logout }) => {
     return <>
-        <Header identity={ identity } logout={ logout }/>
+        <Header logout={ logout }/>
             <main>
                 <div className="main-container">
                     <Switch>
@@ -20,6 +21,10 @@ const App = ({ identity, logout }) => {
             </main>
         <Footer />
     </>
+}
+
+App.propTypes = {
+    logout: PropTypes.func,
 }
 
 export default App
