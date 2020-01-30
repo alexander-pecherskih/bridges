@@ -1,16 +1,20 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 
 import { auth, logout } from '../../store/actions'
-import withAuthService from '../hoc/withAuthService'
 import LoginForm from './LoginForm'
+import {useLocation} from 'react-router'
 
 const LoginFormContainer = ({ auth, loading, error, logout }) => {
+    const location = useLocation()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    useEffect(logout, [])
+
+    if (location.pathname === '/logout') {
+        logout('/')
+    }
 
     return <LoginForm
         loading={ loading }
@@ -34,14 +38,13 @@ const mapStateToProps = ({ auth: { authorized, loading, error } }) => {
     return { authorized, loading, error }
 }
 
-const mapDispatchToProps = (dispatch, { authService }) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        auth: auth(dispatch, authService),
+        auth: auth(dispatch),
         logout: logout(dispatch)
     }
 }
 
 export default compose(
-    withAuthService(),
     connect(mapStateToProps, mapDispatchToProps)
 )(LoginFormContainer)

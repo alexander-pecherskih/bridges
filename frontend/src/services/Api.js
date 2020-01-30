@@ -32,8 +32,7 @@ export default class Api {
         )
     }
 
-    static async fetchWithAuth(params) {
-        const accessToken = AuthService.getTokenFromLocalStorage()
+    static async fetchWithAuth(params, accessToken) {
         if (!accessToken) {
             return window.location.replace(LOGIN_URL)
         }
