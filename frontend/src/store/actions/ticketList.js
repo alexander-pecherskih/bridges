@@ -8,14 +8,14 @@ const request = {
 const loaded = (tickets) => {
     return {
         type: TICKET_LIST_LOADED,
-        payload: tickets,
+        tickets,
     }
 }
 
 const fail = (error) => {
     return {
         type: TICKET_LIST_FAILURE,
-        payload: error,
+        error,
     }
 }
 

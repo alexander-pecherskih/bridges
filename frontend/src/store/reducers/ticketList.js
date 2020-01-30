@@ -16,7 +16,7 @@ const ticketList = (state = initialState, action) => {
             }
         case TICKET_LIST_LOADED:
             return {
-                tickets: action.payload,
+                tickets: action.tickets,
                 loading: false,
                 error: null,
             }
@@ -24,7 +24,7 @@ const ticketList = (state = initialState, action) => {
             return {
                 tickets: [],
                 loading: false,
-                error: action.payload,
+                error: action.error,
             }
         default:
             return state

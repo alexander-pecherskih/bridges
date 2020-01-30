@@ -3,26 +3,26 @@ import PropTypes from 'prop-types'
 
 import TBodyMessage from '../common/TBodyMessage'
 
-const TicketRow = ({ ticket }) => {
+const ProcessRow = ({ process }) => {
     return <tr>
-        <td>{ ticket.id }</td>
-        <td>{ ticket.title }</td>
+        <td>{ process.id }</td>
+        <td>{ process.title }</td>
     </tr>
 }
 
-TicketRow.propTypes = {
-    ticket: PropTypes.object,
+ProcessRow.propTypes = {
+    process: PropTypes.object,
 }
 
-const TicketList = ({ tickets, loading, errorMessage }) => {
-    let rows = tickets.map((item) => {
-        return <TicketRow ticket={ item } key={ item.id }/>
+const ProcessList = ({ processes, loading, errorMessage }) => {
+    let rows = processes.map((item) => {
+        return <ProcessRow process={ item } key={ item.id }/>
     })
 
     if (loading) {
         rows = <TBodyMessage colSpan={ 2 } message="Loading..." />
     } else if (rows.length === 0) {
-        rows = <TBodyMessage colSpan={ 2 } message="No one Ticket Found" />
+        rows = <TBodyMessage colSpan={ 2 } message="No one Process Found" />
     }
 
     if (errorMessage) {
@@ -31,10 +31,10 @@ const TicketList = ({ tickets, loading, errorMessage }) => {
 
     return <table>
         <thead>
-            <tr>
-                <th>id</th>
-                <th>title</th>
-            </tr>
+        <tr>
+            <th>id</th>
+            <th>title</th>
+        </tr>
         </thead>
         <tbody>
             { rows }
@@ -42,10 +42,10 @@ const TicketList = ({ tickets, loading, errorMessage }) => {
     </table>
 }
 
-TicketList.propTypes = {
-    tickets: PropTypes.array.isRequired,
+ProcessList.propTypes = {
+    processes: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string,
 }
 
-export default TicketList
+export default ProcessList

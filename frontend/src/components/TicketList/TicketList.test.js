@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import TicketList from './TicketList'
+import ProcessList from '../ProcessList/ProcessList'
 
 const tickets = [
     {
@@ -15,9 +16,29 @@ const tickets = [
 ]
 
 describe('<TicketList />', () => {
-    const wrapper = shallow(<TicketList tickets={ tickets } />)
 
-    it('Ticket List Have a Rows', () => {
-        expect(wrapper.find('table tbody TicketRow')).toHaveLength(2)
+    describe('TicketList initial', () => {
+        const wrapper = shallow(<TicketList tickets={ tickets } loading={ false } />)
+
+        it('Ticket List Have a Rows', () => {
+            expect(wrapper.find('table tbody TicketRow')).toHaveLength(2)
+        })
     })
+
+    describe('TicketList loading', () => {
+        const wrapper = shallow(<TicketList tickets={ tickets } loading={ true } />)
+
+        it('Ticket List Have a Loading message', () => {
+            expect(wrapper.find('TBodyMessage')).toHaveLength(1)
+        })
+    })
+
+    describe('TicketList is empty', () => {
+        const wrapper = shallow(<TicketList tickets={ [] } loading={ false } />)
+
+        it('TicketList Have a Nothing Found message', () => {
+            expect(wrapper.find('TBodyMessage')).toHaveLength(1)
+        })
+    })
+
 })

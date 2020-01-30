@@ -7,19 +7,25 @@ import { useLocation, withRouter } from 'react-router'
 import App from './App'
 import { logout, refreshAuthToken } from '../../store/actions'
 import { LoginPage } from '../../pages'
+import AuthService from '../../services/AuthService'
 
 const AppContainer = ({ authorized, loading, logout, refreshAuthToken }) => {
     const location = useLocation()
     useEffect(refreshAuthToken, [])
 
-    if (!loading && (!authorized || location.pathname === '/logout')) {
+    if (location.pathname === AuthService.getLoginUrl()) {
+        logout(true)
+        return null
+    }
+
+    if (!loading && !authorized) {
         return <LoginPage />
     }
     if (loading) {
         return <>Loading...</>
     }
 
-    return <App logout={ logout } />
+    return <App logout={ () => logout() } />
 }
 
 AppContainer.propTypes = {
