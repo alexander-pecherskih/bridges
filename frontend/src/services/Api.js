@@ -15,11 +15,19 @@ export default class Api {
         return BASE_URL
     }
 
-    static _fetch({ method = 'GET', url = '' }) {
+    static _fetch({ method = 'GET', url = '', token = null }) {
+        const headers = {
+            'Content-Type': 'application/json'
+        }
+
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
+        }
+
         return axios(
             Api.getUrl(url),
             {
-                headers: {'Content-Type': 'application/json'}
+                headers
             }
         )
     }
@@ -32,7 +40,6 @@ export default class Api {
 
         const jwt = jwt_decode(accessToken)
         if (!jwt) {
-            console.log('!jwt')
             return window.location.replace(LOGIN_URL)
         }
 
@@ -42,6 +49,8 @@ export default class Api {
                     return window.location.replace(LOGIN_URL)
                 })
         }
+
+        params.token = accessToken;
 
         return Api._fetch(params)
     }

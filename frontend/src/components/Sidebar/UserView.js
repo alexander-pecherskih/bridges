@@ -12,7 +12,6 @@ const UserView = ({ userInfo }) => {
 
 UserView.propTypes = {
     userInfo: PropTypes.shape({
-        id: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         name: PropTypes.object.isRequired,
         avatar: PropTypes.string,
