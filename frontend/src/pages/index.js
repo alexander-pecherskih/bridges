@@ -3,6 +3,7 @@ import HomePage from './HomePage'
 import SettingsPage from './SettingsPage'
 import ProfilePage from './ProfilePage'
 import ProcessesPage from './ProcessesPage'
+import ProcessPage from './ProcessPage'
 
 const PROJECT_NAME = 'The Bridge'
 const pages = [
@@ -38,6 +39,6 @@ const getPageTitle = (path, withProjectName = true) => {
     return `${page.title}${divider}${projectName}`
 }
 
-export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage }
+export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage, ProcessPage }
 
 export { getPageTitle }

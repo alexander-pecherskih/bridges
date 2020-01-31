@@ -1,5 +1,5 @@
 import React from 'react'
-import ProcessListContainer from '../components/ProcessList/ProcessListContainer'
+import ProcessListContainer from '../components/process/ProcessList'
 
 const ProcessesPage = () => {
     return <ProcessListContainer />

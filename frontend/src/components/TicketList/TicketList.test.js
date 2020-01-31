@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import TicketList from './TicketList'
-import ProcessList from '../ProcessList/ProcessList'
+import ProcessList from '../process/ProcessList/ProcessList'
 
 const tickets = [
     {

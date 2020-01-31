@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import { useLocation, withRouter } from 'react-router'
 
 import App from './App'
-import { logout, refreshAuthToken } from '../../store/actions'
+import { logout, refreshAuthToken } from '../../store/actions/auth'
 import { LoginPage } from '../../pages'
 import AuthService from '../../services/AuthService'
 

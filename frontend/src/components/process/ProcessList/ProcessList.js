@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import TBodyMessage from '../common/TBodyMessage'
+import TBodyMessage from '../../common/TBodyMessage'
+import { Link } from 'react-router-dom'
 
 const ProcessRow = ({ process }) => {
     return <tr>
-        <td>{ process.id }</td>
+        <td><Link to={`/process/${ process.id }`}>{ process.id }</Link></td>
         <td>{ process.title }</td>
     </tr>
 }

@@ -16,7 +16,7 @@ const userInfo = (state = initialState, action) => {
             }
         case USER_LOADED:
             return {
-                user: action.payload,
+                user: action.userInfo,
                 loading: false,
                 error: null,
             }
@@ -24,7 +24,7 @@ const userInfo = (state = initialState, action) => {
             return {
                 user: null,
                 loading: false,
-                error: action.payload,
+                error: action.error,
             }
         default:
             return state

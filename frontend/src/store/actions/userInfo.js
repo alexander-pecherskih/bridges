@@ -8,14 +8,14 @@ const request = {
 const loaded = (userInfo) => {
     return {
         type: USER_LOADED,
-        payload: userInfo,
+        userInfo,
     }
 }
 
 const fail = (error) => {
     return {
         type: USER_FAILURE,
-        payload: error,
+        error,
     }
 }
 

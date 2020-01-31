@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 
-import { auth, logout } from '../../store/actions'
+import { auth, logout } from '../../store/actions/auth'
 import LoginForm from './LoginForm'
 
 const LoginFormContainer = ({ auth, loading, error, logout }) => {

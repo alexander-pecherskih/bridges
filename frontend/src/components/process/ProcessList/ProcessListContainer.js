@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 
-import { getProcesses } from '../../store/actions/processList'
+import { getProcesses } from '../../../store/actions/processList'
 import ProcessList from './ProcessList'
 
 const ProcessListContainer = ({ processes, loading, error, getProcesses }) => {

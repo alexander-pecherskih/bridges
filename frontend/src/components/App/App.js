@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import Header from '../Header'
 import Footer from '../Footer'
-import { HomePage, ProcessesPage, ProfilePage, SettingsPage } from '../../pages'
+import { HomePage, ProcessesPage, ProfilePage, SettingsPage, ProcessPage } from '../../pages'
 
 const App = ({ logout }) => {
     return <>
@@ -16,6 +16,7 @@ const App = ({ logout }) => {
                         <Route path="/settings" component={ SettingsPage } />
                         <Route path="/profile" component={ ProfilePage } />
                         <Route path="/processes" component={ ProcessesPage } />
+                        <Route path="/process/:id" component={ ProcessPage } />
                     </Switch>
                 </div>
             </main>

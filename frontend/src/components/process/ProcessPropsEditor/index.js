@@ -1,0 +1,3 @@
+import ProcessPropsEditorContainer from './ProcessPropsEditorContainer'
+
+export default ProcessPropsEditorContainer
