@@ -35,11 +35,13 @@ const ProcessPropsEditor = ({ process, loading, saving, saveProcess }) => {
             <label htmlFor="title">Title</label>
         </div>
 
-        <button
-            className="waves-effect waves-light btn"
-            onClick={ () => { saveProcess(p) } }
-            disabled={ saving }
-        >Сохранить</button>
+        <div>
+            <button
+                className="waves-effect waves-light btn"
+                onClick={ () => { saveProcess(p) } }
+                disabled={ saving }
+            >Сохранить</button>
+        </div>
     </>
 }
 

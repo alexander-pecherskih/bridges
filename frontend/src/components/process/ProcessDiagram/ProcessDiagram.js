@@ -6,6 +6,7 @@ import { jsPlumb } from '../../common/jsPlumb'
 import Node from './Node'
 
 import './styles/diagram.sass'
+import Toolbar from '../Toolbar'
 
 const connectorConf = {
     anchors: ['Right', 'Left'],
@@ -52,7 +53,7 @@ const ProcessDiagram = ({ process }) => {
     });
 
     return <>
-        <div className="panel">asdasd</div>
+        <Toolbar process={ process } />
         <div id={ CANVAS_ID }>
             { nodes }
         </div>
