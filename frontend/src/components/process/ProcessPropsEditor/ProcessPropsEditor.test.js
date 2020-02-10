@@ -9,7 +9,6 @@ const process = {
 }
 
 describe('<ProcessPropsEditor />', () => {
-
     describe('ProcessPropsEditor initial', () => {
         const wrapper = mount(<ProcessPropsEditor process={ process } loading={ false }/>)
 
@@ -30,6 +29,17 @@ describe('<ProcessPropsEditor />', () => {
 
         it('ProcessPropsEditor load indicator', () => {
             expect(wrapper.find('TextMessage')).toHaveLength(1)
+        })
+    })
+
+    describe('editing', () => {
+        const wrapper = shallow(<ProcessPropsEditor process={ process } loading={ false }/>)
+
+        it('id changed', () => {
+            wrapper.find('#id').simulate('change', { target: { value: 7 } })
+        })
+        it('title changed', () => {
+            wrapper.find('#title').simulate('change', { target: { value: 7 } })
         })
     })
 
