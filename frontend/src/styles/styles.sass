@@ -9,18 +9,25 @@ body, #root
     flex-direction: column
 
 main
+    display: flex
     flex: 1 0 auto
+    align-items: stretch
 
 header, main, footer
     padding-left: $sidebar-width
 
 .main-container
+    display: flex
+    flex-direction: column
+    align-items: stretch
     position: relative
     padding: 1rem
+    min-height: 100%
+    width: 100%
 
 .error-message
     color: $error-color
 
-@media only screen and (max-width : 992px)
+@media only screen and (max-width: 992px)
     header, main, footer
         padding-left: 0

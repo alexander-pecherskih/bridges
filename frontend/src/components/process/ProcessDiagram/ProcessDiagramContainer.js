@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
-
-import ProcessPropsEditor from './ProcessPropsEditor'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { getProcess, saveProcess } from '../../../store/actions/process'
 import PropTypes from 'prop-types'
 
-const ProcessPropsEditorContainer = (props) => {
+import { getProcess, saveProcess } from '../../../store/actions/process'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { useParams } from 'react-router'
+
+import ProcessDiagram from './ProcessDiagram'
+import TextMessage from '../../common/TextMessage'
+
+const ProcessDiagramContainer = (props) => {
     const { getProcess } = props;
     const urlParams = useParams()
     const load = () => {
@@ -15,10 +17,14 @@ const ProcessPropsEditorContainer = (props) => {
     }
     useEffect(load, [])
 
-    return <ProcessPropsEditor { ...props } />
+    if (!props.process) {
+        return <TextMessage message="Loading..." />
+    }
+
+    return <ProcessDiagram { ...props }/>
 }
 
-ProcessPropsEditor.propTypes = {
+ProcessDiagramContainer.propTypes = {
     process: PropTypes.object,
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool.isRequired,
@@ -40,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps)
-)(ProcessPropsEditorContainer)
+)(ProcessDiagramContainer)

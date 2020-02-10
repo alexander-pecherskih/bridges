@@ -4,11 +4,12 @@ import SettingsPage from './SettingsPage'
 import ProfilePage from './ProfilePage'
 import ProcessesPage from './ProcessesPage'
 import ProcessPage from './ProcessPage'
+import DiagramPage from './DiagramPage'
 
 const PROJECT_NAME = 'The Bridge'
 const pages = [
     {
-        path: '/',
+        path: /^\/$/,
         title: 'Главная',
     },
     {
@@ -21,13 +22,22 @@ const pages = [
     },
     {
         path: '/processes',
-        title: 'Настройки процессов',
+        title: 'Процессы',
+    },
+    {
+        path: /\/process\/\d+/,
+        title: 'Параметры процесса',
+    },
+    {
+        path: /\/diagram\/\d+/,
+        title: 'Схема процесса',
     },
 ]
 
 const getPageTitle = (path, withProjectName = true) => {
     const page = pages.find((item) => {
-        return item.path === path
+        return (item.path instanceof RegExp && path.search(item.path) !== -1)
+            || path === item.path
     })
     const projectName = withProjectName ? PROJECT_NAME : ''
     const divider = withProjectName ? ' :: ' : ''
@@ -39,6 +49,6 @@ const getPageTitle = (path, withProjectName = true) => {
     return `${page.title}${divider}${projectName}`
 }
 
-export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage, ProcessPage }
+export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage, ProcessPage, DiagramPage }
 
 export { getPageTitle }

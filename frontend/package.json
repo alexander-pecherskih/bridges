@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.1",
+    "jsplumb": "^2.12.9",
     "jwt-decode": "^2.2.0",
     "materialize-css": "^1.0.0-rc.2",
     "node-sass": "^4.13.0",
