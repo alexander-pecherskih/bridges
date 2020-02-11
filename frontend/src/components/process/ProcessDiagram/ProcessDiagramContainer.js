@@ -10,18 +10,18 @@ import ProcessDiagram from './ProcessDiagram'
 import TextMessage from '../../common/TextMessage'
 
 const ProcessDiagramContainer = (props) => {
-    const { getProcess } = props;
+    const { getProcess, process } = props;
     const urlParams = useParams()
     const load = () => {
         getProcess(urlParams.id)
     }
     useEffect(load, [])
 
-    if (!props.process) {
+    if (!process) {
         return <TextMessage message="Loading..." />
     }
 
-    return <ProcessDiagram { ...props }/>
+    return <ProcessDiagram { ...props } />
 }
 
 ProcessDiagramContainer.propTypes = {

@@ -14,7 +14,6 @@ const nodes = [
             id: 2,
             name: 'Узел 2',
             position: { top: 80, left: 380 },
-            parent: 1,
             fields: [
                 {id: 1, name: 'Поле 1', type: 'строка'},
                 {id: 2, name: 'Поле 2', type: 'число'},
@@ -24,7 +23,6 @@ const nodes = [
             id: 3,
             name: 'Узел 3',
             position: { top: 380, left: 380 },
-            parent: 1,
             fields: [
                 {id: 1, name: 'Поле 1', type: 'строка'},
                 {id: 4, name: 'Поле 4', type: 'строка'},
@@ -34,13 +32,30 @@ const nodes = [
             id: 4,
             name: 'Узел 4',
             position: { top: 230, left: 730 },
-            parent: 2,
             fields: [
                 {id: 1, name: 'Поле 1', type: 'строка'},
                 {id: 4, name: 'Поле 4', type: 'строка'},
             ]
         },
-    ];
+    ]
+
+const connections = [
+    {
+        id: 1,
+        source_id: 1,
+        target_id: 2,
+    },
+    {
+        id: 2,
+        source_id: 2,
+        target_id: 3,
+    },
+    {
+        id: 3,
+        source_id: 2,
+        target_id: 4,
+    },
+]
 
 export default class ProcessService {
     static defaultProcessList = [
@@ -65,7 +80,7 @@ export default class ProcessService {
     static getProcess() {
         return new Promise( (resolve) => {
             setTimeout(() => {
-                resolve({ id: 1, title: 'process 1', nodes })
+                resolve({ id: 1, title: 'process 1', nodes, connections })
             }, 1000)
         })
     }

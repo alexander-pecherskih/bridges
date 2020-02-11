@@ -1,16 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
-import NodeEditor from '../NodeEditor/NodeEditor'
+const Toolbar = ({ process, nodes, addNode, updateNode }) => {
+    const nextId = nodes.length + 1
+    const getSelected = () => {
+        return nodes.find( item => item.selected )
+    }
 
-const Toolbar = ({ process }) => {
     return <div>
-        <Link to={`/process/${process.id}`} className="btn btn-small">Свойства</Link>
+        {/*<Link to={`/process/${process.id}`} className="btn btn-small">Свойства</Link>*/}
         &nbsp;
-        <button className="btn btn-small modal-trigger" data-target="node-editor">Создать узел</button>
-
-        <NodeEditor />
+        <button
+            className="btn-small"
+            onClick={ () => addNode(prompt('Введите название узла'), nextId) }
+        >Добавить</button>
+        &nbsp;
+        {/*<button*/}
+        {/*    className="btn-small" disabled={ !getSelected() }*/}
+        {/*    onClick={ () => console.log('delete') }*/}
+        {/*>Удалить</button>*/}
+        {/*&nbsp;*/}
+        <button
+            className="btn-small" disabled={ !getSelected() }
+            onClick={ () => updateNode(getSelected().id, prompt('Введите название узла', getSelected().name)) }
+        >Переименовать</button>
     </div>
 }
 

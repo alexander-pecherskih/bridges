@@ -21,11 +21,11 @@ const Sidebar = () => {
             </li>
             <li><Link to="/">
                 {/*<Icon icon="home" />*/}
-                Home
+                Задачи
             </Link></li>
             <Divider/>
-            <li><Link to="/processes">Processes</Link></li>
-            <li><Link to="/settings">Settings</Link></li>
+            <li><Link to="/processes">Процессы</Link></li>
+            <li><Link to="/settings">Настройки</Link></li>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             {/*<li><a href="#">Third Link With Waves</a></li>*/}
         </ul>
