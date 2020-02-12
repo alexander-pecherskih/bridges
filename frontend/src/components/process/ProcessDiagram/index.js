@@ -1,3 +1,3 @@
-import ProcessDiagramContainer from './ProcessDiagramContainer'
+import ProcessEditorContainer from './ProcessEditorContainer'
 
-export default ProcessDiagramContainer
+export default ProcessEditorContainer

@@ -26,7 +26,7 @@ const initConnections = (connections, jsPlumb) => {
     })
 }
 
-const Diagram = ({ nodes, connections, selectNode }) => {
+const Diagram = ({ nodes, connections, selectNode, selectedNodeId }) => {
     useEffect( () => {
         jsPlumb.setContainer( document.getElementById(DIAGRAM_CONTAINER_ID) )
         initConnections(connections, jsPlumb)
@@ -39,7 +39,7 @@ const Diagram = ({ nodes, connections, selectNode }) => {
             node={ item }
             key={ item.id }
             containerId={ DIAGRAM_CONTAINER_ID }
-            selected={ item.selected || false }
+            selected={ selectedNodeId === item.id || false }
             select={ selectNode }
         />
     })
@@ -53,6 +53,7 @@ Diagram.propTypes = {
     connections: PropTypes.array.isRequired,
     nodes: PropTypes.array.isRequired,
     selectNode: PropTypes.func.isRequired,
+    selectedNodeId: PropTypes.number,
 }
 
 export default Diagram

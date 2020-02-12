@@ -6,10 +6,10 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router'
 
-import ProcessDiagram from './ProcessDiagram'
+import ProcessEditor from './ProcessEditor'
 import TextMessage from '../../common/TextMessage'
 
-const ProcessDiagramContainer = (props) => {
+const ProcessEditorContainer = (props) => {
     const { getProcess, process } = props;
     const urlParams = useParams()
     const load = () => {
@@ -21,10 +21,10 @@ const ProcessDiagramContainer = (props) => {
         return <TextMessage message="Loading..." />
     }
 
-    return <ProcessDiagram { ...props } />
+    return <ProcessEditor { ...props } />
 }
 
-ProcessDiagramContainer.propTypes = {
+ProcessEditorContainer.propTypes = {
     process: PropTypes.object,
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool.isRequired,
@@ -46,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps)
-)(ProcessDiagramContainer)
+)(ProcessEditorContainer)

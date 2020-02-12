@@ -4,7 +4,7 @@ import SettingsPage from './SettingsPage'
 import ProfilePage from './ProfilePage'
 import ProcessesPage from './ProcessesPage'
 import ProcessPage from './ProcessPage'
-import DiagramPage from './DiagramPage'
+import ProcessEditorPage from './ProcessEditorPage'
 
 const PROJECT_NAME = 'The Bridge'
 const pages = [
@@ -30,7 +30,7 @@ const pages = [
     },
     {
         path: /\/diagram\/\d+/,
-        title: 'Схема процесса',
+        title: 'Редактор процесса',
     },
 ]
 
@@ -49,6 +49,6 @@ const getPageTitle = (path, withProjectName = true) => {
     return `${page.title}${divider}${projectName}`
 }
 
-export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage, ProcessPage, DiagramPage }
+export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage, ProcessPage, ProcessEditorPage }
 
 export { getPageTitle }
