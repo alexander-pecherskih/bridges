@@ -1,11 +1,11 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 
-import LoginForm from './LoginForm'
+import LoginForm from '../LoginForm'
 
 const defaultProps = {
-    setUsername: jest.fn,
-    setPassword: jest.fn,
+    setUsername: jest.fn(),
+    setPassword: jest.fn(),
     login: () => {  },
 }
 
@@ -48,6 +48,20 @@ describe('<LoginForm />', () => {
             wrapper.setProps({ loading: true })
             expect(wrapper.find('button').prop('disabled')).toBeTruthy()
         })
+    })
+
+    describe('Loginform edit & submit', () => {
+        const wrapper = shallow(<LoginForm { ...defaultProps } />)
+        const mockPreventDefault = jest.fn()
+
+        wrapper.find('#username').simulate('change', { target: { value: 'John' } })
+        expect(defaultProps.setUsername).toHaveBeenCalledTimes(1)
+
+        wrapper.find('#password').simulate('change', { target: { value: 'Secret' } })
+        expect(defaultProps.setPassword).toHaveBeenCalledTimes(1)
+
+        wrapper.find('form').simulate('submit', { preventDefault: mockPreventDefault })
+        expect(mockPreventDefault).toHaveBeenCalledTimes(1)
     })
 
     describe('LoginForm without Error Message', () => {
