@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom'
 const ProcessRow = ({ process }) => {
     return <tr>
         <td>
-            <Link to={`/process/${ process.id }`}>{ process.id }</Link>
+            { process.id }
             &nbsp;-&nbsp;
-            <Link to={`/diagram/${ process.id }`}>diagram</Link>
+            <Link to={`/process/${ process.id }`}>diagram</Link>
         </td>
         <td>{ process.title }</td>
     </tr>

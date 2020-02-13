@@ -3,7 +3,6 @@ import HomePage from './HomePage'
 import SettingsPage from './SettingsPage'
 import ProfilePage from './ProfilePage'
 import ProcessesPage from './ProcessesPage'
-import ProcessPage from './ProcessPage'
 import ProcessEditorPage from './ProcessEditorPage'
 
 const PROJECT_NAME = 'The Bridge'
@@ -26,10 +25,6 @@ const pages = [
     },
     {
         path: /\/process\/\d+/,
-        title: 'Параметры процесса',
-    },
-    {
-        path: /\/diagram\/\d+/,
         title: 'Редактор процесса',
     },
 ]
@@ -49,6 +44,6 @@ const getPageTitle = (path, withProjectName = true) => {
     return `${page.title}${divider}${projectName}`
 }
 
-export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage, ProcessPage, ProcessEditorPage }
+export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage, ProcessEditorPage }
 
 export { getPageTitle }
