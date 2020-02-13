@@ -47,14 +47,14 @@ class StuffFixture extends Fixture implements DependentFixtureInterface
             Uuid::uuid4(),
             new DateTimeImmutable(),
             $company1,
-            new Title('sales')
+            'sales'
         );
 
         $department2 = new Department(
             Uuid::uuid4(),
             new DateTimeImmutable(),
             $company1,
-            new Title('wholesale'),
+            'wholesale',
             $department1
         );
 
@@ -62,7 +62,7 @@ class StuffFixture extends Fixture implements DependentFixtureInterface
             Uuid::uuid4(),
             new DateTimeImmutable(),
             $company1,
-            new Title('retail'),
+            'retail',
             $department1
         );
 
@@ -70,14 +70,14 @@ class StuffFixture extends Fixture implements DependentFixtureInterface
             Uuid::uuid4(),
             new DateTimeImmutable(),
             $company1,
-            new Title('Lightcab')
+            'Lightcab'
         );
 
         $department5 = new Department(
             Uuid::uuid4(),
             new DateTimeImmutable(),
             $company1,
-            new Title('петухи'),
+            'петухи',
             $department4
         );
 
@@ -85,7 +85,7 @@ class StuffFixture extends Fixture implements DependentFixtureInterface
             Uuid::uuid4(),
             new DateTimeImmutable(),
             $company1,
-            new Title('пидоры'),
+            'пидоры',
             $department4
         );
 
