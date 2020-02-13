@@ -8,7 +8,7 @@ const Toolbar = ({ buttons }) => {
     const buttonList = buttons.map( (btn, index) => {
         return <button
             className="toolbar__btn btn-small"
-            onClick={ () => btn.handler() }
+            onClick={ btn.handler }
             disabled={ btn.disabled }
             key={ index }
         >

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useLocation } from 'react-router'
 
@@ -21,7 +21,7 @@ const Header = ({ logout }) => {
             <div className="header__nav-wrapper">
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <li><a onClick={ logout }>Logout</a></li>
+                    <li><a onClick={ logout } className="logout-button">Logout</a></li>
                 </ul>
             </div>
         </nav>
