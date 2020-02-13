@@ -24,7 +24,7 @@ class OAuthFixture extends Fixture
         $user = (new UserBuilder(Uuid::uuid4(), 'OAuth', 'User'))
             ->withEmail(
                 'oauth-password-user@app.test',
-                '$2y$12$qwnND33o8DGWvFoepotSju7eTAQ6gzLD/zy6W8NCVtiHPbkybz.w6' // 'password'
+                '$2y$10$UroTFDYDMPs5juulB/.ntubqFRGjS26hd0DY8akpW/aUcrzMMtTBK' // 'password'
             )
             ->confirmed()
             ->build();

@@ -11,12 +11,10 @@ use Ramsey\Uuid\UuidInterface;
  * Class NodeFieldValue
  * @package App\Entity\Ticket
  *
- * @ORM/Entity()
  */
 class NodeFieldValue
 {
     /**
-     * @var int
      * @ORM\Id()
      * @ORM\Column(type="integer", unique=true, nullable=false)
      */

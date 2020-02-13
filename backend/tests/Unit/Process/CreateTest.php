@@ -23,12 +23,12 @@ class CreateTest extends TestCase
             $id = Uuid::uuid4(),
             $now = new DateTimeImmutable(),
             $user,
-            new Title($title = 'Process')
+            $title = 'Process'
         );
 
         self::assertEquals($id, $process->getId());
         self::assertEquals($now, $process->getCreated());
-        self::assertEquals($title, $process->getTitle()->getValue());
+        self::assertEquals($title, $process->getTitle());
         self::assertEquals($user, $process->getOwner());
         self::assertNull($process->getStartNode());
     }

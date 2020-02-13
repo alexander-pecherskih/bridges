@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace App\Tests\Functional\Auth;
 
-/* extends DbWebTestCase*/
-class SignUpTest
+use App\Tests\Functional\DbWebTestCase;
+
+class SignUpTest extends DbWebTestCase
 {
     private const URI = '/signup';
 
@@ -52,10 +53,7 @@ class SignUpTest
                 ['propertyPath' => 'first_name', 'title' => 'This value should not be blank.'],
                 ['propertyPath' => 'last_name', 'title' => 'This value should not be blank.'],
                 ['propertyPath' => 'email', 'title' => 'This value is not a valid email address.'],
-                [
-                    'propertyPath' => 'password',
-                    'title' => 'This value is too short. It should have 6 characters or more.'
-                ],
+                ['propertyPath' => 'password', 'title' => 'This value is too short. It should have 6 characters or more.'],
             ],
         ], $data);
     }

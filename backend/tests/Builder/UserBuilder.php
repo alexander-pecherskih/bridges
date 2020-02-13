@@ -101,7 +101,7 @@ class UserBuilder
         $clone = clone $this;
         $clone->email = new User\Email($email ?? 'trololo@example.com');
         $clone->hash = $hash ?? 'hash';
-        $clone->token = $token ?? 'hash';
+        $clone->token = $token ?? 'token';
         return $clone;
     }
 

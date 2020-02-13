@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Model\User\UseCase\Reset\Reset;
 
-use App\Model\User\Entity\User;
+use App\Model\User\Entity\User\User;
+use App\Model\User\Entity\User\UserRepositoryInterface;
 use App\Model\Flusher;
 use App\Model\User\Service\PasswordHasher;
 use DateTimeImmutable;
@@ -12,12 +13,12 @@ use Exception;
 
 class Handler
 {
-    private User\UserRepositoryInterface $users;
+    private UserRepositoryInterface $users;
     private PasswordHasher $hasher;
     private Flusher $flusher;
 
     public function __construct(
-        User\UserRepositoryInterface $users,
+        UserRepositoryInterface $users,
         PasswordHasher $hasher,
         Flusher $flusher
     ) {
@@ -32,7 +33,7 @@ class Handler
      */
     public function handle(Command $command): void
     {
-        /** @var User\User $user */
+        /** @var User $user */
         $user = $this->users->getByResetToken($command->token);
 
         $user->resetPassword($this->hasher->hash($command->password), new DateTimeImmutable());

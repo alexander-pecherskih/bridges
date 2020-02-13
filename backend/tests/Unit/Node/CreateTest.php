@@ -23,14 +23,14 @@ class CreateTest extends TestCase
         $node = new Node(
             $id = Uuid::uuid4(),
             $now = new DateTimeImmutable(),
-            new Title($title = 'Node'),
+            $title = 'Node',
             $process,
             new Position($top = 100, $left = 100)
         );
 
         self::assertEquals($id, $node->getId());
         self::assertEquals($now, $node->getCreated());
-        self::assertEquals($title, $node->getTitle()->getValue());
+        self::assertEquals($title, $node->getTitle());
         self::assertEquals($process, $node->getProcess());
         self::assertEquals($top, $node->getPosition()->getTop());
         self::assertEquals($left, $node->getPosition()->getLeft());

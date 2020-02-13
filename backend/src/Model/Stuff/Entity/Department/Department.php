@@ -11,17 +11,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation as Serializer;
+
 
 /**
  * @property UuidInterface $id
  * @property DateTimeImmutable $created
  * @property DateTimeImmutable $modified
- * @property Title $title
+ * @property string $title
  * @property Department $parent
  * @property Company $company
  * @property Collection $children
  *
- * @ORM\Entity(repositoryClass="App\Repository\DepartmentRepository")
+ * @ORM\Entity
  * @ORM\Table(name="departments")
  */
 class Department
@@ -29,12 +31,14 @@ class Department
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid", unique=true)
+     * @Serializer\Groups({"process-view"})
      */
     private UuidInterface $id;
 
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", nullable=false)
+     * @Serializer\Groups({"process-view"})
      */
     private DateTimeImmutable $created;
 
@@ -46,17 +50,18 @@ class Department
 
     /**
      * @ORM\Column(type="text", nullable=false)
+     * @Serializer\Groups({"process-view"})
      */
-    private Title $title;
+    private string $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\ManyToOne(targetEntity="App\Model\Stuff\Entity\Company\Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     public Company $company;
 
     /**
-     * @ORM\ManyToOne( targetEntity="Department", inversedBy="children" )
+     * @ORM\ManyToOne(targetEntity="Department", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private ?Department $parent;
@@ -73,7 +78,7 @@ class Department
         UuidInterface $id,
         DateTimeImmutable $created,
         Company $company,
-        Title $title,
+        string $title,
         Department $parent = null
     ) {
         $this->id = $id;
@@ -86,7 +91,7 @@ class Department
         $this->children = new ArrayCollection();
     }
 
-    public function rename(Title $title): void
+    public function rename(string $title): void
     {
         $this->title = $title;
     }
@@ -128,7 +133,7 @@ class Department
         return $this->modified;
     }
 
-    public function getTitle(): Title
+    public function getTitle(): string
     {
         return $this->title;
     }

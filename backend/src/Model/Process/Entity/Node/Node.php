@@ -3,48 +3,63 @@
 namespace App\Model\Process\Entity\Node;
 
 use App\Model\Process\Entity\Process\Process;
+use App\Model\Process\Entity\Process\Route;
 use App\Model\Stuff\Entity\Department\Department;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation as Serializer;
 
 /**
- * Class Node
- * @package App\Entity
  * @ORM\Entity()
+ * @ORM\Table(name="nodes")
  */
 class Node
 {
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
+     * @Serializer\Groups({"process-view"})
      */
     private UuidInterface $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Process")
+     * @ORM\ManyToOne(targetEntity="App\Model\Process\Entity\Process\Process", inversedBy="nodes")
      * @ORM\JoinColumn(name="process_id", referencedColumnName="id")
      */
     private Process $process;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Department")
+     * @ORM\ManyToOne(targetEntity="App\Model\Stuff\Entity\Department\Department")
      * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
+     * @Serializer\MaxDepth(1)
+     * @Serializer\Groups({"process-view"})
      */
-    private Department $department;
+    private ?Department $department;
 
     /**
      * @ORM\Column(name="title", type="string", nullable=false)
+     * @Serializer\Groups({"process-view"})
      */
-    private Title $title;
+    private string $title;
 
     /**
      * @ORM\Embedded(class="Position", columnPrefix="position_")
+     * @Serializer\Groups({"process-view"})
      */
     private Position $position;
 
     /**
+     * @var Collection|Route[]
+     * @ORM\OneToMany(targetEntity="App\Model\Process\Entity\Process\Route", mappedBy="source")
+     */
+    private Collection $routes;
+
+    /**
      * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
+     * @Serializer\Groups({"process-view"})
      */
     private DateTimeImmutable $created;
 
@@ -56,7 +71,7 @@ class Node
     public function __construct(
         UuidInterface $id,
         DateTimeImmutable $created,
-        Title $title,
+        string $title,
         Process $process,
         Position $position
     ) {
@@ -66,6 +81,8 @@ class Node
         $this->process = $process;
         $this->created = $created;
         $this->modified = null;
+
+        $this->routes = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -78,7 +95,7 @@ class Node
         return $this->created;
     }
 
-    public function getTitle(): Title
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -98,6 +115,10 @@ class Node
         return $this->modified;
     }
 
+    /**
+     * @return Department|null
+     * @Serializer\MaxDepth(1)
+     */
     public function getDepartment(): ?Department
     {
         return $this->department;
@@ -115,8 +136,13 @@ class Node
         $this->modified = new DateTimeImmutable();
     }
 
-    public function rename(Title $title): void
+    public function rename(string $title): void
     {
         $this->title = $title;
+    }
+
+    public function getRoutes(): Collection
+    {
+        return $this->routes;
     }
 }

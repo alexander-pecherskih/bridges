@@ -7,6 +7,7 @@ use App\Model\Stuff\Entity\Department\Department;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation as Serializer;
 
 /**
  * @property UuidInterface $id
@@ -17,7 +18,7 @@ use Ramsey\Uuid\UuidInterface;
  * @property Company $company
  * @property Department $department
  *
- * @ORM\Entity(repositoryClass="App\Repository\EmployeeRepository")
+ * @ORM\Entity
  * @ORM\Table(name="employees")
  */
 class Employee
@@ -26,6 +27,7 @@ class Employee
      * @var UuidInterface
      * @ORM\Id
      * @ORM\Column(type="uuid")
+     * @Serializer\Groups({"process-view"})
      */
     public UuidInterface $id;
 
@@ -37,6 +39,7 @@ class Employee
 
     /**
      * @ORM\Embedded(class="Name", columnPrefix="name_")
+     * @Serializer\Groups({"process-view"})
      */
     public Name $name;
 
@@ -53,14 +56,14 @@ class Employee
 
     /**
      * @var Company
-     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\ManyToOne(targetEntity="App\Model\Stuff\Entity\Company\Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     public Company $company;
 
     /**
      * @var Department
-     * @ORM\ManyToOne(targetEntity="Department")
+     * @ORM\ManyToOne(targetEntity="App\Model\Stuff\Entity\Department\Department")
      * @ORM\JoinColumn(name="department_id", referencedColumnName="id")
      */
     public Department $department;
