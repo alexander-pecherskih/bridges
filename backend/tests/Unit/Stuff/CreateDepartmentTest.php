@@ -4,7 +4,6 @@ namespace Unit\Stuff;
 
 use App\Model\Stuff\Entity\Company\Company;
 use App\Model\Stuff\Entity\Department\Department;
-use App\Model\Stuff\Entity\Department\Title;
 use DateTimeImmutable;
 use Exception;
 use PHPUnit\Framework\TestCase;
@@ -25,12 +24,12 @@ class CreateDepartmentTest extends TestCase
                 $companyCreated = new DateTimeImmutable(),
                 $companyTitle = 'Company'
             ),
-            new Title($title = 'Department')
+            $title = 'Department'
         );
 
         self::assertEquals($department->getId(), $id);
         self::assertEquals($department->getCreated(), $created);
-        self::assertEquals($department->getTitle()->getValue(), $title);
+        self::assertEquals($department->getTitle(), $title);
         self::assertNull($department->getParent());
         self::assertNull($department->getModified());
 
@@ -38,7 +37,7 @@ class CreateDepartmentTest extends TestCase
             Uuid::uuid4(),
             new DateTimeImmutable(),
             $company,
-            new Title('Root Department')
+            'Root Department'
         );
 
         $department->move($parent);
@@ -54,7 +53,7 @@ class CreateDepartmentTest extends TestCase
             Uuid::uuid4(),
             new DateTimeImmutable(),
             new Company(Uuid::uuid4(), new DateTimeImmutable(), 'Company'),
-            new Title('Root Department')
+            'Root Department'
         );
 
         self::expectExceptionMessage('Wrong Company');

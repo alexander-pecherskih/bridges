@@ -18,9 +18,9 @@ security:
             anonymous: true
             stateless: true
             oauth2: true
-            http_basic:
-                provider: fetcher
-            user_checker: App\Security\UserChecker
+#            http_basic:
+#                provider: fetcher
+#            user_checker: App\Security\UserChecker
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

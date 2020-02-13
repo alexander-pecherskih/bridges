@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model\User\UseCase\SignUp\Request;
 
-use App\Model\User\Entity\User;
 use App\Model\Flusher;
+use App\Model\User\Entity\User\Email;
+use App\Model\User\Entity\User\Name;
+use App\Model\User\Entity\User\User;
+use App\Model\User\Entity\User\UserRepositoryInterface;
 use App\Model\User\Service\PasswordHasher;
 use App\Model\User\Service\SignUpConfirmTokenizer;
 use App\Model\User\Service\SignUpConfirmTokenSender;
@@ -16,14 +19,14 @@ use Twig\Error;
 
 class Handler
 {
-    private User\UserRepositoryInterface $userRepository;
+    private UserRepositoryInterface $userRepository;
     private PasswordHasher $hasher;
     private SignUpConfirmTokenizer $tokenizer;
     private SignUpConfirmTokenSender $sender;
     private Flusher $flusher;
 
     public function __construct(
-        User\UserRepositoryInterface $userRepository,
+        UserRepositoryInterface $userRepository,
         PasswordHasher $hasher,
         SignUpConfirmTokenizer $tokenizer,
         SignUpConfirmTokenSender $sender,
@@ -45,16 +48,16 @@ class Handler
      */
     public function handle(Command $command): void
     {
-        $email = new User\Email($command->email);
+        $email = new Email($command->email);
 
         if ($this->userRepository->hasByEmail($email)) {
             throw new DomainException('User already exists.');
         }
 
-        $user = User\User::signUpByEmail(
+        $user = User::signUpByEmail(
             $this->userRepository->nextId(),
             new DateTimeImmutable(),
-            new User\Name($command->firstName, $command->lastName, $command->patronymic),
+            new Name($command->firstName, $command->lastName, $command->patronymic),
             $email,
             $this->hasher->hash($command->password),
             $token = $this->tokenizer->generate()

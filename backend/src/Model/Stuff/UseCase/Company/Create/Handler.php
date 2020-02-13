@@ -7,6 +7,7 @@ namespace App\Model\Stuff\UseCase\Company\Create;
 use App\Model\Flusher;
 use App\Model\Stuff\Entity\Company\Company;
 use App\Model\Stuff\Entity\Company\CompanyRepositoryInterface;
+use App\Repository\CompanyRepository;
 use DateTimeImmutable;
 use Exception;
 use Ramsey\Uuid\Uuid;
@@ -16,7 +17,7 @@ class Handler
     private CompanyRepositoryInterface $companyRepository;
     private Flusher $flusher;
 
-    public function __construct(CompanyRepositoryInterface $companyRepository, Flusher $flusher)
+    public function __construct(CompanyRepository $companyRepository, Flusher $flusher)
     {
         $this->companyRepository = $companyRepository;
         $this->flusher = $flusher;

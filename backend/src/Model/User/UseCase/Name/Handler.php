@@ -6,16 +6,16 @@ namespace App\Model\User\UseCase\Name;
 
 use App\Model\Flusher;
 use App\Model\User\Entity\User\Name;
-use App\Repository\UserRepository;
+use App\Model\User\Entity\User\UserRepositoryInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Ramsey\Uuid\Uuid;
 
 class Handler
 {
-    private UserRepository $userRepository;
+    private UserRepositoryInterface $userRepository;
     private Flusher $flusher;
 
-    public function __construct(UserRepository $userRepository, Flusher $flusher)
+    public function __construct(UserRepositoryInterface $userRepository, Flusher $flusher)
     {
         $this->userRepository = $userRepository;
         $this->flusher = $flusher;

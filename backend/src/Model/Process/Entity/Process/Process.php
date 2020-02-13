@@ -3,63 +3,75 @@
 namespace App\Model\Process\Entity\Process;
 
 use App\Model\Process\Entity\Node\Node;
-use App\Model\User\Entity\User\User;
+use App\Model\Stuff\Entity\Employee\Employee;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
+use Exception;
+use Symfony\Component\Serializer\Annotation as Serializer;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class Process
- * @package App\Entity
  * @ORM\Entity
+ * @ORM\Table(name="process")
  */
 class Process
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
+     * @Serializer\Groups({"process-view"})
      */
     private UuidInterface $id;
 
     /**
      * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
+     * @Serializer\Groups({"process-view"})
      */
     private DateTimeImmutable $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Model\User\Entity\User\User")
+     * @ORM\ManyToOne(targetEntity="App\Model\Stuff\Entity\Employee\Employee")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * @Serializer\Groups({"process-view"})
      */
-    private User $owner;
+    private Employee $owner;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(name="title", type="string", nullable=false)
+     * @Serializer\Groups({"process-view"})
      */
-    private Title $title;
+    private string $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Model\Node\Node")
+     * @ORM\OneToOne(targetEntity="App\Model\Process\Entity\Node\Node")
      * @ORM\JoinColumn(name="start_node_id", referencedColumnName="id", nullable=true)
+     * @Serializer\MaxDepth(1);
+     * @Serializer\Groups({"process-view"})
      */
     private ?Node $startNode = null;
 
     /**
      * @var Collection|Node[] $nodes
      *
-     * @ORM\OneToMany(
-     *     targetEntity="Node",
-     *     mappedBy="process",
-     *     orphanRemoval=true,
-     *     cascade={"all"}
-     * )
+     * @ORM\OneToMany(targetEntity="App\Model\Process\Entity\Node\Node", mappedBy="process")
      * @ORM\OrderBy({"title" = "ASC"})
+     * @Serializer\Groups({"process-view"})
      */
     private Collection $nodes;
 
-    public function __construct(UuidInterface $id, DateTimeImmutable $created, User $owner, Title $title)
+    /**
+     * @var Collection|Route[] $routes
+     *
+     * @ORM\OneToMany(targetEntity="Route", mappedBy="process", orphanRemoval=true, cascade={"all"})
+     * @Serializer\Groups({"process-view"})
+     */
+    private Collection $routes;
+
+    public function __construct(UuidInterface $id, DateTimeImmutable $created, Employee $owner, string $title)
     {
         $this->id = $id;
         $this->created = $created;
@@ -67,6 +79,7 @@ class Process
         $this->title = $title;
 
         $this->nodes = new ArrayCollection();
+        $this->routes = new ArrayCollection();
     }
 
     public function getId(): UuidInterface
@@ -79,12 +92,12 @@ class Process
         return $this->created;
     }
 
-    public function getOwner(): User
+    public function getOwner(): Employee
     {
         return $this->owner;
     }
 
-    public function getTitle(): Title
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -94,7 +107,7 @@ class Process
         return $this->startNode;
     }
 
-    public function rename(Title $title): void
+    public function rename(string $title): void
     {
         $this->title = $title;
     }
@@ -109,5 +122,48 @@ class Process
         }
 
         $this->startNode = $node;
+    }
+
+    public function getNodes(): Collection
+    {
+        return $this->nodes;
+    }
+
+    public function getRoutes(): Collection
+    {
+        return $this->routes;
+    }
+
+    /**
+     * @param Node $source
+     * @param Node $target
+     * @throws Exception
+     */
+    public function addRoute(Node $source, Node $target): void
+    {
+        $route = new Route(
+            Uuid::uuid4(),
+            new DateTimeImmutable(),
+            $this,
+            $source,
+            $target
+        );
+
+        $this->routes->add($route);
+    }
+
+    /**
+     * @param UuidInterface $routeId
+     */
+    public function removeRoute(UuidInterface $routeId): void
+    {
+        foreach ($this->routes as $route) {
+            if ($route->getId() === $routeId) {
+                $this->routes->removeElement($route);
+                return;
+            }
+        }
+
+        throw new DomainException('Route is not found.');
     }
 }

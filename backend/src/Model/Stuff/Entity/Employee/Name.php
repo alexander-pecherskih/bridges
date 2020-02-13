@@ -6,6 +6,7 @@ namespace App\Model\Stuff\Entity\Employee;
 
 use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;
+use Symfony\Component\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Embeddable
@@ -14,16 +15,19 @@ class Name
 {
     /**
      * @ORM\Column(type="string")
+     * @Serializer\Groups({"process-view"})
      */
     private string $first;
 
     /**
      * @ORM\Column(type="string")
+     * @Serializer\Groups({"process-view"})
      */
     private string $last;
 
     /**
      * @ORM\Column(type="string")
+     * @Serializer\Groups({"process-view"})
      */
     private string $patronymic;
 

@@ -14,7 +14,7 @@ use Webmozart\Assert\Assert;
  * @property DateTimeImmutable $created
  * @property string $title
  *
- * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
+ * @ORM\Entity
  * @ORM\Table(name="companies")
  */
 class Company

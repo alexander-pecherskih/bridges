@@ -19,7 +19,6 @@ class CompanyController extends AbstractController
     /**
      * @Route("", name="stuff.companies", methods={"GET"})
      * @param Request $request
-     *
      */
     public function index(Request $request)
     {

@@ -16,7 +16,11 @@ interface UserRepositoryInterface
 
     public function getByEmail(Email $email): User;
 
-    public function findByConfirmToken(string $token): ?User;
+    public function getByResetToken(string $token): User;
+
+    public function hasByEmail(Email $email): bool;
 
     public function hasByNetworkIdentity(string $network, string $identity): bool;
+
+    public function findByConfirmToken(string $token): ?User;
 }

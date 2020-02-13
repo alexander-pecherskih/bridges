@@ -42,9 +42,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function get(UuidInterface $id): User
     {
-        $user = $this->repo->findOneBy(['id' => $id->toString()]);
-
-        if (!$user) {
+        if (!$user = $this->repo->find($id)) {
             throw new ORM\EntityNotFoundException('User is not found');
         }
 
@@ -87,9 +85,10 @@ class UserRepository implements UserRepositoryInterface
      */
     public function hasByEmail(Email $email): bool
     {
-        return $this->repo->createQueryBuilder('t')
-                ->select('COUNT(t.id)')
-                ->andWhere('t.email = :email')
+        return $this->em->createQueryBuilder()
+                ->select('COUNT(u.id)')
+                ->from('User', 'u')
+                ->andWhere('u.email = :email')
                 ->setParameter(':email', $email->getValue())
                 ->getQuery()
                 ->getSingleScalarResult() > 0;
@@ -118,42 +117,14 @@ class UserRepository implements UserRepositoryInterface
      */
     public function hasByNetworkIdentity(string $network, string $identity): bool
     {
-        return $this->repo->createQueryBuilder('t')
-                ->select('COUNT(t.id)')
-                ->innerJoin('t.networks', 'n')
+        return $this->em->createQueryBuilder()
+                ->select('COUNT(u.id)')
+                ->from('User', 'u')
+                ->innerJoin('u.networks', 'n')
                 ->andWhere('n.network = :network and n.identity = :identity')
                 ->setParameter(':network', $network)
                 ->setParameter(':identity', $identity)
                 ->getQuery()
                 ->getSingleScalarResult() > 0;
     }
-
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

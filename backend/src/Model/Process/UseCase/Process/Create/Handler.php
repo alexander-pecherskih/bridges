@@ -34,7 +34,7 @@ class Handler
             $this->processRepository::nextId(),
             new DateTimeImmutable(),
             $user,
-            new Title($command->title)
+            $command->title
         );
 
         $this->processRepository->add($process);

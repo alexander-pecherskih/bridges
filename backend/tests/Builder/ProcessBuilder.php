@@ -3,7 +3,6 @@
 namespace App\Tests\Builder;
 
 use App\Model\Process\Entity\Process\Process;
-use App\Model\Process\Entity\Process\Title;
 use App\Model\User\Entity\User\User;
 use DateTimeImmutable;
 use Exception;
@@ -12,10 +11,10 @@ use Ramsey\Uuid\UuidInterface;
 
 class ProcessBuilder
 {
-    private $id;
-    private $created;
-    private $title;
-    private $owner;
+    private UuidInterface $id;
+    private DateTimeImmutable $created;
+    private string $title;
+    private User $owner;
 
     /**
      * ProcessBuilder constructor.
@@ -34,7 +33,7 @@ class ProcessBuilder
         $this->id = $id ?? Uuid::uuid4();
         $this->created = $created ?? new DateTimeImmutable();
         $this->owner = $owner ?? (new UserBuilder())->withEmail()->build();
-        $this->title = new Title($title ?? 'Process');
+        $this->title = $title ?? 'Process';
     }
 
     public function withCreated(DateTimeImmutable $created): self
