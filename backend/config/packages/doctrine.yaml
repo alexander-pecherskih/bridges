@@ -21,6 +21,7 @@ doctrine:
             uuid: 'Ramsey\Uuid\Doctrine\UuidType'
             user_email: 'App\Model\User\Entity\User\EmailType'
             user_role: 'App\Model\User\Entity\User\RoleType'
+            employee_email: 'App\Model\Stuff\Entity\Employee\EmailType'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -32,15 +33,14 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Model/User/Entity'
                 prefix: 'App\Model\User\Entity'
                 alias: User
-#            Process:
-#                is_bundle: false
-#                type: annotation
-#                dir: '%kernel.project_dir%/src/Model/Process/Entity'
-#                prefix: 'App\Model\Process\Entity'
-#                alias: User
-#            Node:
-#                is_bundle: false
-#                type: annotation
-#                dir: '%kernel.project_dir%/src/Model/Node/Entity'
-#                prefix: 'App\Model\Node\Entity'
-#                alias: User
+            Process:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Model/Process/Entity'
+                prefix: 'App\Model\Process\Entity'
+            Stuff:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Model/Stuff/Entity'
+                prefix: 'App\Model\Stuff\Entity'
+                alias: Process

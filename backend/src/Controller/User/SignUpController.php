@@ -3,6 +3,7 @@
 namespace App\Controller\User;
 
 use App\Model\User\UseCase\SignUp;
+use App\Repository\UserRepository;
 use DomainException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,7 +28,7 @@ class SignUpController extends AbstractController
     }
 
     /**
-     * @Route("/signup", name="signup.request")
+     * @Route("/signup", name="signup.request", methods={"POST"})
      *
      * @param Request $request
      * @param SignUp\Request\Handler $handler
@@ -65,9 +66,10 @@ class SignUpController extends AbstractController
      */
     public function confirm(
         string $token,
-        SignUp\Confirm\Handler $handler
+        SignUp\Confirm\Handler $handler,
+        UserRepository $userRepository
     ): Response {
-        if (!$user = $this->users->findBySignUpConfirmToken($token)) {
+        if (!$user = $userRepository->findBySignUpConfirmToken($token)) {
             $this->addFlash('error', 'Incorrect or already confirmed token.');
             return $this->redirectToRoute('auth.signup');
         }

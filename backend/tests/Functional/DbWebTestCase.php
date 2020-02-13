@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Doctrine\DBAL\ConnectionException;
 
-class DbWebTestCase extends WebTestCase
+class DbWebTestCase /*extends WebTestCase*/
 {
     private EntityManagerInterface $em;
 

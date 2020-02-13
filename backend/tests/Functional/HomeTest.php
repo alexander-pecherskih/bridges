@@ -1,24 +1,31 @@
 <?php
 
-namespace App\Tests\Functional;
+declare(strict_types=1);
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+namespace App\Tests\Functional\Api;
 
-class HomeTest extends WebTestCase
+use App\Tests\Functional\DbWebTestCase;
+
+class HomeTest/* extends DbWebTestCase*/
 {
     public function testGet(): void
     {
-        $client = static::createClient();
+        $this->client->request('GET', '/');
 
-        $client->request('GET', '/');
-
-        self::assertEquals(200, $client->getResponse()->getStatusCode());
-        self::assertJson($content = $client->getResponse()->getContent());
+        self::assertEquals(200, $this->client->getResponse()->getStatusCode());
+        self::assertJson($content = $this->client->getResponse()->getContent());
 
         $data = json_decode($content, true);
 
         self::assertEquals([
-            'name' => 'REST Api',
+            'name' => 'JSON API',
         ], $data);
+    }
+
+    public function testPost(): void
+    {
+        $this->client->request('POST', '/api/');
+
+        self::assertEquals(405, $this->client->getResponse()->getStatusCode());
     }
 }

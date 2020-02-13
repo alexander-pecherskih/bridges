@@ -4,6 +4,7 @@ namespace App\Model\Process\Entity\Node;
 
 use Webmozart\Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Embeddable()
@@ -16,12 +17,14 @@ class Position
     /**
      * @var int
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"process-view"})
      */
     private int $top;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
+     * @Serializer\Groups({"process-view"})
      */
     private int $left;
 

@@ -9,7 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class Ticket
 {
-    private Id $id;
+    private UuidInterface $id;
 
     private User\User $author;
 
@@ -22,7 +22,7 @@ class Ticket
      */
     private Collection $nodeFieldValues;
 
-    public function __construct(Id $id, UuidInterface $processId, User\User $author, string $text)
+    public function __construct(UuidInterface $id, UuidInterface $processId, User\User $author, string $text)
     {
         $this->id = $id;
         $this->processId = $processId;
