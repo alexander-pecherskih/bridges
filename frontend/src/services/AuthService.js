@@ -1,15 +1,10 @@
 import axios from 'axios'
-import Api from './Api'
+import { getUrl } from './url'
 import FormDataHelper from './FormDataHelper'
 
 const REFRESH_TOKEN_KEY = 'refresh_token'
-const LOGIN_URL = '/login'
 
 export default class AuthService {
-
-    static getLoginUrl() {
-        return LOGIN_URL
-    }
 
     static authorize = (username, password) => {
         const data = {
@@ -42,7 +37,7 @@ export default class AuthService {
 
     static _fetchToken(data) {
         return axios.post(
-            Api.getUrl('/token'),
+            getUrl('/token'),
             FormDataHelper.createFromObject(data),
             {
                 headers: {'Content-Type': 'multipart/form-data'}
@@ -54,8 +49,8 @@ export default class AuthService {
 
             AuthService._saveRefreshTokenToLocalStorage(response.data.refresh_token)
             return response.data.access_token
-        }).catch( () => {
-            throw new Error('Неправильные имя пользователя или пароль')
+        }).catch( e => {
+            throw new Error(e.message)
         })
     }
 

@@ -3,18 +3,12 @@ import jwt_decode from 'jwt-decode'
 import AuthService from './AuthService'
 import axios from 'axios'
 
-const BASE_URL = 'http://api.bridges.local'
-const LOGIN_URL = AuthService.getLoginUrl()
+import { getBaseUrl, getUrl } from './url'
+
+const BASE_URL = getBaseUrl()
+const LOGIN_URL = getUrl('/login')
 
 export default class Api {
-    static getUrl(path = '') {
-        return Api._getBaseUrl() + path
-    }
-
-    static _getBaseUrl() {
-        return BASE_URL
-    }
-
     static _fetch({ method = 'GET', url = '', token = null }) {
         const headers = {
             'Content-Type': 'application/json'
@@ -25,7 +19,7 @@ export default class Api {
         }
 
         return axios(
-            Api.getUrl(url),
+            getUrl(url),
             {
                 headers
             }
