@@ -32,3 +32,5 @@ const userInfo = (state = initialState, action) => {
 }
 
 export default userInfo
+
+export { initialState }

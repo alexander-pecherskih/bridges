@@ -28,3 +28,5 @@ const processList = (state = initialState, action) => {
 }
 
 export default processList
+
+export { initialState }

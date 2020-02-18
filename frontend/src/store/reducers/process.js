@@ -7,7 +7,7 @@ const initialState = {
     error: null,
 }
 
-const process = (state = initialState, action) => {
+const process = (state, action) => {
     switch (action.type) {
         case PROCESS_REQUEST:
             return initialState
@@ -28,11 +28,14 @@ const process = (state = initialState, action) => {
         case PROCESS_FAILURE:
             return {
                 ...initialState,
+                loading: false,
                 error: action.error
             }
         default:
-            return state
+            return initialState
     }
 }
 
 export default process
+
+export { initialState }

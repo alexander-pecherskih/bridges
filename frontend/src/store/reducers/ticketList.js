@@ -6,7 +6,7 @@ const initialState = {
     error: null,
 }
 
-const ticketList = (state = initialState, action) => {
+const ticketList = (state, action) => {
     switch (action.type) {
         case TICKET_LIST_REQUEST:
             return {
@@ -27,8 +27,10 @@ const ticketList = (state = initialState, action) => {
                 error: action.error,
             }
         default:
-            return state
+            return initialState
     }
 }
 
 export default ticketList
+
+export { initialState }
