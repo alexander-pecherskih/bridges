@@ -1,4 +1,4 @@
-import { TICKET_LIST_REQUEST, TICKET_LIST_LOADED, TICKET_LIST_FAILURE } from '../../constants/ticketList'
+import { TICKET_LIST_REQUEST, TICKET_LIST_SUCCESS, TICKET_LIST_FAILURE } from '../../constants/ticketList'
 import { default as reducer, initialState } from '../ticketList'
 
 describe('ticket list reducer', () => {
@@ -13,13 +13,13 @@ describe('ticket list reducer', () => {
         })
     })
 
-    it(TICKET_LIST_LOADED, () => {
+    it(TICKET_LIST_SUCCESS, () => {
         const stateBefore = {
             ...initialState,
             loading: true,
         }
         const action = {
-            type: TICKET_LIST_LOADED,
+            type: TICKET_LIST_SUCCESS,
             tickets: [1, 2, 3]
         }
         expect(reducer(stateBefore, action)).toEqual({

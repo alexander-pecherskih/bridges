@@ -57,35 +57,21 @@ const connections = [
     },
 ]
 
-export default class ProcessService {
-    static defaultProcessList = [
-        {
-            id: '1',
-            title: 'Process 1',
-        },
-        {
-            id: '2',
-            title: 'Process 2',
-        },
-    ]
+export const defaultProcessList = [
+    {
+        id: '1',
+        title: 'Process 1',
+    },
+    {
+        id: '2',
+        title: 'Process 2',
+    },
+]
 
-    static getProcesses() {
-        return new Promise( (resolve) => {
-            setTimeout(() => {
-                resolve(this.defaultProcessList)
-            }, 1000)
-        })
-    }
+export default {
+    getProcesses: () => Promise.resolve(defaultProcessList),
 
-    static getProcess(id) {
-        return new Promise( (resolve) => {
-            setTimeout(() => {
-                resolve({ id: 1, title: 'process 1', nodes, connections })
-            }, 1000)
-        })
-    }
+    getProcess: (id) => Promise.resolve({ id: 1, title: 'process 1', nodes, connections }),
 
-    static saveProcess(process) {
-        return Promise.resolve(process)
-    }
+    saveProcess: (process) => Promise.resolve(process),
 }

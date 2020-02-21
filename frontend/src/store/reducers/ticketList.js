@@ -1,4 +1,4 @@
-import { TICKET_LIST_REQUEST, TICKET_LIST_LOADED, TICKET_LIST_FAILURE } from '../constants/ticketList'
+import { TICKET_LIST_REQUEST, TICKET_LIST_SUCCESS, TICKET_LIST_FAILURE } from '../constants/ticketList'
 
 const initialState = {
     tickets: [],
@@ -14,7 +14,7 @@ const ticketList = (state, action) => {
                 loading: true,
                 error: null,
             }
-        case TICKET_LIST_LOADED:
+        case TICKET_LIST_SUCCESS:
             return {
                 tickets: action.tickets,
                 loading: false,

@@ -12,19 +12,8 @@ const success = (process) => {
     }
 }
 
-const save = (process) => {
-    return {
-        type: PROCESS_SAVE,
-        process
-    }
-}
-
-const saveProcess = (dispatch) => (process) => {
-    dispatch(save(process))
-    // ...
-    setTimeout(() => {
-        dispatch(success( process ))
-    }, 1000)
+const save = {
+    type: PROCESS_SAVE,
 }
 
 const fail = (error) => {
@@ -34,9 +23,22 @@ const fail = (error) => {
     }
 }
 
-const getProcess = (dispatch) => () => {
+const saveProcess = (process) => (dispatch) => {
+    dispatch(save)
+    // ...
+    return ProcessService.saveProcess(process)
+        .then((process) => {
+            dispatch(success(process))
+        })
+        .catch((error) => {
+            dispatch(fail(error))
+        })
+}
+
+const getProcess = (id) => (dispatch) => {
     dispatch(request)
-    ProcessService.getProcess()
+
+    return ProcessService.getProcess(id)
         .then((process) => {
             dispatch(success( process ))
         })

@@ -14,4 +14,11 @@ describe('ProcessService', () => {
                 expect(typeof data).toBe('object')
             })
     })
+
+    it('save', () => {
+        return ProcessService.saveProcess({})
+            .then( (process) => {
+                expect(process).toEqual({})
+            })
+    })
 })

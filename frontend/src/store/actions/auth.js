@@ -20,10 +20,10 @@ const authError = (error) => {
     }
 }
 
-const auth = (dispatch) => (username, password) => {
+const auth = (username, password) => (dispatch) => {
     dispatch(authorize)
 
-    AuthService.authorize(username, password)
+    return AuthService.authorize(username, password)
         .then((accessToken) => {
             dispatch(authorized(accessToken))
         })
@@ -32,7 +32,7 @@ const auth = (dispatch) => (username, password) => {
         })
 }
 
-const refreshAuthToken = (dispatch) => () => {
+const refreshAuthToken = () => (dispatch) => {
     if (!AuthService.refreshTokenIsValid()) {
         dispatch({ type: LOGOUT })
         return
@@ -40,7 +40,7 @@ const refreshAuthToken = (dispatch) => () => {
 
     dispatch(authorize)
 
-    AuthService.refreshToken()
+    return AuthService.refreshToken()
         .then((accessToken) => {
             dispatch(authorized(accessToken))
         })
@@ -49,9 +49,11 @@ const refreshAuthToken = (dispatch) => () => {
         })
 }
 
-const logout = (dispatch) => (redirectHome = false) => {
+const logout = (redirectHome = false) => (dispatch) => {
     AuthService.logout()
+
     dispatch({ type: LOGOUT })
+
     if (redirectHome) {
         window.location.replace('/')
     }

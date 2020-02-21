@@ -1,13 +1,13 @@
-import { USER_REQUEST, USER_LOADED, USER_FAILURE } from '../constants/user'
+import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from '../constants/user'
 import UserInfoService from '../../services/UserInfoService'
 
 const request = {
     type: USER_REQUEST,
 }
 
-const loaded = (userInfo) => {
+const success = (userInfo) => {
     return {
-        type: USER_LOADED,
+        type: USER_SUCCESS,
         userInfo,
     }
 }
@@ -19,16 +19,16 @@ const fail = (error) => {
     }
 }
 
-const getUserInfo = (dispatch) => (accessToken) => {
+const getUserInfo = (accessToken) => (dispatch) => {
     dispatch(request)
 
-    UserInfoService.getInfo(accessToken)
+    return UserInfoService.getInfo(accessToken)
         .then((data) => {
             const { id, email, name, avatar = '/images/avatar.jpg' } = data
-            dispatch(loaded({ id, email, name, avatar }))
+            dispatch(success({ id, email, name, avatar }))
         })
-        .catch((err) => {
-            dispatch(fail(err.message))
+        .catch((error) => {
+            dispatch(fail(error))
         })
 }
 

@@ -6,7 +6,7 @@ const REFRESH_TOKEN_KEY = 'refresh_token'
 
 export default class AuthService {
 
-    static authorize = (username, password) => {
+    static authorize(username, password) {
         const data = {
             username,
             password,
@@ -14,7 +14,6 @@ export default class AuthService {
             client_id: 'app',
             client_secret: 'secret',
         }
-
         return AuthService._fetchToken(data)
     }
 

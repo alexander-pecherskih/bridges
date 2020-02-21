@@ -1,4 +1,4 @@
-import { PROCESS_LIST_REQUEST, PROCESS_LIST_LOADED, PROCESS_LIST_FAILURE } from '../../constants/processList'
+import { PROCESS_LIST_REQUEST, PROCESS_LIST_SUCCESS, PROCESS_LIST_FAILURE } from '../../constants/processList'
 import { default as reducer, initialState } from '../processList'
 
 describe('process list reducer', () => {
@@ -13,13 +13,13 @@ describe('process list reducer', () => {
         })
     })
 
-    it(PROCESS_LIST_LOADED, () => {
+    it(PROCESS_LIST_SUCCESS, () => {
         const stateBefore = {
             ...initialState,
             loading: true,
         }
         const action = {
-            type: PROCESS_LIST_LOADED,
+            type: PROCESS_LIST_SUCCESS,
             processes: [1, 2, 3]
         }
         expect(reducer(stateBefore, action)).toEqual({
