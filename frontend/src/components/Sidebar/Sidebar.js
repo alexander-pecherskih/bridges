@@ -8,11 +8,10 @@ import UserViewContainer from './UserViewContainer'
 const Divider = () => <li><div className="divider"></div></li>
 
 const Sidebar = () => {
+    const onMount = () => { M.Sidenav.init(sidebar) }
     const sidebar = useRef(null)
 
-    useEffect(() => {
-        M.Sidenav.init(sidebar)
-    }, [])
+    useEffect(onMount, [])
 
     return <>
         <ul className="sidenav sidenav-fixed sidebar" ref={ sidebar } >

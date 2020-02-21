@@ -53,7 +53,7 @@ Diagram.propTypes = {
     connections: PropTypes.array.isRequired,
     nodes: PropTypes.array.isRequired,
     selectNode: PropTypes.func.isRequired,
-    selectedNodeId: PropTypes.number,
+    selectedNodeId: PropTypes.string,
 }
 
 export default Diagram

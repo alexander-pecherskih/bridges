@@ -1,4 +1,7 @@
 import ProcessService from '../ProcessService'
+import Api from '../Api'
+
+jest.mock('../Api')
 
 describe('ProcessService', () => {
     it('fetch one', () => {

@@ -28,7 +28,7 @@ const Node = ({ node, containerId, selected, select }) => {
 
     return (
         <div className={ `node${selectedClass}` } style={ nodeStyle } id={`node-${ node.id }`} onClick={ () => select(node.id) }>
-            <div className="node__title">{ node.name }</div>
+            <div className="node__title">{ node.title }</div>
 
             <ul className="node__fields">
                 { fields }

@@ -15,7 +15,7 @@ const ProcessEditor = (props) => {
     const initialProcess = props.process
     const [nodes, setNodes] = useState([...initialProcess.nodes])
     const [process, setProcess] = useState({ id: initialProcess.id, title: initialProcess.title })
-    const [connections] = useState(initialProcess.connections)
+    const [connections] = useState(initialProcess.routes)
     const [currentEditor, setCurrentEditor] = useState(DIAGRAM_EDITOR)
     const [selectedNode, setSelectedNode] = useState(null)
 

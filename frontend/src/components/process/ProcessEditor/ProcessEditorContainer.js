@@ -10,12 +10,10 @@ import ProcessEditor from './ProcessEditor'
 import TextMessage from '../../common/TextMessage'
 
 const ProcessEditorContainer = (props) => {
-    const { getProcess, process } = props;
+    const onMount = () => { getProcess(urlParams.id) }
+    const { getProcess, process } = props
     const urlParams = useParams()
-    const load = () => {
-        getProcess(urlParams.id)
-    }
-    useEffect(load, [])
+    useEffect(onMount, [])
 
     if (!process) {
         return <TextMessage message="Loading..." />

@@ -10,9 +10,9 @@ import { LoginPage } from '../../pages'
 import { getUrl } from '../../services/url'
 
 const AppContainer = ({ authorized, loading, logout, refreshAuthToken }) => {
+    const onMount = () => { refreshAuthToken() }
     const location = useLocation()
-    // console.log(refreshAuthToken())
-    useEffect(() => { refreshAuthToken() }, [refreshAuthToken])
+    useEffect(onMount, [])
 
     if (location.pathname === getUrl('/login')) {
         logout(true)

@@ -23,10 +23,10 @@ const fail = (error) => {
     }
 }
 
-const getProcesses = () => (dispatch) => {
+const getProcesses = () => (dispatch, getState) => {
     dispatch(request)
 
-    return ProcessService.getProcesses()
+    return ProcessService.getProcesses(getState().auth.accessToken)
         .then((processes) => {
             dispatch( loaded(processes) )
         })

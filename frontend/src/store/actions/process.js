@@ -35,10 +35,10 @@ const saveProcess = (process) => (dispatch) => {
         })
 }
 
-const getProcess = (id) => (dispatch) => {
+const getProcess = (id) => (dispatch, getState) => {
     dispatch(request)
 
-    return ProcessService.getProcess(id)
+    return ProcessService.getProcess(id, getState().auth.accessToken)
         .then((process) => {
             dispatch(success( process ))
         })

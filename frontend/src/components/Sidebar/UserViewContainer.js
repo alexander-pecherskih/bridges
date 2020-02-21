@@ -10,7 +10,8 @@ import UserView from './UserView'
 import UserViewShimmer from './UserViewShimmer'
 
 const UserViewContainer = ({ user, loading, error, getUserInfo, accessToken }) => {
-    useEffect(() => { getUserInfo(accessToken) }, [])
+    const onMount = () => { getUserInfo(accessToken) }
+    useEffect(onMount, [])
 
     if (!user || loading || error){
         return <UserViewShimmer />
