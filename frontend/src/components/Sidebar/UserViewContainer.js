@@ -10,8 +10,7 @@ import UserView from './UserView'
 import UserViewShimmer from './UserViewShimmer'
 
 const UserViewContainer = ({ user, loading, error, getUserInfo, accessToken }) => {
-    const loadUserInfo = () => getUserInfo(accessToken)
-    useEffect(loadUserInfo, [])
+    useEffect(() => { getUserInfo(accessToken) }, [])
 
     if (!user || loading || error){
         return <UserViewShimmer />
@@ -32,9 +31,9 @@ const mapStateToProps = ({ userInfo: { user, loading, error }, auth: { accessTok
     return { user, loading, error, accessToken }
 }
 
-const mapDispatchToProps = (dispatch, stt) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        getUserInfo: getUserInfo(dispatch),
+        getUserInfo: (accessToken) => dispatch(getUserInfo(accessToken)),
     }
 }
 

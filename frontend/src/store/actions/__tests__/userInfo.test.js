@@ -13,7 +13,7 @@ const mockStore = configureMockStore([thunk])
 
 describe('user info get action', () => {
     it('success', () => {
-        const store = mockStore({ })
+        const store = mockStore({ auth: { accessToken: 'jwt' } })
         const expectedActions = [
             { type: USER_REQUEST },
             {
@@ -29,7 +29,7 @@ describe('user info get action', () => {
     })
 
     it('failure', () => {
-        const store = mockStore({ })
+        const store = mockStore({ auth: { accessToken: 'jwt' } })
         const expectedActions = [
             { type: USER_REQUEST },
             {

@@ -6,7 +6,7 @@ const initialState = {
     error: null,
 }
 
-const ticketList = (state, action) => {
+const ticketList = (state = initialState, action) => {
     switch (action.type) {
         case TICKET_LIST_REQUEST:
             return {
@@ -27,7 +27,7 @@ const ticketList = (state, action) => {
                 error: action.error,
             }
         default:
-            return initialState
+            return state
     }
 }
 

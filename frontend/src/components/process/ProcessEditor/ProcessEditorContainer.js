@@ -39,8 +39,8 @@ const mapStateToProps = ({ process: { process, loading, saving, error } }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getProcess: getProcess(dispatch),
-        saveProcess: saveProcess(dispatch),
+        getProcess: (id) => dispatch(getProcess(id)),
+        saveProcess: () => dispatch(saveProcess()),
     }
 }
 

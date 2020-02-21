@@ -7,7 +7,7 @@ const initialState = {
     error: null,
 }
 
-const auth = (state, action) => {
+const auth = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_REQUEST:
             return initialState
@@ -33,7 +33,7 @@ const auth = (state, action) => {
                 error: null,
             }
         default:
-            return initialState
+            return state
     }
 }
 

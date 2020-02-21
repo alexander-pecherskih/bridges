@@ -3,9 +3,8 @@ import jwt_decode from 'jwt-decode'
 import AuthService from './AuthService'
 import axios from 'axios'
 
-import { getBaseUrl, getUrl } from './url'
+import { getUrl } from './url'
 
-const BASE_URL = getBaseUrl()
 const LOGIN_URL = getUrl('/login')
 
 export default class Api {
