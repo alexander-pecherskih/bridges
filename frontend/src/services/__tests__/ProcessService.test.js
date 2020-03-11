@@ -1,5 +1,4 @@
 import ProcessService from '../ProcessService'
-import Api from '../Api'
 
 jest.mock('../Api')
 

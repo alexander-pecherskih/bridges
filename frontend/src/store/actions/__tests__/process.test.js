@@ -11,7 +11,7 @@ const mockStore = configureMockStore([thunk])
 
 describe('process get action', () => {
     it('success', () => {
-        const store = mockStore({ })
+        const store = mockStore({ auth: { accessToken: 'jwt' } })
         const expectedActions = [
             { type: PROCESS_REQUEST },
             {
@@ -27,7 +27,7 @@ describe('process get action', () => {
     })
 
     it('failure', () => {
-        const store = mockStore({ })
+        const store = mockStore({ auth: { accessToken: 'jwt' } })
         const expectedActions = [
             { type: PROCESS_REQUEST },
             {
