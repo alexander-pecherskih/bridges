@@ -7,7 +7,8 @@ import { getProcesses } from '../../../store/actions/processList'
 import ProcessList from './ProcessList'
 
 const ProcessListContainer = ({ processes, loading, error, getProcesses }) => {
-    useEffect(getProcesses, [])
+    const onMount = () => { getProcesses() }
+    useEffect(onMount, [])
 
     return <ProcessList processes={ processes } loading={ loading } errorMessage={ error }/>
 }

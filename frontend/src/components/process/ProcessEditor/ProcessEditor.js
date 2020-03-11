@@ -23,7 +23,7 @@ const ProcessEditor = (props) => {
         if (nodeName && nodeName.length > 0) {
             const nextId = nodes.length + 1
             setNodes([
-                ...nodes, { id: nextId, name: nodeName, position: { left: 100, top: 100 }, fields: [] }
+                ...nodes, { id: nextId + '', title: nodeName, position: { left: 100, top: 100 }, fields: [] }
             ])
         }
     }
@@ -31,7 +31,7 @@ const ProcessEditor = (props) => {
         if (nodeName && nodeName.length > 0) {
             const nodeIndex = nodes.findIndex( item => item.id === id )
             const newNodes = [ ...nodes ]
-            newNodes[nodeIndex].name = nodeName
+            newNodes[nodeIndex].title = nodeName
 
             setNodes( newNodes )
         }
@@ -45,7 +45,6 @@ const ProcessEditor = (props) => {
         setCurrentEditor( DIAGRAM_EDITOR )
     }
     const saveFields  = (fields) => {
-        console.log( fields )
         setCurrentEditor( DIAGRAM_EDITOR )
     }
 
@@ -64,7 +63,7 @@ const ProcessEditor = (props) => {
                         },
                         {
                             label: 'Переименовать узел',
-                            handler: () => renameNode(prompt('Введите название узла', selectedNode.name)),
+                            handler: () => renameNode(selectedNode.id, prompt('Введите название узла', selectedNode.title)),
                             disabled: !selectedNode,
                         },
                         {
