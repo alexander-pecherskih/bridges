@@ -5,12 +5,17 @@ import './styles/node.sass'
 
 import { jsPlumb } from '../../common/jsPlumb'
 
-const Node = ({ node, containerId, selected, select }) => {
+const Node = ({ node, containerId, selected, select, updateNodePosition }) => {
+    const updatePosition = (left, top) => { updateNodePosition(node.id, { left, top }) }
+
     useEffect(() => {
         jsPlumb.setContainer( document.getElementById(containerId) )
-        jsPlumb.draggable(`node-${ node.id }`)
+        jsPlumb.draggable(`node-${ node.id }`, {
+            stop: (e) => updatePosition(e.finalPos[0], e.finalPos[1])
+        })
 
         return () => jsPlumb.remove(`node-${ node.id }`)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [node.id, containerId])
 
     const nodeStyle = {
@@ -42,6 +47,7 @@ Node.propTypes = {
     containerId: PropTypes.string.isRequired,
     selected: PropTypes.bool.isRequired,
     select: PropTypes.func.isRequired,
+    updateNodePosition: PropTypes.func.isRequired,
 }
 
 export default Node

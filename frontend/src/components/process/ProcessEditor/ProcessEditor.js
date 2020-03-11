@@ -47,6 +47,13 @@ const ProcessEditor = (props) => {
     const saveFields  = (fields) => {
         setCurrentEditor( DIAGRAM_EDITOR )
     }
+    const updateNodePosition = (id, position) => {
+        const nodeIndex = nodes.findIndex( item => item.id === id )
+        const newNodes = [ ...nodes ]
+        newNodes[nodeIndex].position = position
+
+        setNodes( newNodes )
+    }
 
     return <>
         { currentEditor === DIAGRAM_EDITOR &&
@@ -79,6 +86,7 @@ const ProcessEditor = (props) => {
                     nodes={ nodes }
                     selectNode={ selectNode }
                     selectedNodeId={ selectedNode ? selectedNode.id : null }
+                    updateNodePosition={ updateNodePosition }
                 />
             </>
         }

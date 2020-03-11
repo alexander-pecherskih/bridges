@@ -26,7 +26,7 @@ const initConnections = (connections, jsPlumb) => {
     })
 }
 
-const Diagram = ({ nodes, connections, selectNode, selectedNodeId }) => {
+const Diagram = ({ nodes, connections, selectNode, selectedNodeId, updateNodePosition }) => {
     useEffect( () => {
         jsPlumb.setContainer( document.getElementById(DIAGRAM_CONTAINER_ID) )
         initConnections(connections, jsPlumb)
@@ -41,6 +41,7 @@ const Diagram = ({ nodes, connections, selectNode, selectedNodeId }) => {
             containerId={ DIAGRAM_CONTAINER_ID }
             selected={ selectedNodeId === item.id || false }
             select={ selectNode }
+            updateNodePosition={ updateNodePosition }
         />
     })
 
