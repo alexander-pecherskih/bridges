@@ -1,60 +1,70 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 
-import { jsPlumb } from '../../common/jsPlumb'
-
-import './styles/diagram.sass'
 import Node from './Node'
+import Connection from './Connection'
 
-const connectorConf = {
-    anchors: ['Right', 'Left'],
-    endpoints: ['Blank', 'Blank'],
-    paintStyle: { stroke: '#445566', strokeWidth: 2 },
-}
+class Diagram extends React.Component {
+    state = {
+        connections: []
+    }
 
-const DIAGRAM_CONTAINER_ID = 'diagram-container'
+    handleNodeMove = (nodeId, rect) => {
+        const { connections } = this.state
+        const connectionSrcIndex = connections.findIndex(
+            (item, index) => item.source.id === nodeId
+        )
+        const connectionTargetIndex = connections.findIndex(
+            (item, index) => item.target.id === nodeId
+        )
+        const newConnections = connections.map((item, index) => {
+            let source = { ...item.source }
+            let target = { ...item.target }
+            if (index === connectionSrcIndex) {
+                source = { ...item.source, rect }
+            }
+            if (index === connectionTargetIndex) {
+                target = { ...item.target, rect }
+            }
 
-const initConnections = (connections, jsPlumb) => {
-    connections.forEach( item => {
-        jsPlumb.connect( {
-            source: `node-${ item.source_id }`,
-            target: `node-${ item.target_id }`,
-            overlays: [
-                [ 'Arrow', { location: 1 } ],
-            ],
-        }, connectorConf )
-    })
-}
+            return { ...item, source, target }
+        })
 
-const Diagram = ({ nodes, connections, selectNode, selectedNodeId, updateNodePosition }) => {
-    useEffect( () => {
-        jsPlumb.setContainer( document.getElementById(DIAGRAM_CONTAINER_ID) )
-        initConnections(connections, jsPlumb)
+        this.setState({ connections: newConnections })
+    }
 
-       return () => jsPlumb.deleteEveryConnection()
-    }, [connections])
+    componentDidMount() {
+        this.setState({
+            connections: this.props.connections.map(item => ({
+                id: item.id,
+                source: { id: item.source_id, rect: null },
+                target: { id: item.target_id, rect: null },
+            }))
+        })
+    }
 
-    const nodeList = nodes.map(item => {
-        return <Node
-            node={ item }
-            key={ item.id }
-            containerId={ DIAGRAM_CONTAINER_ID }
-            selected={ selectedNodeId === item.id || false }
-            select={ selectNode }
-            updateNodePosition={ updateNodePosition }
-        />
-    })
+    render () {
+        const { nodes } = this.props
+        const { connections } = this.state
 
-    return <div className="diagram-container" id={ DIAGRAM_CONTAINER_ID } >
-        { nodeList }
-    </div>
-}
+        const nodeList = nodes.map(
+            item => <Node
+                node={ item }
+                key={ item.id }
+                onMove={ (rect) => this.handleNodeMove(item.id, rect) }
+            />
+        )
+        const connectionList = connections.map(
+            item => <Connection
+                connection={ item }
+                key={ item.id }
+            />
+        )
 
-Diagram.propTypes = {
-    connections: PropTypes.array.isRequired,
-    nodes: PropTypes.array.isRequired,
-    selectNode: PropTypes.func.isRequired,
-    selectedNodeId: PropTypes.string,
+        return <>
+            { nodeList }
+            { connectionList }
+        </>
+    }
 }
 
 export default Diagram

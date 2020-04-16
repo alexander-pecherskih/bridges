@@ -1,53 +1,87 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 
 import './styles/node.sass'
 
-import { jsPlumb } from '../../common/jsPlumb'
-
-const Node = ({ node, containerId, selected, select, updateNodePosition }) => {
-    const updatePosition = (left, top) => { updateNodePosition(node.id, { left, top }) }
-
-    useEffect(() => {
-        jsPlumb.setContainer( document.getElementById(containerId) )
-        jsPlumb.draggable(`node-${ node.id }`, {
-            stop: (e) => updatePosition(e.finalPos[0], e.finalPos[1])
-        })
-
-        return () => jsPlumb.remove(`node-${ node.id }`)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [node.id, containerId])
-
-    const nodeStyle = {
-        left: node.position.left,
-        top:  node.position.top
+class Node extends React.PureComponent {
+    state = {
+        isDragging: false,
+        position: { top: 0, left: 0 },
+        screenOffset: { x: 0, y: 0 },
     }
 
-    const fields = node.fields ? node.fields.map( (field) => {
-        return (
-            <li className="node__field" key={ field.id }>{ field.name } : { field.type }</li>
-        );
-    }) : null;
+    constructor(props) {
+        super(props);
+        this.nodeRef = React.createRef();
+    }
 
-    const selectedClass = selected ? ' node_selected' : ''
+    handleMouseDown = (e) => {
+        const el = this.nodeRef.current;
+        const screenOffset = {
+            x: e.screenX - el.offsetLeft,
+            y: e.screenY - el.offsetTop,
+        }
+        this.setState({ isDragging: true, screenOffset })
+    }
 
-    return (
-        <div className={ `node${selectedClass}` } style={ nodeStyle } id={`node-${ node.id }`} onClick={ () => select(node.id) }>
-            <div className="node__title">{ node.title }</div>
+    handleMouseUp = (e) => {
+        this.setState({ isDragging: false })
+    }
 
-            <ul className="node__fields">
-                { fields }
-            </ul>
+    handleMouseMove = (e) => {
+        if (this.state.isDragging) {
+            const screen = { x: e.screenX, y: e.screenY }
+            this.setState((state) => {
+                return {
+                    position: {
+                        left: screen.x - state.screenOffset.x,
+                        top: screen.y - state.screenOffset.y,
+                    }
+                }
+            }, () => {
+                const rect = this.nodeRef.current.getBoundingClientRect()
+                this.props.onMove({
+                    ...this.state.position,
+                    width: rect.width, height: rect.height,
+                })
+            })
+        }
+    }
+
+    componentDidMount() {
+        const { node } = this.props
+        this.setState({ position: { ...node.position } }, () => {
+            this.props.onMove(this.nodeRef.current.getBoundingClientRect())
+        })
+        document.addEventListener('mousemove', this.handleMouseMove);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousemove', this.handleMouseMove);
+    }
+
+    render() {
+        const { node } = this.props
+        const nodeStyle = {
+            ...this.state.position,
+            userSelect: this.state.isDragging ? 'none' : 'auto'
+        }
+
+        return <div
+            ref={ this.nodeRef }
+            className="node"
+            style={ nodeStyle }
+        >
+            <div className="node__title"
+                onMouseDown={ this.handleMouseDown }
+                onMouseUp={ this.handleMouseUp }
+            >
+              { node.title }
+            </div>
+            <div className="node__fields">
+                x: { this.state.position.left }, y: { this.state.position.top }
+            </div>
         </div>
-    );
-}
-
-Node.propTypes = {
-    node: PropTypes.object.isRequired,
-    containerId: PropTypes.string.isRequired,
-    selected: PropTypes.bool.isRequired,
-    select: PropTypes.func.isRequired,
-    updateNodePosition: PropTypes.func.isRequired,
+    }
 }
 
 export default Node
