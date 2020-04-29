@@ -1,2 +1,5 @@
 .idea
 /bridges.iml
+/docker/docker.iml
+/backend/backend.iml
+/frontend/frontend.iml
