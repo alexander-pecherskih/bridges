@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './styles/node.sass'
 
@@ -23,8 +24,12 @@ class Node extends React.PureComponent {
         this.setState({ isDragging: true, screenOffset })
     }
 
-    handleMouseUp = (e) => {
-        this.setState({ isDragging: false })
+    handleMouseUp = () => {
+        this.setState({ isDragging: false }, () => {
+            if (typeof this.props.onDragEnd === 'function') {
+                this.props.onDragEnd(this.state.position)
+            }
+        })
     }
 
     handleMouseMove = (e) => {
@@ -50,11 +55,13 @@ class Node extends React.PureComponent {
     componentDidMount() {
         const { node } = this.props
         this.setState({ position: { ...node.position } }, () => {
-            const rect = this.nodeRef.current.getBoundingClientRect()
-            this.props.onMove({
-                ...this.state.position,
-                width: rect.width, height: rect.height,
-            })
+            if (typeof this.props.onMove === 'function') {
+                const rect = this.nodeRef.current.getBoundingClientRect()
+                this.props.onMove({
+                    ...this.state.position,
+                    width: rect.width, height: rect.height,
+                })
+            }
         })
         document.addEventListener('mousemove', this.handleMouseMove);
     }
@@ -88,6 +95,19 @@ class Node extends React.PureComponent {
             </div>
         </div>
     }
+}
+
+Node.propTypes = {
+    node: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        position: PropTypes.shape({
+            top: PropTypes.number,
+            left: PropTypes.number,
+        }).isRequired,
+        title: PropTypes.string.isRequired,
+    }).isRequired,
+    onMove: PropTypes.func,
+    onDragEnd: PropTypes.func,
 }
 
 export default Node

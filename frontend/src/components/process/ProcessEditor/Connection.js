@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './styles/connection.sass'
 
@@ -195,6 +196,24 @@ class Connection extends React.Component {
             { path }
         </svg>
     }
+}
+
+const endPointType = PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    rect: PropTypes.shape({
+        top: PropTypes.number,
+        left: PropTypes.number,
+        height: PropTypes.number,
+        width: PropTypes.number,
+    })
+})
+
+Connection.propTypes = {
+    connection: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        source: endPointType.isRequired,
+        target: endPointType.isRequired
+    })
 }
 
 export default Connection

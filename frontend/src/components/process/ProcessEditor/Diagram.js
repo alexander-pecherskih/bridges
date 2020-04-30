@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Node from './Node'
 import Connection from './Connection'
@@ -45,6 +46,7 @@ class Diagram extends React.Component {
                 node={ item }
                 key={ item.id }
                 onMove={ (rect) => this.handleNodeMove(item.id, rect) }
+                onDragEnd={ (position) => console.log(position)}
             />
         )
         const connectionList = connections.map(
@@ -59,6 +61,11 @@ class Diagram extends React.Component {
             { connectionList }
         </>
     }
+}
+
+Diagram.propTypes = {
+    connections: PropTypes.array,
+    routes: PropTypes.array,
 }
 
 export default Diagram
