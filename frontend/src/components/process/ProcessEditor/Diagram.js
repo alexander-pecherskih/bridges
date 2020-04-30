@@ -4,23 +4,15 @@ import Node from './Node'
 import Connection from './Connection'
 
 const updateConnections = (connections, nodeId, rect) => {
-    const connectionSrcIndex = connections.findIndex(
-        (item, index) => item.source.id === nodeId
-    )
-    const connectionTargetIndex = connections.findIndex(
-        (item, index) => item.target.id === nodeId
-    )
+    return connections.map((item) => {
+        if (item.source.id === nodeId) {
+            item.source.rect = rect
+        }
+        if (item.target.id === nodeId) {
+            item.target.rect = rect
+        }
 
-    return connections.map((item, index) => {
-        let source = { ...item.source }
-        let target = { ...item.target }
-        if (index === connectionSrcIndex) {
-            source = { ...item.source, rect }
-        }
-        if (index === connectionTargetIndex) {
-            target = { ...item.target, rect }
-        }
-        return { ...item, source, target }
+        return item
     })
 }
 
@@ -31,7 +23,7 @@ class Diagram extends React.Component {
 
     handleNodeMove = (nodeId, rect) => {
         this.setState((state) => {
-            return { connections: updateConnections(state.connections, nodeId, rect) }
+            return { connections: updateConnections([ ...state.connections ], nodeId, rect) }
         })
     }
 

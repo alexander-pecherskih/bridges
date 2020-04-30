@@ -5,8 +5,11 @@ import './styles/diagram.sass'
 import Diagram from './Diagram'
 
 const ProcessEditor = ({ process }) => {
-    const nodes = [process.nodes[0], process.nodes[1]]
-    const routes = [process.routes[0]]
+    const nodes = process.nodes
+    // const routes = process.routes.filter((item) => {
+    //     return item.id !== 'f0ff2129-7ef0-43b5-8714-f3b7eb011971'
+    // })
+    const routes = process.routes
     // const nodes = process.nodes
 
     return <>

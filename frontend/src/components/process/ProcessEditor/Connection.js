@@ -19,7 +19,7 @@ const ARRANGEMENT_TBR = 'TBR'
 const OFFSET = 5;
 
 const getConnectionArea = (sourceMP, targetMP) => {
-    let area = {}
+    let area = { start: { x: 0, y: 0 }, end: { x: 0, y: 0 }}
 
     if (sourceMP.right.x < targetMP.left.x) {
         area = {
@@ -29,7 +29,7 @@ const getConnectionArea = (sourceMP, targetMP) => {
         }
     }
 
-    if (sourceMP.right.x >= targetMP.left.x) {
+    if (sourceMP.right.x >= targetMP.left.x && sourceMP.bottom.y < targetMP.top.y) {
         area = {
             start: { x: sourceMP.bottom.x < targetMP.top.x ? sourceMP.bottom.x : targetMP.top.x, y: sourceMP.bottom.y },
             end:   { x: sourceMP.bottom.x < targetMP.top.x ? targetMP.top.x : sourceMP.top.x,  y: targetMP.top.y },
@@ -198,23 +198,3 @@ class Connection extends React.Component {
 }
 
 export default Connection
-
-/**
-
- <svg class="connector" style="position:absolute;left:50px;top:50px" width="300" height="300" xmlns="http://www.w3.org/2000/svg">
- <!--   <rect x="0" y="0" width="200" height="200" fill="none" stroke="black" stroke-width="1" /> -->
-
- <!--   <path d="M 0 0 C 100 0 100 200 200 200"
- fill="none" stroke="gray" stroke-width="2" />
- <path d="M 0 200 C 100 200 100 0 200 0"
- fill="none" stroke="lightgreen" stroke-width="2" /> -->
-
- <path id="p1" fill="none" stroke="red"  stroke-width="2" stroke-dasharray="10,5" />
-
- <circle id="endArrow" r="5" fill="red" stroke="none"/>
-
- <circle id="cp1" r="5" fill="green" stroke="none"/>
- <circle id="cp2" r="5" fill="blue" stroke="none"/>
- </svg>
-
- */
