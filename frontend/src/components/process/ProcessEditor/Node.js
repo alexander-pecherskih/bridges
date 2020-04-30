@@ -50,7 +50,11 @@ class Node extends React.PureComponent {
     componentDidMount() {
         const { node } = this.props
         this.setState({ position: { ...node.position } }, () => {
-            this.props.onMove(this.nodeRef.current.getBoundingClientRect())
+            const rect = this.nodeRef.current.getBoundingClientRect()
+            this.props.onMove({
+                ...this.state.position,
+                width: rect.width, height: rect.height,
+            })
         })
         document.addEventListener('mousemove', this.handleMouseMove);
     }
@@ -79,6 +83,8 @@ class Node extends React.PureComponent {
             </div>
             <div className="node__fields">
                 x: { this.state.position.left }, y: { this.state.position.top }
+                <br/>
+                { node.id.substring(0, 8) }
             </div>
         </div>
     }

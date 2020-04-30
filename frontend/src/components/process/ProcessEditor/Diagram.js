@@ -3,33 +3,36 @@ import React from 'react'
 import Node from './Node'
 import Connection from './Connection'
 
+const updateConnections = (connections, nodeId, rect) => {
+    const connectionSrcIndex = connections.findIndex(
+        (item, index) => item.source.id === nodeId
+    )
+    const connectionTargetIndex = connections.findIndex(
+        (item, index) => item.target.id === nodeId
+    )
+
+    return connections.map((item, index) => {
+        let source = { ...item.source }
+        let target = { ...item.target }
+        if (index === connectionSrcIndex) {
+            source = { ...item.source, rect }
+        }
+        if (index === connectionTargetIndex) {
+            target = { ...item.target, rect }
+        }
+        return { ...item, source, target }
+    })
+}
+
 class Diagram extends React.Component {
     state = {
         connections: []
     }
 
     handleNodeMove = (nodeId, rect) => {
-        const { connections } = this.state
-        const connectionSrcIndex = connections.findIndex(
-            (item, index) => item.source.id === nodeId
-        )
-        const connectionTargetIndex = connections.findIndex(
-            (item, index) => item.target.id === nodeId
-        )
-        const newConnections = connections.map((item, index) => {
-            let source = { ...item.source }
-            let target = { ...item.target }
-            if (index === connectionSrcIndex) {
-                source = { ...item.source, rect }
-            }
-            if (index === connectionTargetIndex) {
-                target = { ...item.target, rect }
-            }
-
-            return { ...item, source, target }
+        this.setState((state) => {
+            return { connections: updateConnections(state.connections, nodeId, rect) }
         })
-
-        this.setState({ connections: newConnections })
     }
 
     componentDidMount() {
@@ -45,7 +48,6 @@ class Diagram extends React.Component {
     render () {
         const { nodes } = this.props
         const { connections } = this.state
-
         const nodeList = nodes.map(
             item => <Node
                 node={ item }
