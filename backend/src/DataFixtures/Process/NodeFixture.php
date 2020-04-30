@@ -45,7 +45,7 @@ class NodeFixture extends Fixture implements DependentFixtureInterface
             new DateTimeImmutable(),
             'Node 1',
             $process,
-            new Position(200, 100)
+            new Position(150, 70)
         );
         $node1->assignDepartment($department1);
 
@@ -54,7 +54,7 @@ class NodeFixture extends Fixture implements DependentFixtureInterface
             new DateTimeImmutable(),
             'Node 2',
             $process,
-            new Position(200, 200)
+            new Position(200, 350)
         );
         $node2->assignDepartment($department2);
 
@@ -63,7 +63,7 @@ class NodeFixture extends Fixture implements DependentFixtureInterface
             new DateTimeImmutable(),
             'Node 3',
             $process,
-            new Position(100, 300)
+            new Position(140, 400)
         );
         $node3->assignDepartment($department3);
 
@@ -72,7 +72,7 @@ class NodeFixture extends Fixture implements DependentFixtureInterface
             new DateTimeImmutable(),
             'Node 4',
             $process,
-            new Position(100, 400)
+            new Position(110, 740)
         );
         $node4->assignDepartment($department2);
 
@@ -81,7 +81,7 @@ class NodeFixture extends Fixture implements DependentFixtureInterface
             new DateTimeImmutable(),
             'Node 5',
             $process,
-            new Position(200, 500)
+            new Position(420, 680)
         );
 
         $process->setStartNode($node1);
