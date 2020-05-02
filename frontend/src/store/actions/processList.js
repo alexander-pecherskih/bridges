@@ -1,4 +1,8 @@
-import { PROCESS_LIST_REQUEST, PROCESS_LIST_LOADED, PROCESS_LIST_FAILURE } from '../constants/processList'
+import {
+    PROCESS_LIST_REQUEST,
+    PROCESS_LIST_FAILURE,
+    PROCESS_LIST_SUCCESS,
+} from '../constants/processList'
 import ProcessService from '../../services/ProcessService'
 
 const request = {
@@ -7,7 +11,7 @@ const request = {
 
 const loaded = (processes) => {
     return {
-        type: PROCESS_LIST_LOADED,
+        type: PROCESS_LIST_SUCCESS,
         processes,
     }
 }
@@ -19,15 +23,15 @@ const fail = (error) => {
     }
 }
 
-const getProcesses = (dispatch) => () => {
+const getProcesses = () => (dispatch, getState) => {
     dispatch(request)
 
-    ProcessService.getProcesses()
+    return ProcessService.getProcesses(getState().auth.accessToken)
         .then((processes) => {
             dispatch( loaded(processes) )
         })
-        .catch((err) => {
-            dispatch( fail(err.message) )
+        .catch((error) => {
+            dispatch( fail(error) )
         })
 }
 

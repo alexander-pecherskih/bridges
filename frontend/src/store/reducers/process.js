@@ -28,6 +28,7 @@ const process = (state = initialState, action) => {
         case PROCESS_FAILURE:
             return {
                 ...initialState,
+                loading: false,
                 error: action.error
             }
         default:
@@ -36,3 +37,5 @@ const process = (state = initialState, action) => {
 }
 
 export default process
+
+export { initialState }

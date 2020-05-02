@@ -1,59 +1,71 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import { jsPlumb } from '../../common/jsPlumb'
-
-import './styles/diagram.sass'
 import Node from './Node'
+import Connection from './Connection'
 
-const connectorConf = {
-    anchors: ['Right', 'Left'],
-    endpoints: ['Blank', 'Blank'],
-    paintStyle: { stroke: '#445566', strokeWidth: 2 },
-}
+const updateConnections = (connections, nodeId, rect) => {
+    return connections.map((item) => {
+        if (item.source.id === nodeId) {
+            item.source.rect = rect
+        }
+        if (item.target.id === nodeId) {
+            item.target.rect = rect
+        }
 
-const DIAGRAM_CONTAINER_ID = 'diagram-container'
-
-const initConnections = (connections, jsPlumb) => {
-    connections.forEach( item => {
-        jsPlumb.connect( {
-            source: `node-${ item.source_id }`,
-            target: `node-${ item.target_id }`,
-            overlays: [
-                [ 'Arrow', { location: 1 } ],
-            ],
-        }, connectorConf )
+        return item
     })
 }
 
-const Diagram = ({ nodes, connections, selectNode, selectedNodeId }) => {
-    useEffect( () => {
-        jsPlumb.setContainer( document.getElementById(DIAGRAM_CONTAINER_ID) )
-        initConnections(connections, jsPlumb)
+class Diagram extends React.Component {
+    state = {
+        connections: []
+    }
 
-       return () => jsPlumb.deleteEveryConnection()
-    }, [connections])
+    handleNodeMove = (nodeId, rect) => {
+        this.setState((state) => {
+            return { connections: updateConnections([ ...state.connections ], nodeId, rect) }
+        })
+    }
 
-    const nodeList = nodes.map(item => {
-        return <Node
-            node={ item }
-            key={ item.id }
-            containerId={ DIAGRAM_CONTAINER_ID }
-            selected={ selectedNodeId === item.id || false }
-            select={ selectNode }
-        />
-    })
+    componentDidMount() {
+        this.setState({
+            connections: this.props.connections.map(item => ({
+                id: item.id,
+                source: { id: item.source_id, rect: null },
+                target: { id: item.target_id, rect: null },
+            }))
+        })
+    }
 
-    return <div className="diagram-container" id={ DIAGRAM_CONTAINER_ID } >
-        { nodeList }
-    </div>
+    render () {
+        const { nodes } = this.props
+        const { connections } = this.state
+        const nodeList = nodes.map(
+            item => <Node
+                node={ item }
+                key={ item.id }
+                onMove={ (rect) => this.handleNodeMove(item.id, rect) }
+                onDragEnd={ (position) => console.log(position)}
+            />
+        )
+        const connectionList = connections.map(
+            item => <Connection
+                connection={ item }
+                key={ item.id }
+            />
+        )
+
+        return <>
+            { nodeList }
+            { connectionList }
+        </>
+    }
 }
 
 Diagram.propTypes = {
-    connections: PropTypes.array.isRequired,
-    nodes: PropTypes.array.isRequired,
-    selectNode: PropTypes.func.isRequired,
-    selectedNodeId: PropTypes.number,
+    connections: PropTypes.array,
+    routes: PropTypes.array,
 }
 
 export default Diagram

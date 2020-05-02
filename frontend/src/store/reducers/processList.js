@@ -1,4 +1,4 @@
-import { PROCESS_LIST_REQUEST, PROCESS_LIST_LOADED, PROCESS_LIST_FAILURE } from '../constants/processList'
+import { PROCESS_LIST_REQUEST, PROCESS_LIST_SUCCESS, PROCESS_LIST_FAILURE } from '../constants/processList'
 
 const initialState = {
     processes: [],
@@ -10,7 +10,7 @@ const processList = (state = initialState, action) => {
     switch (action.type) {
         case PROCESS_LIST_REQUEST:
             return initialState
-        case PROCESS_LIST_LOADED:
+        case PROCESS_LIST_SUCCESS:
             return {
                 processes: action.processes,
                 loading: false,
@@ -28,3 +28,5 @@ const processList = (state = initialState, action) => {
 }
 
 export default processList
+
+export { initialState }

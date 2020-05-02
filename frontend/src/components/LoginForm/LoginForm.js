@@ -1,18 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ErrorMessage = ({ message = null }) => {
-    if (!message) {
-        return null
-    }
-    return <div className="error-message">{ message }</div>
+const ErrorMessage = ({ message }) => {
+    return message ? <div className="error-message">{ message }</div> : null
 }
 
 ErrorMessage.propTypes = {
     message: PropTypes.string,
 }
 
-const LoginForm = ({ loading = false, username = '', password = '', setUsername, setPassword, login, errorMessage = null }) => {
+const LoginForm = ({ loading, username, password, setUsername, setPassword, login, errorMessage }) => {
     return (
         <div className="valign-wrapper"  style={ {height: '100vh'} }>
             <div className="container">
@@ -56,7 +53,6 @@ const LoginForm = ({ loading = false, username = '', password = '', setUsername,
             </div>
         </div>
     )
-
 }
 
 LoginForm.propTypes = {

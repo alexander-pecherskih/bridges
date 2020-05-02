@@ -7,13 +7,14 @@ import { useLocation, withRouter } from 'react-router'
 import App from './App'
 import { logout, refreshAuthToken } from '../../store/actions/auth'
 import { LoginPage } from '../../pages'
-import AuthService from '../../services/AuthService'
+import { getUrl } from '../../services/url'
 
 const AppContainer = ({ authorized, loading, logout, refreshAuthToken }) => {
+    const onMount = () => { refreshAuthToken() }
     const location = useLocation()
-    useEffect(refreshAuthToken, [])
+    useEffect(onMount, [])
 
-    if (location.pathname === AuthService.getLoginUrl()) {
+    if (location.pathname === getUrl('/login')) {
         logout(true)
         return null
     }
@@ -41,8 +42,8 @@ const mapStateToProps = ({ auth: { accessToken, authorized, loading } }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: logout(dispatch),
-        refreshAuthToken: refreshAuthToken(dispatch)
+        logout: () => dispatch(logout()),
+        refreshAuthToken: () => dispatch(refreshAuthToken())
     }
 }
 

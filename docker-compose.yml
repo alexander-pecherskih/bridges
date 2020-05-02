@@ -18,6 +18,7 @@ services:
             - ./frontend/build:/bridges/frontend
         depends_on:
             - php-fpm
+            - frontend-node
         environment:
             TZ: ${TZ}
         ports:
@@ -50,6 +51,25 @@ services:
         environment:
             TZ: ${TZ}
 
+    frontend-node-cli:
+        container_name: ${COMPOSE_PROJECT_NAME}-frontend-cli
+        build:
+            context: docker
+            dockerfile: node/Dockerfile
+        volumes:
+            - ./frontend:/app
+
+    frontend-node:
+        container_name: ${COMPOSE_PROJECT_NAME}-frontend
+        build:
+            context: docker
+            dockerfile: node/Dockerfile
+        volumes:
+            - ./frontend:/app
+        command: sh -c "until [ -f .ready ] ; do sleep 1; done && yarn start"
+        tty: true
+        ports:
+            - 3000:3000
 #    redis:
 #        image: redis:3.0-alpine
 #        container_name: ${COMPOSE_PROJECT_NAME}_redis

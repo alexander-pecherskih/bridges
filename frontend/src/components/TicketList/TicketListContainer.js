@@ -7,7 +7,8 @@ import { getTickets } from '../../store/actions/ticketList'
 import TicketList from './TicketList'
 
 const TicketListContainer = ({ tickets, loading, error, getTickets }) => {
-    useEffect(getTickets, [])
+    const onMount = () => { getTickets() }
+    useEffect(onMount, [])
 
     return <TicketList tickets={ tickets } loading={ loading } errorMessage={ error }/>
 }
@@ -25,7 +26,7 @@ const mapStateToProps = ({ ticketList: { tickets, loading, error } }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTickets: getTickets(dispatch),
+        getTickets: () => dispatch(getTickets()),
     }
 }
 

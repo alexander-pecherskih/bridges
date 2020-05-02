@@ -34,8 +34,8 @@ const mapStateToProps = ({ auth: { authorized, loading, error } }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        auth: auth(dispatch),
-        logout: logout(dispatch)
+        auth: (username, password) => dispatch(auth(username, password)),
+        logout: () => dispatch(logout())
     }
 }
 

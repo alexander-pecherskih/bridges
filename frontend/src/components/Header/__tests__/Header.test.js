@@ -5,7 +5,7 @@ import Header from '../Header'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
-    useEffect: (effect) => { console.log(effect) }
+    useEffect: (effect) => { effect() }
 }))
 
 jest.mock('react-router', () => ({
@@ -19,6 +19,10 @@ describe('<Header />', () => {
     const logoutFn = jest.fn()
 
     const wrapper = shallow(<Header logout={ logoutFn } />)
+
+    it('Document title is set', () => {
+        expect(document.title).toEqual('The Bridge')
+    })
 
     it('Header logout click', () => {
         wrapper.find('.logout-button').simulate('click')

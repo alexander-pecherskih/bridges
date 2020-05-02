@@ -1,4 +1,4 @@
-import { USER_REQUEST, USER_LOADED, USER_FAILURE } from '../constants/user'
+import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from '../constants/user'
 
 const initialState = {
     user: null,
@@ -14,7 +14,7 @@ const userInfo = (state = initialState, action) => {
                 loading: true,
                 error: null,
             }
-        case USER_LOADED:
+        case USER_SUCCESS:
             return {
                 user: action.userInfo,
                 loading: false,
@@ -32,3 +32,5 @@ const userInfo = (state = initialState, action) => {
 }
 
 export default userInfo
+
+export { initialState }
