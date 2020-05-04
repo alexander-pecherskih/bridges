@@ -70,3 +70,9 @@ frontend-lint:
 
 frontend-lint-fix:
 	docker-compose run --rm frontend-node-cli yarn eslint-fix
+
+frontend-test:
+	docker-compose run --rm frontend-node-cli yarn test
+
+frontend-test-watch:
+	docker-compose run --rm frontend-node-cli yarn test-watch

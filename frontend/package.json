@@ -20,7 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --no-watch",
+    "test-watch": "react-scripts test",
     "test-coverage": "react-scripts test --coverage",
     "eslint": "eslint --ext .js src",
     "eslint-fix": "eslint --ext .js src --fix"
