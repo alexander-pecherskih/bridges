@@ -1,4 +1,4 @@
-require('jsplumb');
+require('jsplumb')
 
 const _jsPlumb = window.jsPlumb.getInstance()
 

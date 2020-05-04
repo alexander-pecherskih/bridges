@@ -12,39 +12,40 @@ jest.mock('../../../services/ProcessService')
 const mockStore = configureMockStore([thunk])
 
 describe('process list get action', () => {
-    it('success', () => {
-        const store = mockStore({ auth: { accessToken: 'jwt' } })
-        const expectedActions = [
-            { type: PROCESS_LIST_REQUEST },
-            {
-                type: PROCESS_LIST_SUCCESS,
-                processes: defaultProcessList,
-            }
-        ]
+  it('success', () => {
+    const store = mockStore({ auth: { accessToken: 'jwt' } })
+    const expectedActions = [
+      { type: PROCESS_LIST_REQUEST },
+      {
+        type: PROCESS_LIST_SUCCESS,
+        processes: defaultProcessList
+      }
+    ]
 
-        return store.dispatch( actions.getProcesses() )
-            .then(() => {
-                expect(store.getActions()).toMatchObject(expectedActions)
-            })
-    })
+    return store.dispatch(actions.getProcesses())
+      .then(() => {
+        expect(store.getActions()).toMatchObject(expectedActions)
+      })
+  })
 
-    it('failure', () => {
-        const store = mockStore({ auth: { accessToken: 'jwt' } })
-        const expectedActions = [
-            { type: PROCESS_LIST_REQUEST },
-            {
-                type: PROCESS_LIST_FAILURE,
-                error: { message: 'error' }
-            }
-        ]
+  it('failure', () => {
+    const store = mockStore({ auth: { accessToken: 'jwt' } })
+    const expectedActions = [
+      { type: PROCESS_LIST_REQUEST },
+      {
+        type: PROCESS_LIST_FAILURE,
+        error: { message: 'error' }
+      }
+    ]
 
-        ProcessService.getProcesses = jest.fn(
-            () => Promise.reject({ message: 'error' } )
-        )
+    ProcessService.getProcesses = jest.fn(
+      /* eslint-disable-next-line */
+      () => Promise.reject({ message: 'error' })
+    )
 
-        return store.dispatch( actions.getProcesses() )
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions)
-            })
-    })
+    return store.dispatch(actions.getProcesses())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
 })

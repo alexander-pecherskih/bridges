@@ -13,12 +13,12 @@ import './styles/styles.sass'
 const store = configureStore()
 
 ReactDOM.render(
-    <Provider store={ store } >
-        <ErrorBoundary>
-            <Router>
-                <AppContainer />
-            </Router>
-        </ErrorBoundary>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={ store } >
+    <ErrorBoundary>
+      <Router>
+        <AppContainer />
+      </Router>
+    </ErrorBoundary>
+  </Provider>,
+  document.getElementById('root')
 )

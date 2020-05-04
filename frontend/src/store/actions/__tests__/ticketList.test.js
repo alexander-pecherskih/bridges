@@ -12,39 +12,40 @@ jest.mock('../../../services/TicketService')
 const mockStore = configureMockStore([thunk])
 
 describe('ticket list get action', () => {
-    it('success', () => {
-        const store = mockStore({ })
-        const expectedActions = [
-            { type: TICKET_LIST_REQUEST },
-            {
-                type: TICKET_LIST_SUCCESS,
-                tickets: defaultTicketList,
-            }
-        ]
+  it('success', () => {
+    const store = mockStore({ })
+    const expectedActions = [
+      { type: TICKET_LIST_REQUEST },
+      {
+        type: TICKET_LIST_SUCCESS,
+        tickets: defaultTicketList
+      }
+    ]
 
-        return store.dispatch( actions.getTickets() )
-            .then(() => {
-                expect(store.getActions()).toMatchObject(expectedActions)
-            })
-    })
+    return store.dispatch(actions.getTickets())
+      .then(() => {
+        expect(store.getActions()).toMatchObject(expectedActions)
+      })
+  })
 
-    it('failure', () => {
-        const store = mockStore({ })
-        const expectedActions = [
-            { type: TICKET_LIST_REQUEST },
-            {
-                type: TICKET_LIST_FAILURE,
-                error: { message: 'error' }
-            }
-        ]
+  it('failure', () => {
+    const store = mockStore({ })
+    const expectedActions = [
+      { type: TICKET_LIST_REQUEST },
+      {
+        type: TICKET_LIST_FAILURE,
+        error: { message: 'error' }
+      }
+    ]
 
-        TicketService.getTickets = jest.fn(
-            () => Promise.reject({ message: 'error' } )
-        )
+    TicketService.getTickets = jest.fn(
+      /* eslint-disable-next-line */
+      () => Promise.reject({ message: 'error' })
+    )
 
-        return store.dispatch( actions.getTickets() )
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions)
-            })
-    })
+    return store.dispatch(actions.getTickets())
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+  })
 })

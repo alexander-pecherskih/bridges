@@ -1,5 +1,5 @@
 export default {
-    fetchWithAuth: () => {
-        return Promise.resolve({ data: {} })
-    }
+  fetchWithAuth: () => {
+    return Promise.resolve({ data: {} })
+  }
 }

@@ -4,9 +4,9 @@ import { shallow } from 'enzyme'
 import Sidebar from '../Sidebar'
 
 describe('<Sidebar />', () => {
-    const wrapper = shallow(<Sidebar />)
+  const wrapper = shallow(<Sidebar />)
 
-    it('renders properly', () => {
-        expect(wrapper).toMatchSnapshot()
-    })
+  it('renders properly', () => {
+    expect(wrapper).toMatchSnapshot()
+  })
 })

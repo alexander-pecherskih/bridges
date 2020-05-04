@@ -5,67 +5,67 @@ import Node from './Node'
 import Connection from './Connection'
 
 const updateConnections = (connections, nodeId, rect) => {
-    return connections.map((item) => {
-        if (item.source.id === nodeId) {
-            item.source.rect = rect
-        }
-        if (item.target.id === nodeId) {
-            item.target.rect = rect
-        }
+  return connections.map((item) => {
+    if (item.source.id === nodeId) {
+      item.source.rect = rect
+    }
+    if (item.target.id === nodeId) {
+      item.target.rect = rect
+    }
 
-        return item
-    })
+    return item
+  })
 }
 
 class Diagram extends React.Component {
     state = {
-        connections: []
+      connections: []
     }
 
     handleNodeMove = (nodeId, rect) => {
-        this.setState((state) => {
-            return { connections: updateConnections([ ...state.connections ], nodeId, rect) }
-        })
+      this.setState((state) => {
+        return { connections: updateConnections([...state.connections], nodeId, rect) }
+      })
     }
 
     componentDidMount() {
-        this.setState({
-            connections: this.props.connections.map(item => ({
-                id: item.id,
-                source: { id: item.source_id, rect: null },
-                target: { id: item.target_id, rect: null },
-            }))
-        })
+      this.setState({
+        connections: this.props.connections.map(item => ({
+          id: item.id,
+          source: { id: item.source_id, rect: null },
+          target: { id: item.target_id, rect: null }
+        }))
+      })
     }
 
     render () {
-        const { nodes } = this.props
-        const { connections } = this.state
-        const nodeList = nodes.map(
-            item => <Node
-                node={ item }
-                key={ item.id }
-                onMove={ (rect) => this.handleNodeMove(item.id, rect) }
-                onDragEnd={ (position) => console.log(position)}
-            />
-        )
-        const connectionList = connections.map(
-            item => <Connection
-                connection={ item }
-                key={ item.id }
-            />
-        )
+      const { nodes } = this.props
+      const { connections } = this.state
+      const nodeList = nodes.map(
+        item => <Node
+          node={ item }
+          key={ item.id }
+          onMove={ (rect) => this.handleNodeMove(item.id, rect) }
+          onDragEnd={ (position) => console.log(position)}
+        />
+      )
+      const connectionList = connections.map(
+        item => <Connection
+          connection={ item }
+          key={ item.id }
+        />
+      )
 
-        return <>
-            { nodeList }
-            { connectionList }
-        </>
+      return <>
+        { nodeList }
+        { connectionList }
+      </>
     }
 }
 
 Diagram.propTypes = {
-    connections: PropTypes.array,
-    routes: PropTypes.array,
+  connections: PropTypes.array,
+  nodes: PropTypes.array
 }
 
 export default Diagram
