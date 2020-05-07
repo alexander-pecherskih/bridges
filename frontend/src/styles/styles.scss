@@ -3,7 +3,8 @@
 @import "components/Header";
 @import "components/Footer";
 
-body, #root {
+body,
+#root {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -15,7 +16,9 @@ main {
   align-items: stretch;
 }
 
-header, main, footer {
+header,
+main,
+footer {
   padding-left: $sidebar-width;
 }
 
@@ -33,7 +36,8 @@ header, main, footer {
   color: $error-color;
 }
 
-.btn-secondary, .btn-secondary:hover {
+.btn-secondary,
+.btn-secondary:hover {
   background-color: $secondary-btn-color;
   margin-left: 1rem !important;
   color: $primary-color;
@@ -44,7 +48,9 @@ header, main, footer {
 }
 
 @media only screen and (max-width: 992px) {
-  header, main, footer {
+  header,
+  main,
+  footer {
     padding-left: 0;
   }
 }

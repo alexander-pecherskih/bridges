@@ -25,7 +25,8 @@
     "test-coverage": "react-scripts test --coverage",
     "eslint": "eslint --ext .js src",
     "eslint-fix": "eslint --ext .js src --fix",
-    "stylelint": "stylelint \"src/**/*.scss\""
+    "stylelint": "stylelint \"src/**/*.scss\"",
+    "stylelint-fix": "stylelint \"src/**/*.scss\" --fix"
   },
   "eslintConfig": {
     "extends": "react-app"

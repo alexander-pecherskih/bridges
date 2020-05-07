@@ -7,13 +7,6 @@
   padding: 5px;
   box-sizing: border-box;
 
-  &_selected {
-    .node__title {
-      background-color: #26a69a;
-      color: #fff;
-    }
-  }
-
   &__title {
     background-color: lightgray;
     font-weight: bold;
@@ -29,5 +22,12 @@
 
   &__field {
     margin-bottom: 3px;
+  }
+
+  &_selected {
+    .node__title {
+      background-color: #26a69a;
+      color: #fff;
+    }
   }
 }
