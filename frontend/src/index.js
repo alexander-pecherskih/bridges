@@ -13,7 +13,7 @@ import './styles/styles.scss'
 const store = configureStore()
 
 ReactDOM.render(
-  <Provider store={ store } >
+  <Provider store={store}>
     <ErrorBoundary>
       <Router>
         <AppContainer />

@@ -10,8 +10,8 @@ const REFRESH_TOKEN_VAL = '"token"'
 const FETCH_DATA = {
   data: {
     access_token: 'access',
-    refresh_token: 'token'
-  }
+    refresh_token: 'token',
+  },
 }
 
 describe('AuthService Common', () => {
@@ -44,16 +44,20 @@ describe('AuthService Fetch', () => {
     localStorage.setItem(REFRESH_TOKEN_KEY, REFRESH_TOKEN_VAL)
     axios.post.mockImplementationOnce(() => Promise.reject(FETCH_DATA))
 
-    return AuthService.refreshToken()
-      .catch(e => expect(e).toEqual(new Error()))
+    return AuthService.refreshToken().catch((e) =>
+      expect(e).toEqual(new Error())
+    )
   })
 
   it('access denied', () => {
     localStorage.setItem(REFRESH_TOKEN_KEY, REFRESH_TOKEN_VAL)
-    axios.post.mockImplementationOnce(() => Promise.resolve({ data: { access_denied: true } }))
+    axios.post.mockImplementationOnce(() =>
+      Promise.resolve({ data: { access_denied: true } })
+    )
 
-    return AuthService.refreshToken()
-      .catch(e => expect(e).toEqual(new Error('Access Denied')))
+    return AuthService.refreshToken().catch((e) =>
+      expect(e).toEqual(new Error('Access Denied'))
+    )
   })
 })
 

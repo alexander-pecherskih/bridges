@@ -6,7 +6,7 @@ export default class UserInfoService {
       .then((response) => {
         return response.data
       })
-      .catch(err => {
+      .catch((err) => {
         throw new Error(err)
       })
   }

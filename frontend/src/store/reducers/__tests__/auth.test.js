@@ -1,44 +1,49 @@
-import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE, LOGOUT } from '../../constants/auth'
+import {
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
+  LOGOUT,
+} from '../../constants/auth'
 /* eslint-disable-next-line */
 import { default as reducer, initialState } from '../auth'
 
 describe('auth reducer', () => {
   it(AUTH_REQUEST, () => {
     const action = {
-      type: AUTH_REQUEST
+      type: AUTH_REQUEST,
     }
 
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
-      loading: true
+      loading: true,
     })
   })
 
   it(AUTH_SUCCESS, () => {
     const stateBefore = {
       ...initialState,
-      loading: true
+      loading: true,
     }
     const action = {
       type: AUTH_SUCCESS,
-      accessToken: 'token'
+      accessToken: 'token',
     }
 
     expect(reducer(stateBefore, action)).toEqual({
       ...stateBefore,
       loading: false,
       authorized: true,
-      accessToken: action.accessToken
+      accessToken: action.accessToken,
     })
   })
 
   it(AUTH_FAILURE, () => {
     const stateBefore = {
-      ...initialState
+      ...initialState,
     }
     const action = {
       type: AUTH_FAILURE,
-      error: { message: 'Error 500' }
+      error: { message: 'Error 500' },
     }
 
     expect(reducer(stateBefore, action)).toEqual({
@@ -46,7 +51,7 @@ describe('auth reducer', () => {
       loading: false,
       authorized: false,
       accessToken: null,
-      error: action.error
+      error: action.error,
     })
   })
 
@@ -55,10 +60,10 @@ describe('auth reducer', () => {
       ...initialState,
       authorized: true,
       loading: false,
-      accessToken: 'token'
+      accessToken: 'token',
     }
     const action = {
-      type: LOGOUT
+      type: LOGOUT,
     }
 
     expect(reducer(stateBefore, action)).toEqual({
@@ -66,7 +71,7 @@ describe('auth reducer', () => {
       loading: false,
       authorized: false,
       accessToken: null,
-      error: null
+      error: null,
     })
   })
 

@@ -2,30 +2,32 @@ const PROJECT_NAME = 'The Bridge'
 const pages = [
   {
     path: /^\/$/,
-    title: 'Главная'
+    title: 'Главная',
   },
   {
     path: '/settings',
-    title: 'Настройки'
+    title: 'Настройки',
   },
   {
     path: '/profile',
-    title: 'Настройки пользователя'
+    title: 'Настройки пользователя',
   },
   {
     path: '/processes',
-    title: 'Процессы'
+    title: 'Процессы',
   },
   {
     path: /\/process\/\d+/,
-    title: 'Редактор процесса'
-  }
+    title: 'Редактор процесса',
+  },
 ]
 
 const getPageTitle = (path, withProjectName = true) => {
   const page = pages.find((item) => {
-    return (item.path instanceof RegExp && path.search(item.path) !== -1) ||
-            path === item.path
+    return (
+      (item.path instanceof RegExp && path.search(item.path) !== -1) ||
+      path === item.path
+    )
   })
   const projectName = withProjectName ? PROJECT_NAME : ''
   const divider = withProjectName ? ' :: ' : ''

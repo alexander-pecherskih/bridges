@@ -6,6 +6,13 @@ import ProcessesPage from './ProcessesPage'
 import ProcessEditorPage from './ProcessEditorPage'
 import getPageTitle from './getPageTitle'
 
-export { LoginPage, HomePage, SettingsPage, ProfilePage, ProcessesPage, ProcessEditorPage }
+export {
+  LoginPage,
+  HomePage,
+  SettingsPage,
+  ProfilePage,
+  ProcessesPage,
+  ProcessEditorPage,
+}
 
 export { getPageTitle }

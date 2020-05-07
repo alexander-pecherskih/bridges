@@ -2,7 +2,11 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 import * as actions from '../processList'
-import { PROCESS_LIST_REQUEST, PROCESS_LIST_SUCCESS, PROCESS_LIST_FAILURE } from '../../constants/processList'
+import {
+  PROCESS_LIST_REQUEST,
+  PROCESS_LIST_SUCCESS,
+  PROCESS_LIST_FAILURE,
+} from '../../constants/processList'
 
 import { defaultProcessList } from '../../../services/__mocks__/ProcessService'
 
@@ -18,14 +22,13 @@ describe('process list get action', () => {
       { type: PROCESS_LIST_REQUEST },
       {
         type: PROCESS_LIST_SUCCESS,
-        processes: defaultProcessList
-      }
+        processes: defaultProcessList,
+      },
     ]
 
-    return store.dispatch(actions.getProcesses())
-      .then(() => {
-        expect(store.getActions()).toMatchObject(expectedActions)
-      })
+    return store.dispatch(actions.getProcesses()).then(() => {
+      expect(store.getActions()).toMatchObject(expectedActions)
+    })
   })
 
   it('failure', () => {
@@ -34,8 +37,8 @@ describe('process list get action', () => {
       { type: PROCESS_LIST_REQUEST },
       {
         type: PROCESS_LIST_FAILURE,
-        error: { message: 'error' }
-      }
+        error: { message: 'error' },
+      },
     ]
 
     ProcessService.getProcesses = jest.fn(
@@ -43,9 +46,8 @@ describe('process list get action', () => {
       () => Promise.reject({ message: 'error' })
     )
 
-    return store.dispatch(actions.getProcesses())
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions)
-      })
+    return store.dispatch(actions.getProcesses()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
   })
 })

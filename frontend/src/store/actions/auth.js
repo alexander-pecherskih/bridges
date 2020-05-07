@@ -1,22 +1,27 @@
-import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE, LOGOUT } from '../constants/auth'
+import {
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
+  LOGOUT,
+} from '../constants/auth'
 
 import AuthService from '../../services/AuthService'
 
 const authorize = {
-  type: AUTH_REQUEST
+  type: AUTH_REQUEST,
 }
 
 const authorized = (accessToken) => {
   return {
     type: AUTH_SUCCESS,
-    accessToken
+    accessToken,
   }
 }
 
 const authError = (error) => {
   return {
     type: AUTH_FAILURE,
-    error
+    error,
   }
 }
 

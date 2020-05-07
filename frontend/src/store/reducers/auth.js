@@ -1,10 +1,15 @@
-import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE, LOGOUT } from '../constants/auth'
+import {
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
+  LOGOUT,
+} from '../constants/auth'
 
 const initialState = {
   accessToken: null,
   authorized: null,
   loading: true,
-  error: null
+  error: null,
 }
 
 const auth = (state = initialState, action) => {
@@ -16,21 +21,21 @@ const auth = (state = initialState, action) => {
         accessToken: action.accessToken,
         authorized: true,
         loading: false,
-        error: null
+        error: null,
       }
     case AUTH_FAILURE:
       return {
         accessToken: null,
         authorized: false,
         loading: false,
-        error: action.error
+        error: action.error,
       }
     case LOGOUT:
       return {
         accessToken: null,
         authorized: false,
         loading: false,
-        error: null
+        error: null,
       }
     default:
       return state

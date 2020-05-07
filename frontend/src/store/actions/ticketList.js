@@ -1,21 +1,25 @@
-import { TICKET_LIST_REQUEST, TICKET_LIST_SUCCESS, TICKET_LIST_FAILURE } from '../constants/ticketList'
+import {
+  TICKET_LIST_REQUEST,
+  TICKET_LIST_SUCCESS,
+  TICKET_LIST_FAILURE,
+} from '../constants/ticketList'
 import TicketService from '../../services/TicketService'
 
 const request = {
-  type: TICKET_LIST_REQUEST
+  type: TICKET_LIST_REQUEST,
 }
 
 const success = (tickets) => {
   return {
     type: TICKET_LIST_SUCCESS,
-    tickets
+    tickets,
   }
 }
 
 const fail = (error) => {
   return {
     type: TICKET_LIST_FAILURE,
-    error
+    error,
   }
 }
 

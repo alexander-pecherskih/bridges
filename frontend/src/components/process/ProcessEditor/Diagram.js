@@ -18,54 +18,55 @@ const updateConnections = (connections, nodeId, rect) => {
 }
 
 class Diagram extends React.Component {
-    state = {
-      connections: []
-    }
+  state = {
+    connections: [],
+  }
 
-    handleNodeMove = (nodeId, rect) => {
-      this.setState((state) => {
-        return { connections: updateConnections([...state.connections], nodeId, rect) }
-      })
-    }
+  handleNodeMove = (nodeId, rect) => {
+    this.setState((state) => {
+      return {
+        connections: updateConnections([...state.connections], nodeId, rect),
+      }
+    })
+  }
 
-    componentDidMount() {
-      this.setState({
-        connections: this.props.connections.map(item => ({
-          id: item.id,
-          source: { id: item.source_id, rect: null },
-          target: { id: item.target_id, rect: null }
-        }))
-      })
-    }
+  componentDidMount() {
+    this.setState({
+      connections: this.props.connections.map((item) => ({
+        id: item.id,
+        source: { id: item.source_id, rect: null },
+        target: { id: item.target_id, rect: null },
+      })),
+    })
+  }
 
-    render () {
-      const { nodes } = this.props
-      const { connections } = this.state
-      const nodeList = nodes.map(
-        item => <Node
-          node={ item }
-          key={ item.id }
-          onMove={ (rect) => this.handleNodeMove(item.id, rect) }
-          onDragEnd={ (position) => console.log(position)}
-        />
-      )
-      const connectionList = connections.map(
-        item => <Connection
-          connection={ item }
-          key={ item.id }
-        />
-      )
+  render() {
+    const { nodes } = this.props
+    const { connections } = this.state
+    const nodeList = nodes.map((item) => (
+      <Node
+        node={item}
+        key={item.id}
+        onMove={(rect) => this.handleNodeMove(item.id, rect)}
+        onDragEnd={(position) => console.log(position)}
+      />
+    ))
+    const connectionList = connections.map((item) => (
+      <Connection connection={item} key={item.id} />
+    ))
 
-      return <>
-        { nodeList }
-        { connectionList }
+    return (
+      <>
+        {nodeList}
+        {connectionList}
       </>
-    }
+    )
+  }
 }
 
 Diagram.propTypes = {
   connections: PropTypes.array,
-  nodes: PropTypes.array
+  nodes: PropTypes.array,
 }
 
 export default Diagram

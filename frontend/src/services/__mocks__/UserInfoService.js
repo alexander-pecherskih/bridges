@@ -1,8 +1,8 @@
 export const defaultUserInfo = {
   id: 'uuid',
-  name: 'John'
+  name: 'John',
 }
 
 export default {
-  getInfo: () => Promise.resolve(defaultUserInfo)
+  getInfo: () => Promise.resolve(defaultUserInfo),
 }

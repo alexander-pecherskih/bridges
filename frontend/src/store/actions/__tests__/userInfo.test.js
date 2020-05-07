@@ -18,14 +18,13 @@ describe('user info get action', () => {
       { type: USER_REQUEST },
       {
         type: USER_SUCCESS,
-        userInfo: defaultUserInfo
-      }
+        userInfo: defaultUserInfo,
+      },
     ]
 
-    return store.dispatch(actions.getUserInfo())
-      .then(() => {
-        expect(store.getActions()).toMatchObject(expectedActions)
-      })
+    return store.dispatch(actions.getUserInfo()).then(() => {
+      expect(store.getActions()).toMatchObject(expectedActions)
+    })
   })
 
   it('failure', () => {
@@ -34,8 +33,8 @@ describe('user info get action', () => {
       { type: USER_REQUEST },
       {
         type: USER_FAILURE,
-        error: { message: 'error' }
-      }
+        error: { message: 'error' },
+      },
     ]
 
     UserInfoService.getInfo = jest.fn(
@@ -43,9 +42,8 @@ describe('user info get action', () => {
       () => Promise.reject({ message: 'error' })
     )
 
-    return store.dispatch(actions.getUserInfo())
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions)
-      })
+    return store.dispatch(actions.getUserInfo()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
   })
 })

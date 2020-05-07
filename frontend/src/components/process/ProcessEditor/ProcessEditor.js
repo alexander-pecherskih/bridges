@@ -12,16 +12,18 @@ const ProcessEditor = ({ process }) => {
   const routes = process.routes
   // const nodes = process.nodes
 
-  return <>
-    <h4>{ process.title }</h4>
-    <Diagram
-      connections={ routes }
-      nodes={ nodes }
-      // selectNode={ selectNode }
-      // selectedNodeId={ selectedNode ? selectedNode.id : null }
-      // updateNodePosition={ updateNodePosition }
-    />
-  </>
+  return (
+    <>
+      <h4>{process.title}</h4>
+      <Diagram
+        connections={routes}
+        nodes={nodes}
+        // selectNode={ selectNode }
+        // selectedNodeId={ selectedNode ? selectedNode.id : null }
+        // updateNodePosition={ updateNodePosition }
+      />
+    </>
+  )
 }
 
 ProcessEditor.propTypes = {
@@ -30,7 +32,7 @@ ProcessEditor.propTypes = {
   saving: PropTypes.bool.isRequired,
   error: PropTypes.string,
   getProcess: PropTypes.func.isRequired,
-  saveProcess: PropTypes.func.isRequired
+  saveProcess: PropTypes.func.isRequired,
 }
 
 export default ProcessEditor

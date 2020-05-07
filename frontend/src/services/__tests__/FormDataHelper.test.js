@@ -4,7 +4,7 @@ describe('FormDataHelper', () => {
   describe('Create from object', () => {
     const formData = FormDataHelper.createFromObject({
       id: 1,
-      title: 'Title value'
+      title: 'Title value',
     })
 
     it('Check ID', () => {

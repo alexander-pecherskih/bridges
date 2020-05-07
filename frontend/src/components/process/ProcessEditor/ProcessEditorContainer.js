@@ -10,7 +10,9 @@ import ProcessEditor from './ProcessEditor'
 import TextMessage from '../../common/TextMessage'
 
 const ProcessEditorContainer = (props) => {
-  const onMount = () => { getProcess(urlParams.id) }
+  const onMount = () => {
+    getProcess(urlParams.id)
+  }
   const { getProcess, process } = props
   const urlParams = useParams()
   useEffect(onMount, [])
@@ -19,7 +21,7 @@ const ProcessEditorContainer = (props) => {
     return <TextMessage message="Loading..." />
   }
 
-  return <ProcessEditor { ...props } />
+  return <ProcessEditor {...props} />
 }
 
 ProcessEditorContainer.propTypes = {
@@ -28,7 +30,7 @@ ProcessEditorContainer.propTypes = {
   saving: PropTypes.bool.isRequired,
   error: PropTypes.string,
   getProcess: PropTypes.func.isRequired,
-  saveProcess: PropTypes.func.isRequired
+  saveProcess: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = ({ process: { process, loading, saving, error } }) => {
@@ -38,10 +40,10 @@ const mapStateToProps = ({ process: { process, loading, saving, error } }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getProcess: (id) => dispatch(getProcess(id)),
-    saveProcess: () => dispatch(saveProcess())
+    saveProcess: () => dispatch(saveProcess()),
   }
 }
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(ProcessEditorContainer)
+export default compose(connect(mapStateToProps, mapDispatchToProps))(
+  ProcessEditorContainer
+)

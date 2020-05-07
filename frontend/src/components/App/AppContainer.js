@@ -10,7 +10,9 @@ import { LoginPage } from '../../pages'
 import { getUrl } from '../../services/url'
 
 const AppContainer = ({ authorized, loading, logout, refreshAuthToken }) => {
-  const onMount = () => { refreshAuthToken() }
+  const onMount = () => {
+    refreshAuthToken()
+  }
   const location = useLocation()
   useEffect(onMount, [])
 
@@ -26,14 +28,14 @@ const AppContainer = ({ authorized, loading, logout, refreshAuthToken }) => {
     return <>Loading...</>
   }
 
-  return <App logout={ () => logout() } />
+  return <App logout={() => logout()} />
 }
 
 AppContainer.propTypes = {
   authorized: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
-  refreshAuthToken: PropTypes.func.isRequired
+  refreshAuthToken: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = ({ auth: { accessToken, authorized, loading } }) => {
@@ -43,7 +45,7 @@ const mapStateToProps = ({ auth: { accessToken, authorized, loading } }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
-    refreshAuthToken: () => dispatch(refreshAuthToken())
+    refreshAuthToken: () => dispatch(refreshAuthToken()),
   }
 }
 

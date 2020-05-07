@@ -11,7 +11,7 @@ export default class AuthService {
       password,
       grant_type: 'password',
       client_id: 'app',
-      client_secret: 'secret'
+      client_secret: 'secret',
     }
     return AuthService._fetchToken(data)
   }
@@ -27,32 +27,34 @@ export default class AuthService {
       refresh_token: refreshToken,
       grant_type: 'refresh_token',
       client_id: 'app',
-      client_secret: 'secret'
+      client_secret: 'secret',
     }
 
     return AuthService._fetchToken(data)
   }
 
   static _fetchToken(data) {
-    return axios.post(
-      getUrl('/token'),
-      FormDataHelper.createFromObject(data),
-      {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      }
-    ).then((response) => {
-      if (
-        !Object.prototype.hasOwnProperty.call(response.data, 'access_token') ||
-        !Object.prototype.hasOwnProperty.call(response.data, 'refresh_token')
-      ) {
-        throw new Error('Access Denied')
-      }
+    return axios
+      .post(getUrl('/token'), FormDataHelper.createFromObject(data), {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        if (
+          !Object.prototype.hasOwnProperty.call(
+            response.data,
+            'access_token'
+          ) ||
+          !Object.prototype.hasOwnProperty.call(response.data, 'refresh_token')
+        ) {
+          throw new Error('Access Denied')
+        }
 
-      AuthService._saveRefreshTokenToLocalStorage(response.data.refresh_token)
-      return response.data.access_token
-    }).catch(e => {
-      throw new Error(e.message)
-    })
+        AuthService._saveRefreshTokenToLocalStorage(response.data.refresh_token)
+        return response.data.access_token
+      })
+      .catch((e) => {
+        throw new Error(e.message)
+      })
   }
 
   static _getRefreshTokenFromLocalStorage() {

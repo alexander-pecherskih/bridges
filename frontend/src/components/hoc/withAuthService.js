@@ -9,13 +9,9 @@ const withAuthService = () => (Wrapped) => {
   const WithAuthService = (props) => {
     return (
       <AuthServiceConsumer>
-        {
-          (authService) => {
-            return (
-              <Wrapped {...props} authService={ authService } />
-            )
-          }
-        }
+        {(authService) => {
+          return <Wrapped {...props} authService={authService} />
+        }}
       </AuthServiceConsumer>
     )
   }

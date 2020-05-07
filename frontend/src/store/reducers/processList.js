@@ -1,9 +1,13 @@
-import { PROCESS_LIST_REQUEST, PROCESS_LIST_SUCCESS, PROCESS_LIST_FAILURE } from '../constants/processList'
+import {
+  PROCESS_LIST_REQUEST,
+  PROCESS_LIST_SUCCESS,
+  PROCESS_LIST_FAILURE,
+} from '../constants/processList'
 
 const initialState = {
   processes: [],
   loading: true,
-  error: null
+  error: null,
 }
 
 const processList = (state = initialState, action) => {
@@ -14,13 +18,13 @@ const processList = (state = initialState, action) => {
       return {
         processes: action.processes,
         loading: false,
-        error: null
+        error: null,
       }
     case PROCESS_LIST_FAILURE:
       return {
         processes: [],
         loading: false,
-        error: action.error
+        error: action.error,
       }
     default:
       return state

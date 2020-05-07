@@ -3,7 +3,7 @@ import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from '../constants/user'
 const initialState = {
   user: null,
   loading: true,
-  error: null
+  error: null,
 }
 
 const userInfo = (state = initialState, action) => {
@@ -12,19 +12,19 @@ const userInfo = (state = initialState, action) => {
       return {
         user: null,
         loading: true,
-        error: null
+        error: null,
       }
     case USER_SUCCESS:
       return {
         user: action.userInfo,
         loading: false,
-        error: null
+        error: null,
       }
     case USER_FAILURE:
       return {
         user: null,
         loading: false,
-        error: action.error
+        error: action.error,
       }
     default:
       return state

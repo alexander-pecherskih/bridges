@@ -11,19 +11,16 @@ const LOGIN_URL = getUrl('/login')
 export default class Api {
   static _fetch({ method = 'GET', url = '', token = null }) {
     const headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     }
 
     if (token) {
       headers.Authorization = `Bearer ${token}`
     }
 
-    return axios(
-      getUrl(url),
-      {
-        headers
-      }
-    )
+    return axios(getUrl(url), {
+      headers,
+    })
   }
 
   static async fetchWithAuth(params, accessToken) {
@@ -37,10 +34,9 @@ export default class Api {
     }
 
     if (Date.now() >= jwt.exp * 1000) {
-      await AuthService.refreshToken()
-        .catch(() => {
-          return window.location.replace(LOGIN_URL)
-        })
+      await AuthService.refreshToken().catch(() => {
+        return window.location.replace(LOGIN_URL)
+      })
     }
 
     params.token = accessToken

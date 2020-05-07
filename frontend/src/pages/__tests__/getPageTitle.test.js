@@ -5,7 +5,9 @@ describe('getPageTitle function', () => {
     expect(getPageTitle('/')).toEqual('Главная :: The Bridge')
   })
   it('/process', () => {
-    expect(getPageTitle('/process/1')).toEqual('Редактор процесса :: The Bridge')
+    expect(getPageTitle('/process/1')).toEqual(
+      'Редактор процесса :: The Bridge'
+    )
   })
   it('Title not found', () => {
     expect(getPageTitle('/title-not-found')).toEqual('The Bridge')

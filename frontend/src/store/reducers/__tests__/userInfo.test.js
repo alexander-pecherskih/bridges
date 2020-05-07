@@ -5,45 +5,45 @@ import { default as reducer, initialState } from '../userInfo'
 describe('ticket list reducer', () => {
   it(USER_REQUEST, () => {
     const action = {
-      type: USER_REQUEST
+      type: USER_REQUEST,
     }
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       loading: true,
-      user: null
+      user: null,
     })
   })
 
   it(USER_SUCCESS, () => {
     const stateBefore = {
       ...initialState,
-      loading: true
+      loading: true,
     }
     const action = {
       type: USER_SUCCESS,
-      userInfo: {}
+      userInfo: {},
     }
     expect(reducer(stateBefore, action)).toEqual({
       ...stateBefore,
       loading: false,
-      user: action.userInfo
+      user: action.userInfo,
     })
   })
 
   it(USER_FAILURE, () => {
     const stateBefore = {
       ...initialState,
-      loading: true
+      loading: true,
     }
     const action = {
       type: USER_FAILURE,
-      error: {}
+      error: {},
     }
     expect(reducer(stateBefore, action)).toEqual({
       ...stateBefore,
       loading: false,
       user: null,
-      error: action.error
+      error: action.error,
     })
   })
 

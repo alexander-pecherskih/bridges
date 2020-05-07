@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 export default class ErrorBoundary extends React.Component {
   state = {
-    hasError: false
+    hasError: false,
   }
 
   static getDerivedStateFromError(error) {
     return {
       hasError: true,
-      error
+      error,
     }
   }
 
@@ -23,5 +23,5 @@ export default class ErrorBoundary extends React.Component {
 }
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.element,
 }

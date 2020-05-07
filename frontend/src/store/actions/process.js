@@ -1,25 +1,30 @@
-import { PROCESS_REQUEST, PROCESS_SUCCESS, PROCESS_FAILURE, PROCESS_SAVE } from '../constants/process'
+import {
+  PROCESS_REQUEST,
+  PROCESS_SUCCESS,
+  PROCESS_FAILURE,
+  PROCESS_SAVE,
+} from '../constants/process'
 import ProcessService from '../../services/ProcessService'
 
 const request = {
-  type: PROCESS_REQUEST
+  type: PROCESS_REQUEST,
 }
 
 const success = (process) => {
   return {
     type: PROCESS_SUCCESS,
-    process
+    process,
   }
 }
 
 const save = {
-  type: PROCESS_SAVE
+  type: PROCESS_SAVE,
 }
 
 const fail = (error) => {
   return {
     type: PROCESS_FAILURE,
-    error
+    error,
   }
 }
 

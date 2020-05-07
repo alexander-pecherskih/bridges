@@ -8,7 +8,7 @@ import LoginFormContainer from '../components/LoginForm'
 
 const LoginPage = () => {
   return (
-    <AuthServiceProvider value={ new AuthService() }>
+    <AuthServiceProvider value={new AuthService()}>
       <LoginFormContainer />
     </AuthServiceProvider>
   )

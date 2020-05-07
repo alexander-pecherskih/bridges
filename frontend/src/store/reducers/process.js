@@ -1,10 +1,15 @@
-import { PROCESS_REQUEST, PROCESS_SUCCESS, PROCESS_FAILURE, PROCESS_SAVE } from '../constants/process'
+import {
+  PROCESS_REQUEST,
+  PROCESS_SUCCESS,
+  PROCESS_FAILURE,
+  PROCESS_SAVE,
+} from '../constants/process'
 
 const initialState = {
   process: null,
   loading: true,
   saving: false,
-  error: null
+  error: null,
 }
 
 const process = (state = initialState, action) => {
@@ -16,20 +21,20 @@ const process = (state = initialState, action) => {
         ...state,
         loading: false,
         saving: true,
-        error: null
+        error: null,
       }
     case PROCESS_SUCCESS:
       return {
         process: action.process,
         saving: false,
         loading: false,
-        error: null
+        error: null,
       }
     case PROCESS_FAILURE:
       return {
         ...initialState,
         loading: false,
-        error: action.error
+        error: action.error,
       }
     default:
       return state

@@ -14,19 +14,27 @@ afterAll(() => {
 
 jest.mock('../AuthService', () => ({
   /* eslint-disable-next-line */
-  refreshToken: jest.fn().mockReturnValue(new Promise((_, reject) => { reject() })),
+  refreshToken: jest.fn().mockReturnValue(
+    /* eslint-disable-next-line */
+    new Promise((_, reject) => {
+      /* eslint-disable-next-line */
+      reject()
+    })
+  ),
   /* eslint-disable-next-line */
-  getLoginUrl: jest.fn().mockReturnValue('/login')
+  getLoginUrl: jest.fn().mockReturnValue('/login'),
 }))
 
-jest.mock('jwt-decode', () => jest.fn()
-  .mockReturnValueOnce(false)
-  .mockReturnValueOnce({
-    exp: Date.now() / 1000 - 100
-  })
-  .mockReturnValue({
-    exp: Date.now() / 1000 + 100
-  })
+jest.mock('jwt-decode', () =>
+  jest
+    .fn()
+    .mockReturnValueOnce(false)
+    .mockReturnValueOnce({
+      exp: Date.now() / 1000 - 100,
+    })
+    .mockReturnValue({
+      exp: Date.now() / 1000 + 100,
+    })
 )
 
 jest.mock('axios')

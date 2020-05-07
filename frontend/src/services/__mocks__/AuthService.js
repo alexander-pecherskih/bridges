@@ -8,9 +8,9 @@ export default {
     return Promise.reject({ message: 'error' })
   },
 
-  logout: () => { },
+  logout: () => {},
 
   refreshTokenIsValid: () => true,
 
-  refreshToken: () => Promise.resolve('jwt')
+  refreshToken: () => Promise.resolve('jwt'),
 }

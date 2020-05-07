@@ -1,9 +1,13 @@
-import { TICKET_LIST_REQUEST, TICKET_LIST_SUCCESS, TICKET_LIST_FAILURE } from '../constants/ticketList'
+import {
+  TICKET_LIST_REQUEST,
+  TICKET_LIST_SUCCESS,
+  TICKET_LIST_FAILURE,
+} from '../constants/ticketList'
 
 const initialState = {
   tickets: [],
   loading: true,
-  error: null
+  error: null,
 }
 
 const ticketList = (state = initialState, action) => {
@@ -12,19 +16,19 @@ const ticketList = (state = initialState, action) => {
       return {
         tickets: [],
         loading: true,
-        error: null
+        error: null,
       }
     case TICKET_LIST_SUCCESS:
       return {
         tickets: action.tickets,
         loading: false,
-        error: null
+        error: null,
       }
     case TICKET_LIST_FAILURE:
       return {
         tickets: [],
         loading: false,
-        error: action.error
+        error: action.error,
       }
     default:
       return state

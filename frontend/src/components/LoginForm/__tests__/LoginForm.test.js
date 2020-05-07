@@ -6,12 +6,12 @@ import LoginForm from '../LoginForm'
 const defaultProps = {
   setUsername: jest.fn(),
   setPassword: jest.fn(),
-  login: () => { }
+  login: () => {},
 }
 
 describe('<LoginForm />', () => {
   describe('LoginForm initial', () => {
-    const wrapper = shallow(<LoginForm { ...defaultProps } />)
+    const wrapper = shallow(<LoginForm {...defaultProps} />)
 
     it('render initial', () => {
       expect(wrapper.find('form')).toHaveLength(1)
@@ -23,7 +23,9 @@ describe('<LoginForm />', () => {
   })
 
   describe('LoginForm login', () => {
-    const wrapper = shallow(<LoginForm { ...defaultProps } username="John" password="secret" />)
+    const wrapper = shallow(
+      <LoginForm {...defaultProps} username="John" password="secret" />
+    )
 
     it('submit is enabled when username and password', () => {
       expect(wrapper.find('button').props().disabled).toBeFalsy()
@@ -32,12 +34,14 @@ describe('<LoginForm />', () => {
 
   describe('LoginForm login', () => {
     const loginClick = jest.fn()
-    const wrapper = mount(<LoginForm
-      { ...defaultProps }
-      username="John"
-      password="secret"
-      login={ loginClick }
-    />)
+    const wrapper = mount(
+      <LoginForm
+        {...defaultProps}
+        username="John"
+        password="secret"
+        login={loginClick}
+      />
+    )
 
     it('login clicked', () => {
       wrapper.find('button').simulate('click')
@@ -50,23 +54,25 @@ describe('<LoginForm />', () => {
   })
 
   describe('Loginform edit & submit', () => {
-    const wrapper = shallow(<LoginForm { ...defaultProps } />)
+    const wrapper = shallow(<LoginForm {...defaultProps} />)
     const mockPreventDefault = jest.fn()
 
     wrapper.find('#username').simulate('change', { target: { value: 'John' } })
     expect(defaultProps.setUsername).toHaveBeenCalledTimes(1)
 
-    wrapper.find('#password').simulate('change', { target: { value: 'Secret' } })
+    wrapper
+      .find('#password')
+      .simulate('change', { target: { value: 'Secret' } })
     expect(defaultProps.setPassword).toHaveBeenCalledTimes(1)
 
-    wrapper.find('form').simulate('submit', { preventDefault: mockPreventDefault })
+    wrapper
+      .find('form')
+      .simulate('submit', { preventDefault: mockPreventDefault })
     expect(mockPreventDefault).toHaveBeenCalledTimes(1)
   })
 
   describe('LoginForm without Error Message', () => {
-    const wrapper = shallow(<LoginForm
-      { ...defaultProps }
-    />)
+    const wrapper = shallow(<LoginForm {...defaultProps} />)
 
     it('no message', () => {
       expect(wrapper.find('.error-message')).toHaveLength(0)
@@ -74,10 +80,9 @@ describe('<LoginForm />', () => {
   })
 
   describe('LoginForm with Error Message', () => {
-    const wrapper = shallow(<LoginForm
-      { ...defaultProps }
-      errorMessage="Message"
-    />)
+    const wrapper = shallow(
+      <LoginForm {...defaultProps} errorMessage="Message" />
+    )
 
     it('has message', () => {
       expect(wrapper.find('ErrorMessage')).toHaveLength(1)
