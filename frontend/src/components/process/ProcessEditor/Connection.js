@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './styles/connection.sass'
+import './styles/connection.scss'
 
 /**
  * RLT - from Right side (of source) to Left side (of target) when (source at) Top

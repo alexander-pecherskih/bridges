@@ -8,7 +8,7 @@ import AppContainer from './components/App/AppContainer'
 import ErrorBoundary from './components/ErrorBoundary'
 import configureStore from './store'
 
-import './styles/styles.sass'
+import './styles/styles.scss'
 
 const store = configureStore()
 

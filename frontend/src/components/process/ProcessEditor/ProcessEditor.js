@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './styles/diagram.sass'
+import './styles/diagram.scss'
 import Diagram from './Diagram'
 
 const ProcessEditor = ({ process }) => {

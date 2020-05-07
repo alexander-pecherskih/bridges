@@ -1,0 +1,15 @@
+@import "~materialize-css/sass/components/color-variables";
+
+$primary-color: color("grey", "darken-1") !default;
+$secondary-btn-color: color("grey", "lighten-3") !default;
+
+//$secondary-color: color("yellow", "base") !default
+@import "~materialize-css/sass/materialize";
+
+$sidebar-width: 200px;
+$sidebar-background-color: $primary-color;
+$sidebar-color: color("shades", "white");
+
+$footer-border-color: rgba(0, 0, 0, 0.2);
+
+$error-color: color("red", "darken-1");

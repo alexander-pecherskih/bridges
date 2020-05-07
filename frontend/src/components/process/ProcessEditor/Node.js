@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './styles/node.sass'
+import './styles/node.scss'
 
 class Node extends React.PureComponent {
     state = {
