@@ -3,7 +3,7 @@ import React from 'react'
 import ProcessListContainer from '../components/process/ProcessList'
 
 const ProcessesPage = () => {
-    return <ProcessListContainer />
+  return <ProcessListContainer />
 }
 
 export default ProcessesPage

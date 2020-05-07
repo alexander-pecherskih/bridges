@@ -52,6 +52,8 @@ oauth-keys:
 test:
 	docker-compose run --rm php-cli php bin/phpunit
 
+### FRONTEND ###
+
 frontend-clear:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf .ready build coverage'
 
@@ -62,3 +64,19 @@ frontend-yarn-install:
 
 frontend-ready:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine touch .ready
+
+frontend-lint:
+	docker-compose run --rm frontend-node-cli yarn eslint
+	docker-compose run --rm frontend-node-cli yarn stylelint
+
+frontend-lint-fix:
+	docker-compose run --rm frontend-node-cli yarn eslint-fix
+
+frontend-pretty:
+	docker-compose run --rm frontend-node-cli yarn prettier
+
+frontend-test:
+	docker-compose run --rm frontend-node-cli yarn test
+
+frontend-test-watch:
+	docker-compose run --rm frontend-node-cli yarn test-watch

@@ -1,15 +1,16 @@
 export default {
-    authorize: (username, password) => {
-        if (username === 'John') {
-            return Promise.resolve('jwt')
-        }
+  authorize: (username, password) => {
+    if (username === 'John') {
+      return Promise.resolve('jwt')
+    }
 
-        return Promise.reject({ message: 'error' })
-    },
+    /* eslint-disable-next-line */
+    return Promise.reject({ message: 'error' })
+  },
 
-    logout: () => { },
+  logout: () => {},
 
-    refreshTokenIsValid: () => true,
+  refreshTokenIsValid: () => true,
 
-    refreshToken: () => Promise.resolve('jwt')
+  refreshToken: () => Promise.resolve('jwt'),
 }

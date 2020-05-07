@@ -12,39 +12,38 @@ jest.mock('../../../services/UserInfoService')
 const mockStore = configureMockStore([thunk])
 
 describe('user info get action', () => {
-    it('success', () => {
-        const store = mockStore({ auth: { accessToken: 'jwt' } })
-        const expectedActions = [
-            { type: USER_REQUEST },
-            {
-                type: USER_SUCCESS,
-                userInfo: defaultUserInfo,
-            }
-        ]
+  it('success', () => {
+    const store = mockStore({ auth: { accessToken: 'jwt' } })
+    const expectedActions = [
+      { type: USER_REQUEST },
+      {
+        type: USER_SUCCESS,
+        userInfo: defaultUserInfo,
+      },
+    ]
 
-        return store.dispatch( actions.getUserInfo() )
-            .then(() => {
-                expect(store.getActions()).toMatchObject(expectedActions)
-            })
+    return store.dispatch(actions.getUserInfo()).then(() => {
+      expect(store.getActions()).toMatchObject(expectedActions)
     })
+  })
 
-    it('failure', () => {
-        const store = mockStore({ auth: { accessToken: 'jwt' } })
-        const expectedActions = [
-            { type: USER_REQUEST },
-            {
-                type: USER_FAILURE,
-                error: { message: 'error' }
-            }
-        ]
+  it('failure', () => {
+    const store = mockStore({ auth: { accessToken: 'jwt' } })
+    const expectedActions = [
+      { type: USER_REQUEST },
+      {
+        type: USER_FAILURE,
+        error: { message: 'error' },
+      },
+    ]
 
-        UserInfoService.getInfo = jest.fn(
-            () => Promise.reject({ message: 'error' } )
-        )
+    UserInfoService.getInfo = jest.fn(
+      /* eslint-disable-next-line */
+      () => Promise.reject({ message: 'error' })
+    )
 
-        return store.dispatch( actions.getUserInfo() )
-            .then(() => {
-                expect(store.getActions()).toEqual(expectedActions)
-            })
+    return store.dispatch(actions.getUserInfo()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
     })
+  })
 })
