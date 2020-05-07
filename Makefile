@@ -67,6 +67,7 @@ frontend-ready:
 
 frontend-lint:
 	docker-compose run --rm frontend-node-cli yarn eslint
+	docker-compose run --rm frontend-node-cli yarn stylelint
 
 frontend-lint-fix:
 	docker-compose run --rm frontend-node-cli yarn eslint-fix
