@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import './styles/node.scss'
 import Modal from '../../common/Modal'
 import { nodeType } from './propTypes'
+import NodeEditor from './NodeEditor'
+import Button from '../../common/Button'
 
 class Node extends React.PureComponent {
   state = {
@@ -98,10 +100,12 @@ class Node extends React.PureComponent {
         >
           {node.title}
         </div>
-        <div className="node__fields" onClick={this.toggleEditor}>
+        <div className="node__fields">
           x: {this.state.position.left}, y: {this.state.position.top}
           <br />
           {node.id.substring(0, 8)}
+          <br />
+          <Button title="edit" onClick={this.toggleEditor} />
         </div>
         {this.state.isEditorOpen && (
           <Modal
@@ -110,7 +114,7 @@ class Node extends React.PureComponent {
             submitTitle="ОК"
             cancelTitle="Отмена"
           >
-            trololo
+            <NodeEditor node={node} />
           </Modal>
         )}
       </div>
