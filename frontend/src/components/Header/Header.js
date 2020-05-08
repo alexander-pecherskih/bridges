@@ -21,8 +21,8 @@ const Header = ({ logout }) => {
         </div>
         <div className="header__nav-wrapper">
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            {/* eslint-disable-next-line */}
             <li>
+              {/* eslint-disable-next-line */}
               <a onClick={logout} className="logout-button">
                 Logout
               </a>

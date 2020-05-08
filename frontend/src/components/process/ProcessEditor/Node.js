@@ -2,12 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import './styles/node.scss'
+import Modal from '../../common/Modal'
+import { nodeType } from './propTypes'
 
 class Node extends React.PureComponent {
   state = {
     isDragging: false,
     position: { top: 0, left: 0 },
     screenOffset: { x: 0, y: 0 },
+    isEditorOpen: false,
   }
 
   constructor(props) {
@@ -56,6 +59,10 @@ class Node extends React.PureComponent {
     }
   }
 
+  toggleEditor = () => {
+    this.setState((state) => ({ isEditorOpen: !state.isEditorOpen }))
+  }
+
   componentDidMount() {
     const { node } = this.props
     this.setState({ position: { ...node.position } }, () => {
@@ -91,25 +98,28 @@ class Node extends React.PureComponent {
         >
           {node.title}
         </div>
-        <div className="node__fields">
+        <div className="node__fields" onClick={this.toggleEditor}>
           x: {this.state.position.left}, y: {this.state.position.top}
           <br />
           {node.id.substring(0, 8)}
         </div>
+        {this.state.isEditorOpen && (
+          <Modal
+            onCancel={this.toggleEditor}
+            title={node.title}
+            submitTitle="ОК"
+            cancelTitle="Отмена"
+          >
+            trololo
+          </Modal>
+        )}
       </div>
     )
   }
 }
 
 Node.propTypes = {
-  node: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    position: PropTypes.shape({
-      top: PropTypes.number,
-      left: PropTypes.number,
-    }).isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
+  node: nodeType.isRequired,
   onMove: PropTypes.func,
   onDragEnd: PropTypes.func,
 }
