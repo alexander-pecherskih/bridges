@@ -1,0 +1,15 @@
+.ErrorBox {
+    margin: 2rem auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.Title {
+    font-size: 2rem;
+    color: #d3d3d3;
+}
+
+.Message {
+    font-size: 1.5rem;
+    color: gray;
+}

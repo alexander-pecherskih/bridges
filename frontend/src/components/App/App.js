@@ -11,6 +11,7 @@ import {
   SettingsPage,
   ProcessEditorPage,
 } from '../../pages'
+import ErrorBoundary from '../ErrorBoundary'
 
 const App = ({ logout }) => {
   return (
@@ -18,13 +19,15 @@ const App = ({ logout }) => {
       <Header logout={logout} />
       <main>
         <div className="main-container">
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/settings" component={SettingsPage} />
-            <Route path="/profile" component={ProfilePage} />
-            <Route path="/processes" component={ProcessesPage} />
-            <Route path="/process/:id" component={ProcessEditorPage} />
-          </Switch>
+          <ErrorBoundary>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/settings" component={SettingsPage} />
+              <Route path="/profile" component={ProfilePage} />
+              <Route path="/processes" component={ProcessesPage} />
+              <Route path="/process/:id" component={ProcessEditorPage} />
+            </Switch>
+          </ErrorBoundary>
         </div>
       </main>
       <Footer />

@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import styles from './styles/ErrorBoundary.module.css'
+
 export default class ErrorBoundary extends React.Component {
   state = {
     hasError: false,
@@ -15,7 +17,11 @@ export default class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      return <div>Что-то пошло не так :(</div>
+      console.log(this.state.error)
+      return <div className={styles.ErrorBox}>
+        <div className={styles.Title}>Что-то пошло не так :(</div>
+        <div className={styles.Message}>{ this.state.error.toString() }</div>
+      </div>
     }
 
     return this.props.children
