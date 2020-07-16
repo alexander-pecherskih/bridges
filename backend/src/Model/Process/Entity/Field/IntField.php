@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Process\Entity\Field;
 
 class IntField implements FieldInterface
 {
-    private Value $value;
-
-    public function __construct(Value $value)
+    public function getName(): string
     {
-        $this->value = $value;
+        return 'Integer';
     }
 
     public function getConstraints(): array

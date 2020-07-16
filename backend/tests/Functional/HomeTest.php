@@ -6,7 +6,8 @@ namespace App\Tests\Functional\Api;
 
 use App\Tests\Functional\DbWebTestCase;
 
-class HomeTest/* extends DbWebTestCase*/
+/* extends DbWebTestCase*/
+class HomeTest
 {
     public function testGet(): void
     {

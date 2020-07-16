@@ -22,4 +22,9 @@ class Command
      * @Assert\NotBlank()
      */
     public string $left;
+
+    public function __construct(string $id)
+    {
+        $this->id = $id;
+    }
 }

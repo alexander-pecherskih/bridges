@@ -31,5 +31,4 @@ class ProcessFetcher
 
         return $stmt->fetchAll(FetchMode::ASSOCIATIVE);
     }
-
 }

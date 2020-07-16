@@ -16,7 +16,7 @@ class UuidDenormalizer implements DenormalizerInterface
     /**
      * @inheritdoc
      */
-    public function denormalize($data, $class, string $format = null, array $context = array())
+    public function denormalize($data, $class, string $format = null, array $context = [])
     {
         if (null === $data) {
             return null;

@@ -13,7 +13,6 @@ use DomainException;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Annotation as Serializer;
 
-
 /**
  * @property UuidInterface $id
  * @property DateTimeImmutable $created

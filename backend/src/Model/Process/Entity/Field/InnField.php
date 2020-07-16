@@ -4,11 +4,9 @@ namespace App\Model\Process\Entity\Field;
 
 class InnField implements FieldInterface
 {
-    private Value $value;
-
-    public function __construct(Value $value)
+    public function getName(): string
     {
-        $this->value = $value;
+        return 'INN';
     }
 
     public function getConstraints(): array

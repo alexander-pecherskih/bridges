@@ -3,17 +3,29 @@
 namespace App\Controller\Process;
 
 use App\Model\Process\Entity\Process;
-use App\Model\Process\UseCase\Node\Move\Command;
+use App\Model\Process\UseCase\Node\Move;
 use App\ReadModel\Process\NodeFetcher;
 use App\ReadModel\Process\RouteFetcher;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class NodesController extends AbstractController
 {
+    private $serializer;
+    private $validator;
+
+    public function __construct(SerializerInterface $serializer, ValidatorInterface $validator)
+    {
+        $this->serializer = $serializer;
+        $this->validator = $validator;
+    }
+
     /**
      * @param Process\Process $process
      * @param NodeFetcher $fetcher
@@ -60,13 +72,28 @@ class NodesController extends AbstractController
      *
      * @Route("/nodes/{$id}/move", name="nodes.move", methods={"POST"})
      */
-    public function move(string $id, Request $request): Response
+    public function move(string $id, Request $request, Move\Handler $handler): Response
     {
-        $command = new Command(Uuid::fromString($id), );
+        /** @var Move\Command $command */
+        $command = $this->serializer->deserialize(
+            $request->getContent(),
+            Move\Command::class,
+            'json',
+            [
+                'object_to_populate' => new Move\Command(Uuid::fromString($id)),
+                'ignored_attributes' => ['id'],
+            ]
+        );
 
-        $command = $this->serializer->deserialize($request->getContent(), Name\Command::class, 'json', [
-            'object_to_populate' => new Command($this->getUser()->getId()),
-            'ignored_attributes' => ['id'],
-        ]);
+        $violations = $this->validator->validate($command);
+
+        if (count($violations)) {
+            $json = $this->serializer->serialize($violations, 'json');
+            return new JsonResponse($json, 400, [], true);
+        }
+
+        $handler->handle($command);
+
+        return $this->json([]);
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Process\Entity\Node;
 
-use App\Model\Node\Entity\Field\FieldInterface;
+use App\Model\Process\Entity\Field\FieldInterface;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
@@ -34,6 +36,9 @@ class NodeField
      */
     private Node $node;
 
+    /**
+     * @ORM\Column(type="node_field", unique=false, nullable=false)
+     */
     private FieldInterface $field;
 
     /**
@@ -48,22 +53,36 @@ class NodeField
 
     /**
      * NodeField constructor.
+     * @param UuidInterface $id
+     * @param DateTimeImmutable $created
      * @param string $title
      * @param Node $node
      * @param FieldInterface $field
-     * @throws Exception
      */
-    public function __construct(string $title, Node $node, FieldInterface $field)
-    {
+    public function __construct(
+        UuidInterface $id,
+        DateTimeImmutable $created,
+        string $title,
+        Node $node,
+        FieldInterface $field
+    ) {
         Assert::notEmpty($title, 'Title ... not be empty');
 
-        $this->id = NodeFieldRepository::nextId();
+        $this->id = $id;
+        $this->created = $created;
         $this->title = $title;
-
         $this->node = $node;
         $this->field = $field;
-
-        $this->created = new DateTimeImmutable('now');
         $this->modified = null;
+    }
+
+    public function getNode(): Node
+    {
+        return $this->node;
+    }
+
+    public function getField(): FieldInterface
+    {
+        return $this->field;
     }
 }

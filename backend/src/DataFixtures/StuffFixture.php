@@ -95,7 +95,7 @@ class StuffFixture extends Fixture implements DependentFixtureInterface
             $company1,
             new Name('Иван', 'Иванов', 'Иванович'),
             new Email('invan@ivanov.ru'),
-        'Босс'
+            'Босс'
         );
 
         $employee1->assignDepartment($department1);
@@ -106,7 +106,7 @@ class StuffFixture extends Fixture implements DependentFixtureInterface
             $company1,
             new Name('Петр', 'Петров', 'Петрович'),
             new Email('petr@petrov.ru'),
-        'Менеджер по продажам'
+            'Менеджер по продажам'
         );
 
         $employee2->assignDepartment($department2);
@@ -117,7 +117,7 @@ class StuffFixture extends Fixture implements DependentFixtureInterface
             $company1,
             new Name('Сидор', 'Сидоров', 'Сидорович'),
             new Email('sidor@sidorov.ru'),
-        'Менеджер по продажам'
+            'Менеджер по продажам'
         );
 
         $this->addReference(self::EMPLOYEE1_REFERENCE, $employee1);

@@ -22,6 +22,7 @@ doctrine:
             user_email: 'App\Model\User\Entity\User\EmailType'
             user_role: 'App\Model\User\Entity\User\RoleType'
             employee_email: 'App\Model\Stuff\Entity\Employee\EmailType'
+            node_field: 'App\Model\Process\Entity\Field\FieldType'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore

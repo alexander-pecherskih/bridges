@@ -8,7 +8,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Trikoder\Bundle\OAuth2Bundle\Model\Client;
 
-class ClientFixture/* extends Fixture*/
+/* extends Fixture*/
+class ClientFixture
 {
     public const REFERENCE_CLIENT = 'test_oauth_client';
 
