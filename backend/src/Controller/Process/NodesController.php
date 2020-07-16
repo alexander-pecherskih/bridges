@@ -3,9 +3,12 @@
 namespace App\Controller\Process;
 
 use App\Model\Process\Entity\Process;
+use App\Model\Process\UseCase\Node\Move\Command;
 use App\ReadModel\Process\NodeFetcher;
 use App\ReadModel\Process\RouteFetcher;
+use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -46,8 +49,24 @@ class NodesController extends AbstractController
      */
     public function routes(Process\Process $process, RouteFetcher $fetcher): Response
     {
-        $items = $fetcher->findAllByProcess($process->getId());
+        $items = $fetcher->findAllByProcessId($process->getId());
 
         return $this->json($items);
+    }
+
+    /**
+     * @return Response
+     * @param string $id
+     *
+     * @Route("/nodes/{$id}/move", name="nodes.move", methods={"POST"})
+     */
+    public function move(string $id, Request $request): Response
+    {
+        $command = new Command(Uuid::fromString($id), );
+
+        $command = $this->serializer->deserialize($request->getContent(), Name\Command::class, 'json', [
+            'object_to_populate' => new Command($this->getUser()->getId()),
+            'ignored_attributes' => ['id'],
+        ]);
     }
 }

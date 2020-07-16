@@ -4,7 +4,6 @@ namespace App\Tests\Entity\Node;
 
 use App\Model\Process\Entity\Node\Node;
 use App\Model\Process\Entity\Node\Position;
-use App\Model\Process\Entity\Node\Title;
 use App\Tests\Builder\ProcessBuilder;
 use DateTimeImmutable;
 use Exception;

@@ -3,7 +3,7 @@
 namespace App\Tests\Entity\Process;
 
 use App\Model\Process\Entity\Process\Process;
-use App\Model\Process\Entity\Process\Title;
+use App\Tests\Builder\Stuff\EmployeeBuilder;
 use App\Tests\Builder\UserBuilder;
 use DateTimeImmutable;
 use Exception;
@@ -17,19 +17,19 @@ class CreateTest extends TestCase
      */
     public function testSuccess(): void
     {
-        $user = (new UserBuilder())->withEmail()->build();
+        $owner = (new EmployeeBuilder())->build();
 
         $process = new Process(
             $id = Uuid::uuid4(),
             $now = new DateTimeImmutable(),
-            $user,
+            $owner,
             $title = 'Process'
         );
 
         self::assertEquals($id, $process->getId());
         self::assertEquals($now, $process->getCreated());
         self::assertEquals($title, $process->getTitle());
-        self::assertEquals($user, $process->getOwner());
+        self::assertEquals($owner, $process->getOwner());
         self::assertNull($process->getStartNode());
     }
 }
