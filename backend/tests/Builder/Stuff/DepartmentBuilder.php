@@ -1,6 +1,6 @@
 <?php
 
-namespace Builder;
+namespace App\Tests\Builder\Builder\Stuff;
 
 use App\Model\Stuff\Entity\Company\Company;
 use App\Model\Stuff\Entity\Department\Department;
@@ -13,7 +13,7 @@ class DepartmentBuilder
     private UuidInterface $id;
     private DateTimeImmutable $created;
     private ?DateTimeImmutable $modified;
-    private Title $title;
+    private string $title;
     private Department $parent;
     private Company $company;
 

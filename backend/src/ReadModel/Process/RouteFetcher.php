@@ -2,6 +2,7 @@
 
 namespace App\ReadModel\Process;
 
+use App\Model\Process\Entity\Process\Route;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
 use Ramsey\Uuid\UuidInterface;
@@ -15,7 +16,11 @@ class RouteFetcher
         $this->connection = $connection;
     }
 
-    public function findAllByProcess(UuidInterface $processId): array
+    /**
+     * @param UuidInterface $processId
+     * @return array|Route[]
+     */
+    public function findAllByProcessId(UuidInterface $processId): array
     {
         $stmt = $this->connection->createQueryBuilder()
             ->select('r.id, r.source_id, r.target_id')

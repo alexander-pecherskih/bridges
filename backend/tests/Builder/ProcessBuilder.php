@@ -3,7 +3,9 @@
 namespace App\Tests\Builder;
 
 use App\Model\Process\Entity\Process\Process;
+use App\Model\Stuff\Entity\Employee\Employee;
 use App\Model\User\Entity\User\User;
+use App\Tests\Builder\Stuff\EmployeeBuilder;
 use DateTimeImmutable;
 use Exception;
 use Ramsey\Uuid\Uuid;
@@ -14,25 +16,25 @@ class ProcessBuilder
     private UuidInterface $id;
     private DateTimeImmutable $created;
     private string $title;
-    private User $owner;
+    private Employee $owner;
 
     /**
      * ProcessBuilder constructor.
      * @param UuidInterface|null $id
      * @param DateTimeImmutable|null $created
-     * @param User|null $owner
+     * @param Employee|null $owner
      * @param string $title
      * @throws Exception
      */
     public function __construct(
         UuidInterface $id = null,
         DateTimeImmutable $created = null,
-        User $owner = null,
+        Employee $owner = null,
         string $title = 'Process'
     ) {
         $this->id = $id ?? Uuid::uuid4();
         $this->created = $created ?? new DateTimeImmutable();
-        $this->owner = $owner ?? (new UserBuilder())->withEmail()->build();
+        $this->owner = $owner ?? (new EmployeeBuilder())->build();
         $this->title = $title ?? 'Process';
     }
 
