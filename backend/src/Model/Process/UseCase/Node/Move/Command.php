@@ -16,12 +16,12 @@ class Command
     /**
      * @Assert\NotBlank()
      */
-    public string $top;
+    public int $top;
 
     /**
      * @Assert\NotBlank()
      */
-    public string $left;
+    public int $left;
 
     public function __construct(string $id)
     {

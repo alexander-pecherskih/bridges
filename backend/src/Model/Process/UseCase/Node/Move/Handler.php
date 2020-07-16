@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Process\UseCase\Node\Move;
 
 use App\Model\Flusher;

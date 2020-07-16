@@ -29,6 +29,7 @@ services:
 
     App\Model\User\Entity\User\UserRepositoryInterface: '@App\Repository\UserRepository'
     App\Model\Process\Entity\Process\ProcessRepositoryInterface: '@App\Repository\ProcessRepository'
+    App\Model\Process\Entity\Node\NodeRepositoryInterface: '@App\Repository\NodeRepository'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
