@@ -7,7 +7,6 @@ namespace App\Model\Process\Entity\Node;
 use App\Model\Process\Entity\Field\FieldInterface;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
 
@@ -74,6 +73,26 @@ class NodeField
         $this->node = $node;
         $this->field = $field;
         $this->modified = null;
+    }
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    public function getCreated(): DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    public function getModified(): ?DateTimeImmutable
+    {
+        return $this->modified;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 
     public function getNode(): Node

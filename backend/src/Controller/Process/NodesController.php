@@ -2,6 +2,7 @@
 
 namespace App\Controller\Process;
 
+use App\Model\Process\Entity\Node\Node;
 use App\Model\Process\Entity\Process;
 use App\Model\Process\UseCase\Node\Move;
 use App\ReadModel\Process\NodeFetcher;
@@ -33,7 +34,7 @@ class NodesController extends AbstractController
      *
      * @Route("/process/{id}/nodes", name="process.process.nodes", methods={"GET"})
      */
-    public function nodes(Process\Process $process, NodeFetcher $fetcher): Response
+    public function index(Process\Process $process, NodeFetcher $fetcher): Response
     {
         $items = $fetcher->findAllByProcess($process->getId());
 
@@ -57,6 +58,20 @@ class NodesController extends AbstractController
      * @param RouteFetcher $fetcher
      * @return Response
      *
+     * @Route("/process/node/{id}", name="process.node.view", methods={"GET"})
+     */
+    public function view(Node $node): Response
+    {
+        return $this->json($this->serializer->normalize($node, 'json', [
+            'groups' => 'node-view',
+        ]));
+    }
+
+    /**
+     * @param Process\Process $process
+     * @param RouteFetcher $fetcher
+     * @return Response
+     *
      * @Route("/process/{id}/routes", name="process.process.routes", methods={"GET"})
      */
     public function routes(Process\Process $process, RouteFetcher $fetcher): Response
@@ -70,7 +85,7 @@ class NodesController extends AbstractController
      * @return Response
      * @param string $id
      *
-     * @Route("/nodes/{$id}/move", name="nodes.move", methods={"POST"})
+     * @Route("/node/{id}/move", name="node.move", methods={"POST"})
      */
     public function move(string $id, Request $request, Move\Handler $handler): Response
     {

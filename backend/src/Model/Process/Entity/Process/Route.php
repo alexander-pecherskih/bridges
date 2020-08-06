@@ -30,19 +30,19 @@ class Route
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Model\Process\Entity\Process\Process", inversedBy="routes")
-     * @ORM\JoinColumn(name="process_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="process_id", referencedColumnName="id", nullable=false)
      */
     private Process $process;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Model\Process\Entity\Node\Node", inversedBy="routes")
-     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="source_id", referencedColumnName="id", nullable=false)
      */
     private Node $source;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Model\Process\Entity\Node\Node")
-     * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="target_id", referencedColumnName="id", nullable=false)
      */
     private Node $target;
 

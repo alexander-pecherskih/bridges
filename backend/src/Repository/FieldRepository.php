@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Model\Process\Entity\Field;
 use Model\Process\Entity\Field\FieldRepositoryInterface;
 use ReflectionClass;
+use ReflectionException;
 
 class FieldRepository implements FieldRepositoryInterface
 {
@@ -18,7 +19,8 @@ class FieldRepository implements FieldRepositoryInterface
     }
 
     /**
-     * @return Field\FieldInterface[]
+     * @return array
+     * @throws ReflectionException
      */
     public static function getList(): array
     {

@@ -58,6 +58,12 @@ class Node
     private Collection $routes;
 
     /**
+     * @var Collection|NodeField[]
+     * @ORM\OneToMany(targetEntity="App\Model\Process\Entity\Node\NodeField", mappedBy="node")
+     */
+    private Collection $nodeFields;
+
+    /**
      * @ORM\Column(name="created", type="datetime_immutable", nullable=false)
      * @Serializer\Groups({"process-view"})
      */
