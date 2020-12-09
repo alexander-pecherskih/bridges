@@ -1,0 +1,23 @@
+[
+  {
+    "type": "integer",
+    "validators": [
+      {
+        "min": 0,
+        "message": "Мудак"
+      },
+      {
+        "max": 6535,
+        "message": "Мудак"
+      },
+      {
+        "between": [0, 4],
+        "message": "Мудак"
+      }
+    ]
+  },
+  {
+    "type": "email",
+    ""
+  }
+]

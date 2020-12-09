@@ -21,7 +21,7 @@ class Node
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
-     * @Serializer\Groups({"process-view"})
+     * @Serializer\Groups({"process-view", "node-view"})
      */
     private UuidInterface $id;
 
@@ -56,6 +56,12 @@ class Node
      * @ORM\OneToMany(targetEntity="App\Model\Process\Entity\Process\Route", mappedBy="source")
      */
     private Collection $routes;
+
+    /**
+     * @var Collection|NodeField[]
+     * @ORM\OneToMany(targetEntity="App\Model\Process\Entity\Node\NodeField", mappedBy="node")
+     */
+    private Collection $nodeFields;
 
     /**
      * @ORM\Column(name="created", type="datetime_immutable", nullable=false)

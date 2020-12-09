@@ -47,12 +47,9 @@ class Process
     private string $title;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Model\Process\Entity\Node\Node")
-     * @ORM\JoinColumn(name="start_node_id", referencedColumnName="id", nullable=true)
-     * @Serializer\MaxDepth(1);
      * @Serializer\Groups({"process-view"})
      */
-    private ?Node $startNode = null;
+    private ?UuidInterface $startNodeId = null;
 
     /**
      * @var Collection|Node[] $nodes
@@ -102,9 +99,9 @@ class Process
         return $this->title;
     }
 
-    public function getStartNode(): ?Node
+    public function getStartNodeId(): ?UuidInterface
     {
-        return $this->startNode;
+        return $this->startNodeId;
     }
 
     public function rename(string $title): void
@@ -115,13 +112,13 @@ class Process
     /**
      * @param Node $node
      */
-    public function setStartNode(Node $node): void
+    public function setStartNodeId(Node $node): void
     {
         if ($node->getProcess()->getId() !== $this->id) {
             throw new DomainException('The Node does not belong to this Process');
         }
 
-        $this->startNode = $node;
+        $this->startNodeId = $node->getId();
     }
 
     public function getNodes(): Collection
