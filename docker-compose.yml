@@ -50,6 +50,8 @@ services:
             - postgres
         environment:
             TZ: ${TZ}
+            PHP_IDE_CONFIG: serverName=Bridges
+            XDEBUG_CONFIG: idekey=PHPSTORM
 
     frontend-node-cli:
         container_name: ${COMPOSE_PROJECT_NAME}-frontend-cli

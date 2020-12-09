@@ -11,16 +11,16 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserBuilder
 {
-    private $id;
-    private $created;
-    private $name;
-    private $email;
-    private $hash;
-    private $token;
-    private $confirmed;
-    private $network;
-    private $identity;
-    private $role;
+    private UuidInterface $id;
+    private User\Name $name;
+    private DateTimeImmutable $created;
+    private ?User\Email $email = null;
+    private string $hash;
+    private string $token;
+    private bool $confirmed = false;
+    private string $network = '';
+    private string $identity = '';
+    private User\Role $role;
 
     /**
      * UserBuilder constructor.
@@ -39,6 +39,8 @@ class UserBuilder
         $this->id = $id ?? UserRepository::nextId();
         $this->name = new User\Name($first ?? 'First', $last ?? 'Last', $patronymic ?? 'Patronymic');
         $this->created = new DateTimeImmutable();
+
+        $this->email = null;
     }
 
     /**

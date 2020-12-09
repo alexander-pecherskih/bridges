@@ -121,6 +121,11 @@ class Process
         $this->startNodeId = $node->getId();
     }
 
+    public function setOwner(Employee $owner): void
+    {
+        $this->owner = $owner;
+    }
+
     public function getNodes(): Collection
     {
         return $this->nodes;
