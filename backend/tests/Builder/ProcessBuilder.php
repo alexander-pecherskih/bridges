@@ -45,7 +45,7 @@ class ProcessBuilder
         return $clone;
     }
 
-    public function withOwner(User $owner): self
+    public function withOwner(Employee $owner): self
     {
         $clone = clone $this;
         $clone->owner = $owner;

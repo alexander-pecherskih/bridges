@@ -30,6 +30,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --fil
 
 RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
-COPY ./common/php/conf.d /usr/local/etc/php/conf.d
+COPY ./common/php/conf.d $PHP_INI_DIR/conf.d
 
 WORKDIR /bridges
+
+COPY ./php-cli/entrypoint.sh /usr/local/bin/docker-php-entrypoint
+RUN chmod +x /usr/local/bin/docker-php-entrypoint

@@ -5,6 +5,9 @@ namespace App\Tests\Builder;
 use App\Model\Process\Entity\Node\Node;
 use App\Model\Process\Entity\Node\Position;
 use App\Model\Process\Entity\Process\Process;
+use App\Model\Stuff\Entity\Employee\Employee;
+use App\Model\User\Entity\User\User;
+use App\Tests\Builder\Stuff\EmployeeBuilder;
 use DateTimeImmutable;
 use Exception;
 use Ramsey\Uuid\Uuid;
@@ -20,6 +23,7 @@ class NodeBuilder
     private DateTimeImmutable $created;
     private Process $process;
     private Position $position;
+    private Employee $owner;
 
     /**
      * NodeBuilder constructor.
@@ -40,7 +44,7 @@ class NodeBuilder
         $this->id = $id ?? Uuid::uuid4();
         $this->title = $title ?? 'Node';
         $this->created = $created ?? new DateTimeImmutable();
-        $this->process = $process ?? (new ProcessBuilder())->withOwner((new UserBuilder())->build())->build();
+        $this->process = $process ?? (new ProcessBuilder())->withOwner((new EmployeeBuilder())->build())->build();
         $this->position = $position ?? new Position(100, 100);
     }
 
