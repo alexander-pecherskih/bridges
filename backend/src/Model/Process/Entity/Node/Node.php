@@ -21,7 +21,7 @@ class Node
     /**
      * @ORM\Id()
      * @ORM\Column(type="uuid")
-     * @Serializer\Groups({"process-view"})
+     * @Serializer\Groups({"process-view", "node-view"})
      */
     private UuidInterface $id;
 

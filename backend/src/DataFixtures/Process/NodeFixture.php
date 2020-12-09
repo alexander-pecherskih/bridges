@@ -5,7 +5,6 @@ namespace App\DataFixtures\Process;
 use App\DataFixtures\StuffFixture;
 use App\Model\Process\Entity\Node\Node;
 use App\Model\Process\Entity\Node\Position;
-use App\Model\Process\Entity\Node\Title;
 use App\Model\Process\Entity\Process\Process;
 use App\Model\Process\Entity\Process\ProcessRepositoryInterface;
 use App\Model\Stuff\Entity\Department\Department;
@@ -84,7 +83,7 @@ class NodeFixture extends Fixture implements DependentFixtureInterface
             new Position(420, 680)
         );
 
-        $process->setStartNode($node1);
+        $process->setStartNodeId($node1);
 
         $process->addRoute($node1, $node2);
         $process->addRoute($node2, $node3);

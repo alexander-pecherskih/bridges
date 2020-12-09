@@ -54,8 +54,7 @@ class NodesController extends AbstractController
     }
 
     /**
-     * @param Process\Process $process
-     * @param RouteFetcher $fetcher
+     * @param Node $node
      * @return Response
      *
      * @Route("/process/node/{id}", name="process.node.view", methods={"GET"})
