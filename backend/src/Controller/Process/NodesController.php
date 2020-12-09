@@ -81,8 +81,10 @@ class NodesController extends AbstractController
     }
 
     /**
-     * @return Response
      * @param string $id
+     * @param Request $request
+     * @param Move\Handler $handler
+     * @return Response
      *
      * @Route("/node/{id}/move", name="node.move", methods={"POST"})
      */
