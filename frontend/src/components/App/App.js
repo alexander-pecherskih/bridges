@@ -1,18 +1,18 @@
 import React from 'react'
 
-import { HomePage, LoginPage, LogoutPage } from '../pages'
-import DefaultLayout from '../layouts/DefaultLayout'
+import { HomePage, LoginPage, LogoutPage, NotFoundPage, ProcessListPage } from '../pages'
 import { Switch, Route } from 'react-router-dom'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 const App = () => {
   return (
-    <DefaultLayout>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        {/*<Route path="/logout" component={LogoutPage} />*/}
-        {/*<Route path="/login" component={LoginPage} />*/}
-      </Switch>
-    </DefaultLayout>
+    <Switch>
+      <ProtectedRoute exact path="/" component={HomePage} />
+      <ProtectedRoute path="/process-list" component={ProcessListPage} />
+      <Route path="/logout" component={LogoutPage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="*" component={NotFoundPage} />
+    </Switch>
   )
 }
 

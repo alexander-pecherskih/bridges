@@ -4,40 +4,31 @@ import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux'
 import App from './App'
 import { withApi } from '../../packages/api'
-import { LoginPage } from '../pages'
-import { logout, restoreAuth } from '../../store/actions/auth'
-import { useHistory, useLocation } from 'react-router'
+import { restoreAuth } from '../../store/actions/auth'
+import Spinner from '../ui/Spinner/Spinner'
 
-const AppContainer = ({ authorized, restoreAuth, logout, loading }) => {
+const AppContainer = ({ restoreAuth, loading }) => {
   useEffect(restoreAuth, [])
-  const location = useLocation()
-  const history = useHistory()
 
-  if (location.pathname.match(/\/logout|\/login/)) {
-    logout()
-    history.push('/')
-  }
-
-  if (!authorized && !loading) {
-    return <LoginPage />
+  if (loading) {
+    return <Spinner />
   }
 
   return <App />
 }
 
 AppContainer.propTypes = {
-  authorized: PropTypes.bool.isRequired,
   restoreAuth: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = ({ auth: { authorized, loading } }) => {
-  return { authorized, loading }
+const mapStateToProps = ({ auth: { loading } }) => {
+  return { loading }
 }
 
 const mapDispatchToProps = (dispatch, { api }) => {
   return bindActionCreators({
     restoreAuth: restoreAuth(api),
-    logout: logout(api)
   }, dispatch)
 }
 

@@ -10,9 +10,10 @@ const Sidebar = ({ visible }) => {
     <>
       <Brand caption="Bridges" />
       <nav className={`${styles.sidebar} ${visible ? '' : styles.hidden}`}>
-        <Title caption="trololo" />
-        <MenuItem caption="Menu Item 1" url="#" />
-        <MenuItem caption="Menu Item 4" url="#" />
+        <Title caption="processes" />
+        <MenuItem caption="Tickets" url="/" />
+        <Title caption="config" />
+        <MenuItem caption="Process List" url="/process-list" />
       </nav>
     </>
   )

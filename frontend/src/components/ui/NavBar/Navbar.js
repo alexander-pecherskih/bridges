@@ -13,8 +13,8 @@ const Navbar = ({ toggleSidebar, sidebarIsVisible }) => {
     >
       <SidebarMenuButton click={toggleSidebar} />
       <nav>
-        <MenuItem url="#" caption="Settings" />
-        <MenuItem url="#" caption="Messages" />
+        {/*<MenuItem url="#" caption="Settings" />*/}
+        {/*<MenuItem url="#" caption="Messages" />*/}
         <MenuItem url="/logout" caption="Logout" />
       </nav>
     </div>

@@ -16,6 +16,7 @@ export const login = (api) => (username, password) => (dispatch) => {
         type: AUTH_SUCCESS,
         accessToken,
       })
+      // window.location.replace('/')
     })
     .catch((err) => {
       dispatch({
@@ -37,11 +38,14 @@ export const restoreAuth = (api) => () => (dispatch) => {
   })
 }
 
-export const logout = (api) => () => (dispatch) => {
+export const logout = (api) => (redirect) => (dispatch) => {
   api.authorization.logout()
   dispatch({
     type: LOGOUT,
   })
+  if (typeof redirect === 'function') {
+    redirect()
+  }
   // window.location.replace('/')
 }
 

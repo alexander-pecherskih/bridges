@@ -1,9 +1,10 @@
 import React from 'react'
 import Card from '../ui/Card'
+import DefaultLayout from '../layouts/DefaultLayout'
 
 const HomePage = () => {
   return (
-    <>
+    <DefaultLayout>
       <Card title="card title">Trololo text</Card>
       <Card title="Весна">
         <p>
@@ -16,7 +17,7 @@ const HomePage = () => {
           которые даёт центр подвеса.
         </p>
       </Card>
-    </>
+    </DefaultLayout>
   )
 }
 

@@ -37,8 +37,7 @@ const LoginForm = ({ enabled, login, errorMessage = '', signUpBlockVisible = fal
         { signUpBlockVisible ?
           <div>
             <h2>Sign up</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.</p>
+            <p>Lorem ipsum.</p>
             <Button caption="Sign Up" click={ () => {
             } } />
           </div> : null }
