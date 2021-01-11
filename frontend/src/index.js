@@ -5,10 +5,11 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import AppContainer from './components/App/AppContainer'
+import api, { ApiProvider } from './packages/api'
 import ErrorBoundary from './components/ErrorBoundary'
 import configureStore from './store'
 
-import './styles/styles.scss'
+import './themes/default/index.css'
 
 const store = configureStore()
 
@@ -16,7 +17,9 @@ ReactDOM.render(
   <Provider store={store}>
     <ErrorBoundary>
       <Router>
-        <AppContainer />
+        <ApiProvider value={api}>
+          <AppContainer />
+        </ApiProvider>
       </Router>
     </ErrorBoundary>
   </Provider>,

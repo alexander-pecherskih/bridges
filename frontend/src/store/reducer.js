@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
-import { auth, userInfo, ticketList, processList, process } from './reducers'
+import auth from './reducers/auth'
 
 const rootReducer = combineReducers({
   auth,
-  userInfo,
-  ticketList,
-  processList,
-  process,
+  // userInfo,
+  // ticketList,
+  // processList,
+  // process,
 })
 
 export default rootReducer

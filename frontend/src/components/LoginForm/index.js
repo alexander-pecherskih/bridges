@@ -1,3 +1,3 @@
-import LoginFormContainer from './LoginFormContainer'
+import LoginFormContainer from './LoginForm'
 
 export default LoginFormContainer

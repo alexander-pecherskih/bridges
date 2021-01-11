@@ -1,0 +1,12 @@
+.textInput {
+  margin-bottom: 1rem;
+}
+
+.textInput input {
+  margin: .2rem 0;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--gray);
+}

@@ -1,0 +1,10 @@
+.mainWrapper {
+    margin-left: 0;
+    width: 100%;
+    background: var(--light);
+    transition: margin-left .3s ease-out;
+}
+
+.mainWrapper.withSidebar {
+    margin-left: 256px;
+}

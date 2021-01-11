@@ -2,12 +2,12 @@ import {
   AUTH_REQUEST,
   AUTH_SUCCESS,
   AUTH_FAILURE,
-  LOGOUT,
+  LOGOUT, RESTORE_AUTH
 } from '../constants/auth'
 
 const initialState = {
   accessToken: null,
-  authorized: null,
+  authorized: false,
   loading: true,
   error: null,
 }
@@ -15,7 +15,7 @@ const initialState = {
 const auth = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_REQUEST:
-      return initialState
+      return { ...initialState, loading: true }
     case AUTH_SUCCESS:
       return {
         accessToken: action.accessToken,
@@ -36,6 +36,12 @@ const auth = (state = initialState, action) => {
         authorized: false,
         loading: false,
         error: null,
+      }
+    case RESTORE_AUTH:
+      return {
+        ...initialState,
+        authorized: true,
+        loading: false,
       }
     default:
       return state

@@ -1,80 +1,57 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import styles from './styles/LoginForm.module.css'
+import TextInput from '../ui/Input/TextInput'
+import Button from '../ui/Button'
 
-const ErrorMessage = ({ message }) => {
-  return message ? <div className="error-message">{message}</div> : null
+const ErrorMessage = ({ errorMessage = ''}) => {
+  if (errorMessage === '') {
+    return null
+  }
+
+  return <p className={styles.errorMessage}>{ errorMessage }</p>
 }
 
 ErrorMessage.propTypes = {
-  message: PropTypes.string,
+  errorMessage: PropTypes.string
 }
 
-const LoginForm = ({
-  loading,
-  username,
-  password,
-  setUsername,
-  setPassword,
-  login,
-  errorMessage,
-}) => {
-  return (
-    <div className="valign-wrapper" style={{ height: '100vh' }}>
-      <div className="container">
-        <div className="row">
-          <div className="col m6 offset-m3 s10 offset-s1">
-            <div className="card">
-              <div className="card-content">
-                <div className="card-title">Login</div>
-                <form onSubmit={(e) => e.preventDefault()}>
-                  <div className="input-field">
-                    <input
-                      id="username"
-                      type="text"
-                      disabled={loading}
-                      onChange={(e) => setUsername(e.target.value)}
-                      autoFocus={true}
-                    />
-                    <label htmlFor="username" className="">
-                      Username
-                    </label>
-                  </div>
+const LoginForm = ({ enabled, login, errorMessage = '', signUpBlockVisible = false }) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const loginHandle = () => {
+    login(username, password)
+  }
 
-                  <div className="input-field">
-                    <input
-                      id="password"
-                      type="password"
-                      disabled={loading}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <label htmlFor="password">Password</label>
-                    <ErrorMessage message={errorMessage} />
-                  </div>
-                  <button
-                    className="btn"
-                    disabled={loading || !password || !username}
-                    onClick={login}
-                  >
-                    Log In
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
+  return (
+    <div className={styles.loginForm}>
+      <div className={styles.formBody}>
+        <div>
+          <h2>Login</h2>
+          <p>Sign in to your account</p>
+          <TextInput name="username" label="Username" change={(e) => setUsername(e.target.value)} />
+          <TextInput name="password" label="Password" change={(e) => setPassword(e.target.value)} type="password"/>
+          <ErrorMessage errorMessage={errorMessage} />
+          <Button caption="Login" click={loginHandle} disabled={!enabled || username.length === 0}/>
         </div>
+        { signUpBlockVisible ?
+          <div>
+            <h2>Sign up</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
+            <Button caption="Sign Up" click={ () => {
+            } } />
+          </div> : null }
       </div>
     </div>
   )
 }
 
 LoginForm.propTypes = {
-  loading: PropTypes.bool,
-  username: PropTypes.string,
-  password: PropTypes.string,
-  setUsername: PropTypes.func.isRequired,
-  setPassword: PropTypes.func.isRequired,
+  enabled: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
+  signUpBlockVisible: PropTypes.bool
 }
 
 export default LoginForm

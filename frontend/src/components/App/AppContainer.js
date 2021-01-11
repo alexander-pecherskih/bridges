@@ -1,55 +1,47 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { useLocation, withRouter } from 'react-router'
-
 import App from './App'
-import { logout, refreshAuthToken } from '../../store/actions/auth'
-import { LoginPage } from '../../pages'
-import { getUrl } from '../../services/url'
+import { withApi } from '../../packages/api'
+import { LoginPage } from '../pages'
+import { logout, restoreAuth } from '../../store/actions/auth'
+import { useHistory, useLocation } from 'react-router'
 
-const AppContainer = ({ authorized, loading, logout, refreshAuthToken }) => {
-  const onMount = () => {
-    refreshAuthToken()
-  }
+const AppContainer = ({ authorized, restoreAuth, logout, loading }) => {
+  useEffect(restoreAuth, [])
   const location = useLocation()
-  useEffect(onMount, [])
+  const history = useHistory()
 
-  if (location.pathname === getUrl('/login')) {
-    logout(true)
-    return null
+  if (location.pathname.match(/\/logout|\/login/)) {
+    logout()
+    history.push('/')
   }
 
-  if (!loading && !authorized) {
+  if (!authorized && !loading) {
     return <LoginPage />
   }
-  if (loading) {
-    return <>Loading...</>
-  }
 
-  return <App logout={() => logout()} />
+  return <App />
 }
 
 AppContainer.propTypes = {
-  authorized: PropTypes.bool,
-  loading: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired,
-  refreshAuthToken: PropTypes.func.isRequired,
+  authorized: PropTypes.bool.isRequired,
+  restoreAuth: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = ({ auth: { accessToken, authorized, loading } }) => {
-  return { accessToken, authorized, loading }
+const mapStateToProps = ({ auth: { authorized, loading } }) => {
+  return { authorized, loading }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => dispatch(logout()),
-    refreshAuthToken: () => dispatch(refreshAuthToken()),
-  }
+const mapDispatchToProps = (dispatch, { api }) => {
+  return bindActionCreators({
+    restoreAuth: restoreAuth(api),
+    logout: logout(api)
+  }, dispatch)
 }
 
 export default compose(
-  withRouter,
+  withApi(),
   connect(mapStateToProps, mapDispatchToProps)
 )(AppContainer)

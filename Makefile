@@ -3,6 +3,7 @@ include .env
 up: docker-up
 init: docker-down docker-pull docker-build docker-up project-init
 down: docker-down
+restart: down up
 
 project-init: install oauth-keys migrate fixtures
 
@@ -62,6 +63,9 @@ frontend-init: frontend-yarn-install frontend-ready
 frontend-yarn-install:
 	docker-compose run --rm frontend-node-cli yarn install
 
+frontend-yarn-add:
+	docker-compose run --rm frontend-node-cli yarn add $(add)
+
 frontend-ready:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine touch .ready
 
@@ -80,3 +84,16 @@ frontend-test:
 
 frontend-test-watch:
 	docker-compose run --rm frontend-node-cli yarn test-watch
+
+frontend-node-restart: frontend-node-stop frontend-node-up
+
+frontend-node-stop:
+	docker-compose stop frontend-node
+
+frontend-node-up:
+	docker-compose up -d frontend-node
+
+fr: frontend-node-stop frontend-node-up
+
+#eject:
+#	docker-compose run --rm frontend-node-cli yarn eject

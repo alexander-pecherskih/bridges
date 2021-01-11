@@ -1,0 +1,28 @@
+:root {
+    --primary: #321fdb;
+    --secondary: #ced2d8;
+    --success: #2eb85c;
+    --info: #39f;
+    --warning: #f9b115;
+    --danger: #e55353;
+    --light: #ebedef;
+    --white: #ffffff;
+    --dark: #636f83;
+    --primary-dark: #303c54;
+    --color: #3c4b64;
+    --border: #d8dbe0;
+    --gray: #768192;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    color: var(--color);
+    height: 100%;
+    font-size: 14px;
+    font-family: Arial;
+}
+
+div {
+    box-sizing: border-box;
+}

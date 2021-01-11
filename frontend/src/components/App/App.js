@@ -1,42 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+
+import { HomePage, LoginPage, LogoutPage } from '../pages'
+import DefaultLayout from '../layouts/DefaultLayout'
 import { Switch, Route } from 'react-router-dom'
 
-import Header from '../Header'
-import Footer from '../Footer'
-import {
-  HomePage,
-  ProcessesPage,
-  ProfilePage,
-  SettingsPage,
-  ProcessEditorPage,
-} from '../../pages'
-import ErrorBoundary from '../ErrorBoundary'
-
-const App = ({ logout }) => {
+const App = () => {
   return (
-    <>
-      <Header logout={logout} />
-      <main>
-        <div className="main-container">
-          <ErrorBoundary>
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/settings" component={SettingsPage} />
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/processes" component={ProcessesPage} />
-              <Route path="/process/:id" component={ProcessEditorPage} />
-            </Switch>
-          </ErrorBoundary>
-        </div>
-      </main>
-      <Footer />
-    </>
+    <DefaultLayout>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        {/*<Route path="/logout" component={LogoutPage} />*/}
+        {/*<Route path="/login" component={LoginPage} />*/}
+      </Switch>
+    </DefaultLayout>
   )
-}
-
-App.propTypes = {
-  logout: PropTypes.func,
 }
 
 export default App
