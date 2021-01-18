@@ -1,0 +1,16 @@
+.table {
+  width: 100%;
+  border-spacing: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.table thead th {
+  text-align: left;
+}
+
+.table th, .table td {
+  padding: .5rem 1rem;
+  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+}

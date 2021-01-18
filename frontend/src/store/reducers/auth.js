@@ -6,7 +6,6 @@ import {
 } from '../constants/auth'
 
 const initialState = {
-  accessToken: null,
   authorized: false,
   loading: true,
   error: null,
@@ -18,7 +17,6 @@ const auth = (state = initialState, action) => {
       return { ...initialState, loading: true }
     case AUTH_SUCCESS:
       return {
-        accessToken: action.accessToken,
         authorized: true,
         loading: false,
         error: null,

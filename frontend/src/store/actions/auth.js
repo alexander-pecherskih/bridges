@@ -9,14 +9,11 @@ export const login = (api) => (username, password) => (dispatch) => {
     type: AUTH_REQUEST,
   })
 
-  api.authorization
-    .login(username, password)
-    .then(({ accessToken, refreshToken }) => {
+  api.login(username, password)
+    .then(() => {
       dispatch({
-        type: AUTH_SUCCESS,
-        accessToken,
+        type: AUTH_SUCCESS
       })
-      // window.location.replace('/')
     })
     .catch((err) => {
       dispatch({
@@ -27,7 +24,7 @@ export const login = (api) => (username, password) => (dispatch) => {
 }
 
 export const restoreAuth = (api) => () => (dispatch) => {
-  if (!api.token.get('access_token')) {
+  if (!api.isAuthorized()) {
     dispatch({
       type: LOGOUT,
     })
@@ -39,7 +36,7 @@ export const restoreAuth = (api) => () => (dispatch) => {
 }
 
 export const logout = (api) => (redirect) => (dispatch) => {
-  api.authorization.logout()
+  api.logout()
   dispatch({
     type: LOGOUT,
   })
@@ -48,30 +45,3 @@ export const logout = (api) => (redirect) => (dispatch) => {
   }
   // window.location.replace('/')
 }
-
-// const refreshAuthToken = (api) => () => (dispatch) => {
-//   if (!AuthService.refreshTokenIsValid()) {
-//     dispatch({ type: LOGOUT })
-//     return
-//   }
-//
-//   dispatch(authorize)
-//
-//   return AuthService.refreshToken()
-//     .then((accessToken) => {
-//       dispatch(authorized(accessToken))
-//     })
-//     .catch(() => {
-//       dispatch({ type: LOGOUT })
-//     })
-// }
-//
-// const logout = (redirectHome = false) => (dispatch) => {
-//   AuthService.logout()
-//
-//   dispatch({ type: LOGOUT })
-//
-//   if (redirectHome) {
-//     window.location.replace('/')
-//   }
-// }
