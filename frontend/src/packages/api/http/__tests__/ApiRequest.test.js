@@ -16,9 +16,18 @@ describe('ApiRequest', () => {
 
   const { location } = window
 
+  // beforeAll(() => {
+  //   delete window.location
+  //   window.location = { replace: jest.fn() }
+  // })
+  //
+  // afterAll(() => {
+  //   window.location = location
+  // })
+
   beforeAll(() => {
     delete window.location
-    window.location ={ replace: jest.fn() }
+    window.location = { replace: jest.fn() }
   })
 
   afterAll(() => {
@@ -75,6 +84,19 @@ describe('ApiRequest', () => {
 
     expect(mock.history.get.length).toEqual(2)
     expect(mock.history.get[1].headers.Authorization).toEqual(`Bearer ${REFRESH_RESPONSE.access_token}`)
+  })
+
+  it('redirect after refresh', async () => {
+    mock.onPost('/auth/login').reply(200, LOGIN_RESPONSE)
+    mock.onPost('/auth/refresh').reply(401, REFRESH_RESPONSE)
+    mock.onGet('/trololo').reply(401)
+
+    await api.login('user', 'pass')
+    try {
+      await api.request({ method: 'get', url: '/trololo' })
+    } catch ( e ) {}
+
+    expect(window.location.replace).toHaveBeenCalledTimes(1)
   })
 
   it('non 401 on request', async () => {
