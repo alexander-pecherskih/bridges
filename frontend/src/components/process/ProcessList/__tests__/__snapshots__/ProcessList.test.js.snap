@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProcessList /> ProcessList initial 1`] = `ShallowWrapper {}`;
+
+exports[`<ProcessList /> ProcessList is empty 1`] = `ShallowWrapper {}`;
+
+exports[`<ProcessList /> ProcessList loading 1`] = `ShallowWrapper {}`;
