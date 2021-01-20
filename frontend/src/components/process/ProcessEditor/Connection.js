@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './styles/connection.scss'
+import styles from './styles/connection.module.css'
 
 /**
  * RLT - from Right side (of source) to Left side (of target) when (source at) Top
@@ -264,7 +264,7 @@ class Connection extends React.Component {
     return (
       <svg
         style={connectionStyle}
-        className="connection"
+        className={styles.connection}
         xmlns="http://www.w3.org/2000/svg"
       >
         {path}

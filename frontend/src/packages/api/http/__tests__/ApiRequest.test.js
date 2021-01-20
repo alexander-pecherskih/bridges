@@ -16,15 +16,6 @@ describe('ApiRequest', () => {
 
   const { location } = window
 
-  // beforeAll(() => {
-  //   delete window.location
-  //   window.location = { replace: jest.fn() }
-  // })
-  //
-  // afterAll(() => {
-  //   window.location = location
-  // })
-
   beforeAll(() => {
     delete window.location
     window.location = { replace: jest.fn() }

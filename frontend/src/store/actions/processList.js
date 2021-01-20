@@ -4,12 +4,12 @@ import {
   PROCESS_LIST_SUCCESS,
 } from '../constants/processList'
 
-const getProcesses = (api) => () => (dispatch, getState) => {
+const getProcesses = (api) => () => (dispatch) => {
   dispatch({
     type: PROCESS_LIST_REQUEST
   })
 
-  api.processRepository.list()
+  api.process.list()
     .then((processes) => {
       dispatch({
         type: PROCESS_LIST_SUCCESS,

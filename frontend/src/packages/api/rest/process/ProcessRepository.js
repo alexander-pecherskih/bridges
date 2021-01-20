@@ -7,4 +7,9 @@ export default class ProcessRepository {
     return this.request.request({ url: '/process' })
       .then( (response) => response.data )
   }
+
+  getById(id) {
+    return this.request.request({ url: `/process/${id}`})
+      .then( (response) => response.data )
+  }
 }

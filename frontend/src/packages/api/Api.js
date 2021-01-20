@@ -32,7 +32,7 @@ export default class Api {
       baseURL: 'http://api.bridges.local'
     })
 
-    this.processRepository = new ProcessRepository(this.request)
+    this.process = new ProcessRepository(this.request)
   }
 
   get request() {
