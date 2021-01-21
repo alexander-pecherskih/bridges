@@ -17,10 +17,10 @@ const processes = [
 describe('<ProcessList />', () => {
   it('ProcessList initial', () => {
     const wrapper = shallow(
-      <ProcessList processes={processes} loading={false} errorMessage={null}/>
+      <ProcessList processes={processes} loading={false} errorMessage={null} />
     )
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('ProcessList loading', () => {
@@ -28,12 +28,12 @@ describe('<ProcessList />', () => {
       <ProcessList processes={processes} loading={true} />
     )
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('ProcessList is empty', () => {
     const wrapper = shallow(<ProcessList processes={[]} loading={false} />)
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot()
   })
 })

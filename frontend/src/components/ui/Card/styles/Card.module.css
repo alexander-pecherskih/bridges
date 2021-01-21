@@ -1,14 +1,15 @@
 .card {
-    margin-bottom: 1rem;
-    background-color: var(--white);
-    border-radius: .25rem;
-    border: 1px solid var(--border);
+  margin-bottom: 1rem;
+  background-color: var(--white);
+  border-radius: 0.25rem;
+  border: 1px solid var(--border);
 }
 
-.content, .title {
-    padding: 1rem;
+.content,
+.title {
+  padding: 1rem;
 }
 
 .title {
-    border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }

@@ -1,4 +1,4 @@
-export default function(object) {
+export default function (object) {
   const formData = new FormData()
 
   for (const key in object) {

@@ -1,6 +1,12 @@
 import React from 'react'
 
-import { HomePage, LoginPage, LogoutPage, NotFoundPage, ProcessListPage } from '../pages'
+import {
+  HomePage,
+  LoginPage,
+  LogoutPage,
+  NotFoundPage,
+  ProcessListPage,
+} from '../pages'
 import { Switch, Route } from 'react-router-dom'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import ProcessEditorPage from '../pages/ProcessEditorPage'

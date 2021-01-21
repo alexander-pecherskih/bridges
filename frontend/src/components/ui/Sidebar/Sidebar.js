@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import styles from './styles/Sidebar.module.css'
 import MenuItem from './MenuItem'
@@ -17,6 +18,9 @@ const Sidebar = ({ visible }) => {
       </nav>
     </>
   )
+}
+Sidebar.propTypes = {
+  visible: PropTypes.bool.isRequired,
 }
 
 export default Sidebar

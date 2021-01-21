@@ -9,8 +9,9 @@
   text-align: left;
 }
 
-.table th, .table td {
-  padding: .5rem 1rem;
+.table th,
+.table td {
+  padding: 0.5rem 1rem;
   border-left: 1px solid var(--border);
   border-top: 1px solid var(--border);
 }

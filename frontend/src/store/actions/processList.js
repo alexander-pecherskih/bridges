@@ -6,20 +6,21 @@ import {
 
 const getProcesses = (api) => () => (dispatch) => {
   dispatch({
-    type: PROCESS_LIST_REQUEST
+    type: PROCESS_LIST_REQUEST,
   })
 
-  api.process.list()
+  api.process
+    .list()
     .then((processes) => {
       dispatch({
         type: PROCESS_LIST_SUCCESS,
-        processes
+        processes,
       })
     })
     .catch((err) => {
       dispatch({
         type: PROCESS_LIST_FAILURE,
-        error: err.message
+        error: err.message,
       })
     })
 }

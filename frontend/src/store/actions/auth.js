@@ -1,7 +1,9 @@
 import {
   AUTH_REQUEST,
   AUTH_SUCCESS,
-  AUTH_FAILURE, RESTORE_AUTH, LOGOUT
+  AUTH_FAILURE,
+  RESTORE_AUTH,
+  LOGOUT,
 } from '../constants/auth'
 
 export const login = (api) => (username, password) => (dispatch) => {
@@ -9,10 +11,11 @@ export const login = (api) => (username, password) => (dispatch) => {
     type: AUTH_REQUEST,
   })
 
-  api.login(username, password)
+  api
+    .login(username, password)
     .then(() => {
       dispatch({
-        type: AUTH_SUCCESS
+        type: AUTH_SUCCESS,
       })
     })
     .catch((err) => {

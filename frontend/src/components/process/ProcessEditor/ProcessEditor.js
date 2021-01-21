@@ -6,7 +6,7 @@ import Diagram from './Diagram'
 import useWindowSize from '../../../packages/hooks/useWindowSize'
 
 const ProcessEditor = ({ process }) => {
-  const { _, height } = useWindowSize()
+  const { height } = useWindowSize()
   const [containerHeight, setContainerHeight] = useState(0)
   const diagramContainerRef = useRef()
   const nodes = process.nodes
@@ -17,15 +17,20 @@ const ProcessEditor = ({ process }) => {
   // const nodes = process.nodes
 
   useEffect(() => {
-    const windowHeight = height ? height : 0
-    const containerTop = diagramContainerRef.current.getBoundingClientRect().top + 60
+    const windowHeight = height || 0
+    const containerTop =
+      diagramContainerRef.current.getBoundingClientRect().top + 60
     setContainerHeight(windowHeight - containerTop)
   }, [height, diagramContainerRef.current])
 
   return (
     <>
       <h4>{process.title}</h4>
-      <div className={styles.diagramContainer} style={ { height: containerHeight }} ref={diagramContainerRef}>
+      <div
+        className={styles.diagramContainer}
+        style={{ height: containerHeight }}
+        ref={diagramContainerRef}
+      >
         <Diagram
           connections={routes}
           nodes={nodes}

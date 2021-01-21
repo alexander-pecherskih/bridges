@@ -2,7 +2,8 @@ import {
   AUTH_REQUEST,
   AUTH_SUCCESS,
   AUTH_FAILURE,
-  LOGOUT, RESTORE_AUTH
+  LOGOUT,
+  RESTORE_AUTH,
 } from '../constants/auth'
 
 const initialState = {

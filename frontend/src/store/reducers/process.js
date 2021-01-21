@@ -1,4 +1,8 @@
-import { PROCESS_FAILURE, PROCESS_REQUEST, PROCESS_SUCCESS } from '../constants/process'
+import {
+  PROCESS_FAILURE,
+  PROCESS_REQUEST,
+  PROCESS_SUCCESS,
+} from '../constants/process'
 
 const initialState = {
   process: null,

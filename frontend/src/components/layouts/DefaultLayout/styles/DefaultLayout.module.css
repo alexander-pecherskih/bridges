@@ -1,6 +1,6 @@
 .defaultLayout {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-    background-color: var(--light);
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--light);
 }

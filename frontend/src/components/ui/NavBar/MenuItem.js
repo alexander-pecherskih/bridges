@@ -1,8 +1,9 @@
 import React from 'react'
-import NavbarElement from './NavbarElement'
-
-import styles from './styles/MenuItem.module.css'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+
+import NavbarElement from './NavbarElement'
+import styles from './styles/MenuItem.module.css'
 
 const MenuItem = ({ caption, url }) => (
   <NavbarElement>
@@ -11,5 +12,9 @@ const MenuItem = ({ caption, url }) => (
     </Link>
   </NavbarElement>
 )
+MenuItem.propTypes = {
+  caption: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+}
 
 export default MenuItem

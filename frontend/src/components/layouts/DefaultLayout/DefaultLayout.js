@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 import styles from './styles/DefaultLayout.module.css'
 import Sidebar from '../../ui/Sidebar'
@@ -24,6 +25,9 @@ const DefaultLayout = ({ children }) => {
       </MainWrapper>
     </div>
   )
+}
+DefaultLayout.propTypes = {
+  children: PropTypes.element,
 }
 
 export default DefaultLayout

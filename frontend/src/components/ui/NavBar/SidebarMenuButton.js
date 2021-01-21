@@ -1,7 +1,9 @@
-import React  from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import NavbarElement from './NavbarElement'
 
 import styles from './styles/SidebarMenuButton.module.css'
-import NavbarElement from './NavbarElement'
 
 const SidebarMenuButton = ({ click }) => (
   <NavbarElement>
@@ -12,5 +14,8 @@ const SidebarMenuButton = ({ click }) => (
     </div>
   </NavbarElement>
 )
+SidebarMenuButton.propTypes = {
+  click: PropTypes.func.isRequired,
+}
 
 export default SidebarMenuButton

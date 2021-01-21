@@ -30,7 +30,8 @@
   background-color: var(--primary);
   text-align: center;
 }
-.formBody > div:nth-child(2) p, .formBody > div:nth-child(2) {
+.formBody > div:nth-child(2) p,
+.formBody > div:nth-child(2) {
   color: var(--white);
 }
 

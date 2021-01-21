@@ -5,8 +5,8 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import AppContainer from './components/App/AppContainer'
-import { ApiProvider } from './packages/api'
-import Api from './packages/api'
+import Api, { ApiProvider } from './packages/api'
+
 import ErrorBoundary from './components/ErrorBoundary'
 import configureStore from './store'
 

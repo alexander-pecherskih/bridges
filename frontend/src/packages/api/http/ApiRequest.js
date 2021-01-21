@@ -21,9 +21,11 @@ export default class ApiRequest {
     this.loginURL = options.loginURL || '/token'
     this.refreshURL = options.refreshURL || '/token'
     this.logoutRedirectURL = options.logoutRedirectURL || '/logout'
-    this.client = options.client || axios.create({
-      baseURL: this.baseURL,
-    })
+    this.client =
+      options.client ||
+      axios.create({
+        baseURL: this.baseURL,
+      })
 
     this.refreshRequest = null
     this._registerInterceptors()
@@ -34,7 +36,7 @@ export default class ApiRequest {
       url: this.loginURL,
       method: 'post',
       data: this._getLoginRequest(username, password),
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { 'Content-Type': 'multipart/form-data' },
     })
 
     this.accessToken = data.access_token
@@ -61,60 +63,73 @@ export default class ApiRequest {
 
   _getLoginRequest(username, password) {
     return toFormData({
-    ...LOGIN_REQUEST,
+      ...LOGIN_REQUEST,
       username,
       password,
     })
   }
 
   _registerInterceptors() {
-    this.client.interceptors.request.use((config) => {
-      if (!this.accessToken) {
-        return config
+    this.client.interceptors.request.use(
+      (config) => {
+        if (!this.accessToken) {
+          return config
+        }
+
+        const newConfig = {
+          headers: {},
+          ...config,
+        }
+
+        newConfig.headers.Authorization = `Bearer ${this.accessToken}`
+
+        return newConfig
+      },
+      (error) => {
+        return Promise.reject(error)
       }
+    )
 
-      const newConfig = {
-        headers: {},
-        ...config
-      }
+    this.client.interceptors.response.use(
+      (r) => r,
+      async (error) => {
+        if (
+          !this.refreshToken ||
+          error.response.status !== 401 ||
+          error.config.retry
+        ) {
+          return Promise.reject(error.response)
+        }
 
-      newConfig.headers.Authorization = `Bearer ${this.accessToken}`
+        if (
+          error.response.status === 401 &&
+          error.config.url === this.refreshURL
+        ) {
+          window.location.replace(this.logoutRedirectURL)
+          return Promise.reject(error.response)
+        }
 
-      return newConfig
-    }, (error) => {
-      return Promise.reject(error)
-    })
+        if (!this.refreshRequest) {
+          const requestData = this._getRefreshRequest()
 
-    this.client.interceptors.response.use((r) => r, async (error) => {
-      if (!this.refreshToken || error.response.status !== 401 || error.config.retry) {
-        return Promise.reject(error.response)
-      }
+          this.refreshRequest = this.request({
+            url: this.refreshURL,
+            method: 'post',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            data: requestData,
+          })
+        }
 
-      if (error.response.status === 401 && error.config.url === this.refreshURL) {
-        window.location.replace(this.logoutRedirectURL)
-        return Promise.reject(error.response)
-      }
+        const { data } = await this.refreshRequest
 
-      if (!this.refreshRequest) {
-        const requestData = this._getRefreshRequest()
+        this.accessToken = data.access_token
+        this.refreshToken = data.refresh_token
 
-        this.refreshRequest = this.request({
-          url: this.refreshURL,
-          method: 'post',
-          headers: { 'Content-Type': 'multipart/form-data' },
-          data: requestData
+        return this.client({
+          ...error.response.config,
+          retry: true,
         })
       }
-
-      const { data } = await this.refreshRequest
-
-      this.accessToken = data.access_token
-      this.refreshToken = data.refresh_token
-
-      return this.client({
-        ...error.response.config,
-        retry: true
-      })
-    })
+    )
   }
 }

@@ -5,7 +5,7 @@ const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
     width: undefined,
     height: undefined,
-  });
+  })
 
   useEffect(() => {
     const handleResize = () => {
@@ -14,13 +14,13 @@ const useWindowSize = () => {
         height: window.innerHeight,
       })
     }
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize)
 
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
+    handleResize()
+    return () => window.removeEventListener('resize', handleResize)
+  }, []) // Empty array ensures that effect is only run on mount
 
-  return windowSize;
+  return windowSize
 }
 
 export default useWindowSize

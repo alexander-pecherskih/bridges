@@ -6,12 +6,12 @@ describe('ApiRequest', () => {
   let mock, api
   const LOGIN_RESPONSE = {
     access_token: 'ACCESS TOKEN',
-    refresh_token: 'REFRESH TOKEN'
+    refresh_token: 'REFRESH TOKEN',
   }
 
   const REFRESH_RESPONSE = {
     access_token: 'ACCESS TOKEN2',
-    refresh_token: 'REFRESH TOKEN2'
+    refresh_token: 'REFRESH TOKEN2',
   }
 
   const { location } = window
@@ -28,7 +28,11 @@ describe('ApiRequest', () => {
   beforeEach(() => {
     const client = axios.create()
     mock = new MockAdapter(client)
-    api = new ApiRequest({ client, loginURL: '/auth/login', refreshURL: '/auth/refresh' })
+    api = new ApiRequest({
+      client,
+      loginURL: '/auth/login',
+      refreshURL: '/auth/refresh',
+    })
   })
 
   it('login', async () => {
@@ -36,11 +40,15 @@ describe('ApiRequest', () => {
     mock.onGet('/trololo').reply(200, [])
 
     await api.login('user', 'pass')
-    await api.request({ method: 'get', url: '/trololo'})
+    await api.request({ method: 'get', url: '/trololo' })
     expect(mock.history.post.length).toEqual(1)
-    expect(mock.history.post[0].headers['Content-Type']).toEqual(`multipart/form-data`)
+    expect(mock.history.post[0].headers['Content-Type']).toEqual(
+      `multipart/form-data`
+    )
     expect(mock.history.get.length).toEqual(1)
-    expect(mock.history.get[0].headers.Authorization).toEqual(`Bearer ${LOGIN_RESPONSE.access_token}`)
+    expect(mock.history.get[0].headers.Authorization).toEqual(
+      `Bearer ${LOGIN_RESPONSE.access_token}`
+    )
   })
 
   it('logout', async () => {
@@ -49,7 +57,7 @@ describe('ApiRequest', () => {
 
     await api.login('user', 'pass')
     api.logout()
-    await api.request({ method: 'get', url: '/trololo'})
+    await api.request({ method: 'get', url: '/trololo' })
 
     expect(mock.history.get[0].headers.Authorization).toBeFalsy()
   })
@@ -69,12 +77,16 @@ describe('ApiRequest', () => {
     })
 
     await api.login('user', 'pass')
-    await api.request({ method: 'get', url: '/trololo'})
+    await api.request({ method: 'get', url: '/trololo' })
 
-    expect(mock.history.post[1].headers['Content-Type']).toEqual(`multipart/form-data`)
+    expect(mock.history.post[1].headers['Content-Type']).toEqual(
+      `multipart/form-data`
+    )
 
     expect(mock.history.get.length).toEqual(2)
-    expect(mock.history.get[1].headers.Authorization).toEqual(`Bearer ${REFRESH_RESPONSE.access_token}`)
+    expect(mock.history.get[1].headers.Authorization).toEqual(
+      `Bearer ${REFRESH_RESPONSE.access_token}`
+    )
   })
 
   it('redirect after refresh', async () => {
@@ -85,7 +97,7 @@ describe('ApiRequest', () => {
     await api.login('user', 'pass')
     try {
       await api.request({ method: 'get', url: '/trololo' })
-    } catch ( e ) {}
+    } catch (e) {}
 
     expect(window.location.replace).toHaveBeenCalledTimes(1)
   })
@@ -93,9 +105,9 @@ describe('ApiRequest', () => {
   it('non 401 on request', async () => {
     mock.onGet('/trololo').reply(404, [])
 
-    await expect(api.request({ method: 'get', url: '/trololo'}))
-      .rejects
-      .toMatchObject({status: 404})
+    await expect(
+      api.request({ method: 'get', url: '/trololo' })
+    ).rejects.toMatchObject({ status: 404 })
   })
 
   it('non duplicated refresh', async () => {
@@ -114,10 +126,12 @@ describe('ApiRequest', () => {
 
     await api.login('user', 'pass')
     await Promise.all([
-      api.request({ method: 'get', url: '/trololo'}),
-      api.request({ method: 'get', url: '/trololo'})
+      api.request({ method: 'get', url: '/trololo' }),
+      api.request({ method: 'get', url: '/trololo' }),
     ])
 
-    expect(mock.history.post.filter(({ url }) => url === '/auth/refresh').length).toEqual(1)
+    expect(
+      mock.history.post.filter(({ url }) => url === '/auth/refresh').length
+    ).toEqual(1)
   })
 })

@@ -39,10 +39,13 @@ const mapStateToProps = ({ process: { process, loading, saving, error } }) => {
 }
 
 const mapDispatchToProps = (dispatch, { api }) => {
-  return bindActionCreators({
-    getProcess: getProcess(api),
-    saveProcess: saveProcess(api)
-  }, dispatch)
+  return bindActionCreators(
+    {
+      getProcess: getProcess(api),
+      saveProcess: saveProcess(api),
+    },
+    dispatch
+  )
 }
 
 export default compose(

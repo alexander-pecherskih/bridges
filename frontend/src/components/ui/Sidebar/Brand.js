@@ -1,8 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import SidebarElement from './SidebarElement'
+import Logo from '../Logo/Logo'
 
 import styles from './styles/Brand.module.css'
-import Logo from '../Logo/Logo'
 
 const Brand = ({ caption }) => {
   return (
@@ -13,6 +15,9 @@ const Brand = ({ caption }) => {
       </div>
     </SidebarElement>
   )
+}
+Brand.propTypes = {
+  caption: PropTypes.string.isRequired,
 }
 
 export default Brand

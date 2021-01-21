@@ -28,8 +28,9 @@ export default class Api {
     const { accessToken, refreshToken } = TokenStorage.get()
 
     this.apiRequest = new ApiRequest({
-      accessToken, refreshToken,
-      baseURL: 'http://api.bridges.local'
+      accessToken,
+      refreshToken,
+      baseURL: 'http://api.bridges.local',
     })
 
     this.process = new ProcessRepository(this.request)
@@ -46,9 +47,11 @@ export default class Api {
   }
 
   login(username, password) {
-    return this.request.login(username, password).then(({ accessToken, refreshToken }) => {
-      TokenStorage.set(accessToken, refreshToken)
-    })
+    return this.request
+      .login(username, password)
+      .then(({ accessToken, refreshToken }) => {
+        TokenStorage.set(accessToken, refreshToken)
+      })
   }
 
   logout() {

@@ -27,9 +27,12 @@ const mapStateToProps = ({ auth: { loading } }) => {
 }
 
 const mapDispatchToProps = (dispatch, { api }) => {
-  return bindActionCreators({
-    restoreAuth: restoreAuth(api),
-  }, dispatch)
+  return bindActionCreators(
+    {
+      restoreAuth: restoreAuth(api),
+    },
+    dispatch
+  )
 }
 
 export default compose(

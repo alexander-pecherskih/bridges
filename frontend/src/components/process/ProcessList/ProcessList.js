@@ -22,29 +22,29 @@ ProcessRow.propTypes = {
 }
 
 const ProcessList = ({ processes, loading, errorMessage }) => {
-  let rows = processes.map((item) => {
+  const rows = processes.map((item) => {
     return <ProcessRow process={item} key={item.id} />
   })
   let message = ''
 
   if (loading) {
-    message = "Loading..."
+    message = 'Loading...'
   } else if (rows.length === 0) {
-    message = "No one Process Found"
+    message = 'No one Process Found'
   }
 
   if (errorMessage) {
     message = errorMessage
   }
 
-  const headRows = (<tr>
+  const headRows = (
+    <tr>
       <th>id</th>
       <th>title</th>
-    </tr>)
-
-  return (
-    <Table rows={rows} headRows={headRows} message={message}/>
+    </tr>
   )
+
+  return <Table rows={rows} headRows={headRows} message={message} />
 }
 
 ProcessList.propTypes = {

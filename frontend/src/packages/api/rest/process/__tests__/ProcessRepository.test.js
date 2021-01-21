@@ -1,7 +1,6 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import ApiRequest from '../../../http/ApiRequest'
-import Api from '../../../Api'
 import ProcessRepository from '../ProcessRepository'
 
 describe('ProcessRepository', () => {

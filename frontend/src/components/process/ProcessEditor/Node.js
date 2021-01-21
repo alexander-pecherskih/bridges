@@ -1,15 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './styles/node.module.css'
+import styles from './styles/node.module.css'
 // import Modal from '../../common/Modal'
 import { nodeType } from './propTypes'
 import NodeEditor from './NodeEditor'
 import Button from '../../ui/Button'
 
-import styles from './styles/node.module.css'
-
-const Modal = () => (<div>modal</div>)
+const Modal = () => <div>modal</div>
 
 class Node extends React.PureComponent {
   state = {

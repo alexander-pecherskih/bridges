@@ -6,7 +6,8 @@ import styles from './styles/TextInput.module.css'
 const TextInput = ({ name, label, placeholder, change, type = 'text' }) => {
   return (
     <div className={styles.textInput}>
-      <label htmlFor={name}>{label}
+      <label htmlFor={name}>
+        {label}
         <input
           type={type}
           name={name}
@@ -24,7 +25,7 @@ TextInput.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   change: PropTypes.func,
-  type: PropTypes.oneOf(['text', 'password'])
+  type: PropTypes.oneOf(['text', 'password']),
 }
 
 export default TextInput
