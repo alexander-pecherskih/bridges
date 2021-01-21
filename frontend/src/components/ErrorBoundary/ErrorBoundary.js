@@ -18,10 +18,12 @@ export default class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       console.log(this.state.error)
-      return <div className={styles.ErrorBox}>
-        <div className={styles.Title}>Что-то пошло не так :(</div>
-        <div className={styles.Message}>{ this.state.error.toString() }</div>
-      </div>
+      return (
+        <div className={styles.ErrorBox}>
+          <div className={styles.Title}>Что-то пошло не так :(</div>
+          <div className={styles.Message}>{this.state.error.toString()}</div>
+        </div>
+      )
     }
 
     return this.props.children

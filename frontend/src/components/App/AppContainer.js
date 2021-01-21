@@ -1,55 +1,38 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { useLocation, withRouter } from 'react-router'
-
 import App from './App'
-import { logout, refreshAuthToken } from '../../store/actions/auth'
-import { LoginPage } from '../../pages'
-import { getUrl } from '../../services/url'
+import { withApi } from '../../packages/api'
+import { restoreAuth } from '../../store/actions/auth'
+import Spinner from '../ui/Spinner/Spinner'
 
-const AppContainer = ({ authorized, loading, logout, refreshAuthToken }) => {
-  const onMount = () => {
-    refreshAuthToken()
-  }
-  const location = useLocation()
-  useEffect(onMount, [])
+const AppContainer = ({ restoreAuth, loading }) => {
+  useEffect(restoreAuth, [])
 
-  if (location.pathname === getUrl('/login')) {
-    logout(true)
-    return null
-  }
-
-  if (!loading && !authorized) {
-    return <LoginPage />
-  }
   if (loading) {
-    return <>Loading...</>
+    return <Spinner />
   }
 
-  return <App logout={() => logout()} />
+  return <App />
 }
 
 AppContainer.propTypes = {
-  authorized: PropTypes.bool,
+  restoreAuth: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired,
-  refreshAuthToken: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = ({ auth: { accessToken, authorized, loading } }) => {
-  return { accessToken, authorized, loading }
+const mapStateToProps = ({ auth: { loading } }) => {
+  return { loading }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => dispatch(logout()),
-    refreshAuthToken: () => dispatch(refreshAuthToken()),
-  }
+const mapDispatchToProps = (dispatch, { api }) => {
+  return bindActionCreators({
+    restoreAuth: restoreAuth(api),
+  }, dispatch)
 }
 
 export default compose(
-  withRouter,
+  withApi(),
   connect(mapStateToProps, mapDispatchToProps)
 )(AppContainer)

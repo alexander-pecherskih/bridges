@@ -1,0 +1,23 @@
+.navbarElement {
+    display: flex;
+    align-items: center;
+    color: var(--dark);
+    height: 100%;
+}
+
+.navbarElement > span, .navbarElement > a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.navbarElement > span, .navbarElement > a, .navbarElement > div {
+    padding: 0;
+    margin-left: 1rem;
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.navbarElement a:hover {
+    color: var(--primary-dark);
+}

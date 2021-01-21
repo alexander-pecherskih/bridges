@@ -1,67 +1,47 @@
 import {
   AUTH_REQUEST,
   AUTH_SUCCESS,
-  AUTH_FAILURE,
-  LOGOUT,
+  AUTH_FAILURE, RESTORE_AUTH, LOGOUT
 } from '../constants/auth'
 
-import AuthService from '../../services/AuthService'
+export const login = (api) => (username, password) => (dispatch) => {
+  dispatch({
+    type: AUTH_REQUEST,
+  })
 
-const authorize = {
-  type: AUTH_REQUEST,
-}
-
-const authorized = (accessToken) => {
-  return {
-    type: AUTH_SUCCESS,
-    accessToken,
-  }
-}
-
-const authError = (error) => {
-  return {
-    type: AUTH_FAILURE,
-    error,
-  }
-}
-
-const auth = (username, password) => (dispatch) => {
-  dispatch(authorize)
-
-  return AuthService.authorize(username, password)
-    .then((accessToken) => {
-      dispatch(authorized(accessToken))
+  api.login(username, password)
+    .then(() => {
+      dispatch({
+        type: AUTH_SUCCESS
+      })
     })
     .catch((err) => {
-      dispatch(authError(err.message))
+      dispatch({
+        type: AUTH_FAILURE,
+        error: err.message,
+      })
     })
 }
 
-const refreshAuthToken = () => (dispatch) => {
-  if (!AuthService.refreshTokenIsValid()) {
-    dispatch({ type: LOGOUT })
+export const restoreAuth = (api) => () => (dispatch) => {
+  if (!api.isAuthorized()) {
+    dispatch({
+      type: LOGOUT,
+    })
     return
   }
-
-  dispatch(authorize)
-
-  return AuthService.refreshToken()
-    .then((accessToken) => {
-      dispatch(authorized(accessToken))
-    })
-    .catch(() => {
-      dispatch({ type: LOGOUT })
-    })
+  dispatch({
+    type: RESTORE_AUTH,
+  })
 }
 
-const logout = (redirectHome = false) => (dispatch) => {
-  AuthService.logout()
-
-  dispatch({ type: LOGOUT })
-
-  if (redirectHome) {
-    window.location.replace('/')
+export const logout = (api) => (redirect) => (dispatch) => {
+  api.logout()
+  dispatch({
+    type: LOGOUT,
+  })
+  if (typeof redirect === 'function') {
+    redirect()
   }
+  // window.location.replace('/')
 }
-
-export { auth, logout, refreshAuthToken }

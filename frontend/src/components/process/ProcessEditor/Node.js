@@ -1,11 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import './styles/node.scss'
-import Modal from '../../common/Modal'
+import './styles/node.module.css'
+// import Modal from '../../common/Modal'
 import { nodeType } from './propTypes'
 import NodeEditor from './NodeEditor'
-import Button from '../../common/Button'
+import Button from '../../ui/Button'
+
+import styles from './styles/node.module.css'
+
+const Modal = () => (<div>modal</div>)
 
 class Node extends React.PureComponent {
   state = {
@@ -92,22 +96,22 @@ class Node extends React.PureComponent {
     }
 
     return (
-      <div ref={this.nodeRef} className="node" style={nodeStyle}>
+      <div ref={this.nodeRef} className={styles.node} style={nodeStyle}>
         <div
-          className="node__title"
+          className={styles.title}
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.handleMouseUp}
         >
           {node.title}
         </div>
-        <div className="node__fields">
+        <div className={styles.fields}>
           x: {this.state.position.left}, y: {this.state.position.top}
           <br />
           {node.id.substring(0, 8)}
           <br />
-          <Button title="edit" onClick={this.toggleEditor} />
+          <Button caption="edit" click={this.toggleEditor} />
         </div>
-        {this.state.isEditorOpen && (
+        {this.state.isEditorOpen && false && (
           <Modal
             onCancel={this.toggleEditor}
             title={node.title}

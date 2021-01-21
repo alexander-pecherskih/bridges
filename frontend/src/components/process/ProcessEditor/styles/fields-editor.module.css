@@ -1,0 +1,14 @@
+.fieldsEditor {
+  padding: 1rem;
+}
+
+.title {
+  padding: 3px 1rem;
+  background-color: lightgrey;
+  font-size: 1.5rem;
+}
+
+.table {
+  margin: 0;
+  border: 1px solid lightgrey;
+}

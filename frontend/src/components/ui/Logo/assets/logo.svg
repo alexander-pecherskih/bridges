@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   viewBox="0 0 60 60"
+   id="svg15"
+   >
+  <title
+     id="title2" />
+  <desc
+     id="desc4" />
+  <defs
+     id="defs6" />
+  <g
+     id="soical"
+     transform="matrix(1,0,0,-1,0,60)"
+     style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1">
+    <g
+       id="social"
+       transform="translate(-873,-138)">
+      <g
+         id="slices"
+         transform="translate(173,138)" />
+      <g
+         id="hexagon-flat"
+         transform="translate(173,138)"
+         style="fill:#346da6">
+        <polygon
+           id="Polygon-7"
+           points="755.98076,15 755.98076,45 730,60 704.01924,45 704.01924,15 730,0 " />
+      </g>
+      <g
+         id="icon"
+         transform="translate(182,150)"
+         style="fill:#ffffff">
+        <path
+           d="m 698.73387,23.774809 -0.049,-4.376305 6.16132,-0.118018 v -7.049717 h 4.61539 v 6.923077 h 23.07692 v -6.923077 h 4.61539 V 19.1906 l 6.82692,0.08059 0.004,4.347622 c -15.55681,0.308085 -32.19519,0.144801 -45.2509,0.155997 z"
+           id="myspace" />
+      </g>
+    </g>
+  </g>
+</svg>

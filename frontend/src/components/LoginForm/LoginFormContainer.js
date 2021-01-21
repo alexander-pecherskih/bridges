@@ -1,46 +1,48 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-
-import { auth, logout } from '../../store/actions/auth'
 import LoginForm from './LoginForm'
+import { bindActionCreators, compose } from 'redux'
+import { withApi } from '../../packages/api'
+import { connect } from 'react-redux'
+import { login, logout } from '../../store/actions/auth'
+import { Redirect } from 'react-router'
 
-const LoginFormContainer = ({ auth, loading, error, logout }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+const LoginFormContainer = ({ authorized, loading, error, login }) => {
+  if (authorized) {
+    return <Redirect to={ { pathname: '/' } }/>
+  }
 
   return (
     <LoginForm
-      loading={loading}
-      username={username}
-      password={password}
-      setUsername={(value) => setUsername(value)}
-      setPassword={(value) => setPassword(value)}
-      login={() => auth(username, password)}
+      enabled={!loading}
       errorMessage={error}
+      login={login}
     />
   )
 }
 
 LoginFormContainer.propTypes = {
-  auth: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   error: PropTypes.string,
+  login: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({ auth: { authorized, loading, error } }) => {
-  return { authorized, loading, error }
-}
-
-const mapDispatchToProps = (dispatch) => {
   return {
-    auth: (username, password) => dispatch(auth(username, password)),
-    logout: () => dispatch(logout()),
+    authorized,
+    loading,
+    error: error === null ? '' : error,
   }
 }
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(
-  LoginFormContainer
-)
+const mapDispatchToProps = (dispatch, { api }) => {
+  return bindActionCreators({
+    login: login(api),
+    logout: logout(api)
+  }, dispatch)
+}
+
+export default compose(
+  withApi(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(LoginFormContainer)

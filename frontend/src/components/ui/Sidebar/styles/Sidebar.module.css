@@ -1,0 +1,15 @@
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    overflow-y: auto;
+    background-color: var(--color);
+    width: 256px;
+    height: calc(100% - 60px);
+    color: var(--light);
+    transition: transform .3s ease-out;
+}
+
+.sidebar.hidden {
+    transform: translateX(-256px);
+}

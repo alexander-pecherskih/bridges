@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
-import { auth, userInfo, ticketList, processList, process } from './reducers'
+import auth from './reducers/auth'
+import processList from './reducers/processList'
+import process from './reducers/process'
 
 const rootReducer = combineReducers({
   auth,
-  userInfo,
-  ticketList,
+  // userInfo,
+  // ticketList,
   processList,
   process,
 })

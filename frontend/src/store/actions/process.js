@@ -1,55 +1,27 @@
-import {
-  PROCESS_REQUEST,
-  PROCESS_SUCCESS,
-  PROCESS_FAILURE,
-  PROCESS_SAVE,
-} from '../constants/process'
-import ProcessService from '../../services/ProcessService'
+import { PROCESS_FAILURE, PROCESS_REQUEST, PROCESS_SUCCESS } from '../constants/process'
 
-const request = {
-  type: PROCESS_REQUEST,
-}
+const getProcess = (api) => (id) => (dispatch) => {
+  dispatch({
+    type: PROCESS_REQUEST
+  })
 
-const success = (process) => {
-  return {
-    type: PROCESS_SUCCESS,
-    process,
-  }
-}
-
-const save = {
-  type: PROCESS_SAVE,
-}
-
-const fail = (error) => {
-  return {
-    type: PROCESS_FAILURE,
-    error,
-  }
-}
-
-const saveProcess = (process) => (dispatch) => {
-  dispatch(save)
-  // ...
-  return ProcessService.saveProcess(process)
+  api.process.getById(id)
     .then((process) => {
-      dispatch(success(process))
+      dispatch({
+        type: PROCESS_SUCCESS,
+        process
+      })
     })
-    .catch((error) => {
-      dispatch(fail(error))
-    })
-}
-
-const getProcess = (id) => (dispatch, getState) => {
-  dispatch(request)
-
-  return ProcessService.getProcess(id, getState().auth.accessToken)
-    .then((process) => {
-      dispatch(success(process))
-    })
-    .catch((error) => {
-      dispatch(fail(error))
+    .catch((err) => {
+      dispatch({
+        type: PROCESS_FAILURE,
+        error: err.message
+      })
     })
 }
 
-export { saveProcess, getProcess }
+const saveProcess = (api) => (process) => (dispatch) => {
+
+}
+
+export { getProcess, saveProcess }

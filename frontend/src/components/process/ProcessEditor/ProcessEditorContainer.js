@@ -2,12 +2,13 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { getProcess, saveProcess } from '../../../store/actions/process'
-import { compose } from 'redux'
+import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router'
 
+import Spinner from '../../ui/Spinner'
+import { withApi } from '../../../packages/api'
 import ProcessEditor from './ProcessEditor'
-import TextMessage from '../../common/TextMessage'
 
 const ProcessEditorContainer = (props) => {
   const onMount = () => {
@@ -18,7 +19,7 @@ const ProcessEditorContainer = (props) => {
   useEffect(onMount, [])
 
   if (!process) {
-    return <TextMessage message="Loading..." />
+    return <Spinner />
   }
 
   return <ProcessEditor {...props} />
@@ -37,13 +38,14 @@ const mapStateToProps = ({ process: { process, loading, saving, error } }) => {
   return { process, loading, saving, error }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getProcess: (id) => dispatch(getProcess(id)),
-    saveProcess: () => dispatch(saveProcess()),
-  }
+const mapDispatchToProps = (dispatch, { api }) => {
+  return bindActionCreators({
+    getProcess: getProcess(api),
+    saveProcess: saveProcess(api)
+  }, dispatch)
 }
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(
-  ProcessEditorContainer
-)
+export default compose(
+  withApi(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(ProcessEditorContainer)

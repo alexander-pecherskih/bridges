@@ -1,9 +1,4 @@
-import {
-  PROCESS_REQUEST,
-  PROCESS_SUCCESS,
-  PROCESS_FAILURE,
-  PROCESS_SAVE,
-} from '../constants/process'
+import { PROCESS_FAILURE, PROCESS_REQUEST, PROCESS_SUCCESS } from '../constants/process'
 
 const initialState = {
   process: null,
@@ -16,24 +11,18 @@ const process = (state = initialState, action) => {
   switch (action.type) {
     case PROCESS_REQUEST:
       return initialState
-    case PROCESS_SAVE:
-      return {
-        ...state,
-        loading: false,
-        saving: true,
-        error: null,
-      }
     case PROCESS_SUCCESS:
       return {
         process: action.process,
-        saving: false,
         loading: false,
+        saving: false,
         error: null,
       }
     case PROCESS_FAILURE:
       return {
-        ...initialState,
+        process: null,
         loading: false,
+        saving: false,
         error: action.error,
       }
     default:
@@ -42,5 +31,3 @@ const process = (state = initialState, action) => {
 }
 
 export default process
-
-export { initialState }

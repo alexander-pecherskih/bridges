@@ -1,0 +1,16 @@
+.sidebarElement {
+    color: var(--light);
+}
+
+.sidebarElement > span, .sidebarElement > a {
+    display: block;
+}
+.sidebarElement > span, .sidebarElement > a, .sidebarElement > div {
+    padding: 1rem;
+    color: var(--light);
+    text-decoration: none;
+}
+
+.sidebarElement a:hover {
+    background-color: var(--primary-dark);
+}
